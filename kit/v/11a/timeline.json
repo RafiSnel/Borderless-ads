@@ -1,0 +1,91 @@
+[
+ {
+  "n": 1,
+  "text": "Guess the language. Three seconds each. Count your points.",
+  "start": 0.12,
+  "end": 3.02,
+  "phrases": [
+   0.14,
+   1.02,
+   1.24,
+   2.02,
+   2.26
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Swedish.",
+  "start": 6.42,
+  "end": 7.09,
+  "phrases": [
+   6.44
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Polish.",
+  "start": 10.49,
+  "end": 11.069,
+  "phrases": [
+   10.51
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Turkish.",
+  "start": 14.469,
+  "end": 15.067,
+  "phrases": [
+   14.489
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Finnish.",
+  "start": 18.467,
+  "end": 19.032,
+  "phrases": [
+   18.527
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Greek.",
+  "start": 22.432,
+  "end": 22.928,
+  "phrases": [
+   22.432,
+   22.812
+  ]
+ },
+ {
+  "n": 7,
+  "text": "Swahili.",
+  "start": 26.328,
+  "end": 27.027,
+  "phrases": [
+   26.348
+  ]
+ },
+ {
+  "n": 8,
+  "text": "Plot twist: they all mean thank you.",
+  "start": 27.627,
+  "end": 29.677,
+  "phrases": [
+   27.647,
+   27.907,
+   28.427
+  ]
+ },
+ {
+  "n": 9,
+  "text": "Six out of six? Comment your score.",
+  "start": 29.977,
+  "end": 32.105,
+  "phrases": [
+   29.997,
+   31.237
+  ]
+ }
+]

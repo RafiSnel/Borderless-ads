@@ -1,0 +1,130 @@
+[
+ {
+  "n": 1,
+  "text": "The five easiest languages for English speakers. Number one is closer than you think.",
+  "start": 0.12,
+  "end": 5.071,
+  "phrases": [
+   0.12,
+   0.78,
+   2.66,
+   2.76,
+   2.96,
+   4.08
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Five: Italian. You read it exactly how it's written.",
+  "start": 5.171,
+  "end": 8.429,
+  "phrases": [
+   5.231,
+   5.771,
+   6.431,
+   6.991,
+   7.531,
+   8.291
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Four: Spanish. Same trick. Plus words you already know.",
+  "start": 8.579,
+  "end": 11.839,
+  "phrases": [
+   8.639,
+   9.099,
+   9.779,
+   10.479
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Hospital. Chocolate. Idea.",
+  "start": 11.939,
+  "end": 13.837,
+  "phrases": [
+   11.979,
+   12.639,
+   12.879,
+   13.319
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Three: Swedish. Verbs don't change for I, you, or they.",
+  "start": 14.037,
+  "end": 18.222,
+  "phrases": [
+   14.097,
+   14.617,
+   15.357,
+   16.597,
+   16.757,
+   17.237,
+   17.717
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Two: Norwegian. Same deal, and the word order feels almost English.",
+  "start": 18.422,
+  "end": 22.515,
+  "phrases": [
+   18.422,
+   18.902,
+   19.642,
+   20.382,
+   22.042
+  ]
+ },
+ {
+  "n": 7,
+  "text": "And number one: Dutch.",
+  "start": 22.665,
+  "end": 23.981,
+  "phrases": [
+   22.665,
+   23.525,
+   23.805
+  ]
+ },
+ {
+  "n": 8,
+  "text": "One of English's closest relatives. Water. Warm. Appel.",
+  "start": 24.081,
+  "end": 27.563,
+  "phrases": [
+   24.081,
+   25.421,
+   25.881,
+   26.081,
+   26.621,
+   27.181
+  ]
+ },
+ {
+  "n": 9,
+  "text": "Around six hundred class hours each. That's twenty-four weeks.",
+  "start": 27.813,
+  "end": 31.412,
+  "phrases": [
+   27.813,
+   29.733,
+   29.953,
+   31.153
+  ]
+ },
+ {
+  "n": 10,
+  "text": "So, what's your excuse?",
+  "start": 31.512,
+  "end": 32.965,
+  "phrases": [
+   31.532,
+   32.012,
+   32.812
+  ]
+ }
+]

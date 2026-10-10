@@ -1,0 +1,142 @@
+[
+ {
+  "n": 1,
+  "text": "Same game. But now, you only get to listen.",
+  "start": 0.12,
+  "end": 2.601,
+  "phrases": [
+   0.16,
+   0.9,
+   1.48
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Obrigado.",
+  "start": 3.101,
+  "end": 3.747,
+  "phrases": [
+   3.101
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Portuguese.",
+  "start": 6.647,
+  "end": 7.445,
+  "phrases": [
+   6.667
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Grazie mille.",
+  "start": 8.045,
+  "end": 8.947,
+  "phrases": [
+   8.045
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Italian.",
+  "start": 11.847,
+  "end": 12.438,
+  "phrases": [
+   11.847
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Danke sch\u00f6n.",
+  "start": 13.038,
+  "end": 13.73,
+  "phrases": [
+   13.058
+  ]
+ },
+ {
+  "n": 7,
+  "text": "German.",
+  "start": 16.63,
+  "end": 17.214,
+  "phrases": [
+   16.65
+  ]
+ },
+ {
+  "n": 8,
+  "text": "Arigatou gozaimasu.",
+  "start": 17.814,
+  "end": 18.888,
+  "phrases": [
+   17.814
+  ]
+ },
+ {
+  "n": 9,
+  "text": "Japanese.",
+  "start": 21.788,
+  "end": 22.369,
+  "phrases": [
+   21.788
+  ]
+ },
+ {
+  "n": 10,
+  "text": "Merci beaucoup.",
+  "start": 22.969,
+  "end": 23.837,
+  "phrases": [
+   22.969
+  ]
+ },
+ {
+  "n": 11,
+  "text": "French.",
+  "start": 26.737,
+  "end": 27.242,
+  "phrases": [
+   26.777,
+   27.117
+  ]
+ },
+ {
+  "n": 12,
+  "text": "Muchas gracias.",
+  "start": 27.842,
+  "end": 28.74,
+  "phrases": [
+   27.842
+  ]
+ },
+ {
+  "n": 13,
+  "text": "Spanish.",
+  "start": 31.64,
+  "end": 32.244,
+  "phrases": [
+   31.66
+  ]
+ },
+ {
+  "n": 14,
+  "text": "Be honest. Was it the language, or my accent?",
+  "start": 32.844,
+  "end": 35.558,
+  "phrases": [
+   32.864,
+   33.604,
+   34.744
+  ]
+ },
+ {
+  "n": 15,
+  "text": "Comment your score.",
+  "start": 35.858,
+  "end": 36.838,
+  "phrases": [
+   35.858
+  ]
+ }
+]

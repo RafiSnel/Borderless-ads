@@ -1,0 +1,104 @@
+[
+ {
+  "n": 1,
+  "text": "Now boarding: your Spanish.",
+  "start": 0.12,
+  "end": 1.782,
+  "phrases": [
+   0.12,
+   0.96,
+   1.62
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Your course is your boarding pass.",
+  "start": 1.882,
+  "end": 3.837,
+  "phrases": [
+   1.882,
+   2.642,
+   3.422
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Every lesson takes you further.",
+  "start": 3.937,
+  "end": 5.676,
+  "phrases": [
+   3.937,
+   5.537
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Fifty words? Stamp. Two hundred? Stamp.",
+  "start": 5.776,
+  "end": 8.641,
+  "phrases": [
+   5.836,
+   6.816,
+   7.396,
+   8.096
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Your passport fills up as you actually learn.",
+  "start": 8.741,
+  "end": 11.344,
+  "phrases": [
+   8.741,
+   8.981,
+   9.281,
+   10.121,
+   10.401,
+   10.601
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Earn miles. Spend them in Duty Free.",
+  "start": 11.444,
+  "end": 13.796,
+  "phrases": [
+   11.444,
+   12.344
+  ]
+ },
+ {
+  "n": 7,
+  "text": "New looks only. Never shortcuts.",
+  "start": 13.896,
+  "end": 16.065,
+  "phrases": [
+   13.896,
+   14.976,
+   15.696,
+   15.936
+  ]
+ },
+ {
+  "n": 8,
+  "text": "The only way to fill this passport, is to learn.",
+  "start": 16.365,
+  "end": 19.058,
+  "phrases": [
+   16.385,
+   17.645,
+   17.965,
+   18.345
+  ]
+ },
+ {
+  "n": 9,
+  "text": "Your next stamp is waiting.",
+  "start": 19.308,
+  "end": 21.071,
+  "phrases": [
+   19.308,
+   20.408
+  ]
+ }
+]

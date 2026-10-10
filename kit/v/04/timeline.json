@@ -1,0 +1,111 @@
+[
+ {
+  "n": 1,
+  "text": "English doesn't have a word for these. Honestly? It should.",
+  "start": 0.12,
+  "end": 3.285,
+  "phrases": [
+   0.14,
+   0.7,
+   1.9,
+   2.14,
+   2.7,
+   2.84
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Tsundoku. Japanese. Buying books, and never reading them.",
+  "start": 3.385,
+  "end": 6.802,
+  "phrases": [
+   3.405,
+   4.125,
+   4.325,
+   4.865,
+   5.765
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Sobremesa. Spanish. Staying at the table long after dinner, just talking.",
+  "start": 6.902,
+  "end": 11.188,
+  "phrases": [
+   6.922,
+   7.782,
+   8.242,
+   8.482,
+   10.522,
+   10.982
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Gezellig. Dutch. Warm, cosy, good company. Try translating that.",
+  "start": 11.288,
+  "end": 15.614,
+  "phrases": [
+   11.328,
+   12.048,
+   12.368,
+   12.628,
+   13.208,
+   13.768,
+   14.188,
+   14.468
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Saudade. Portuguese. Missing something you might never get back.",
+  "start": 15.864,
+  "end": 19.5,
+  "phrases": [
+   15.884,
+   16.704,
+   17.424,
+   18.604,
+   19.204
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Schadenfreude. German. Enjoying someone else's bad luck. Just a little.",
+  "start": 19.7,
+  "end": 23.999,
+  "phrases": [
+   19.74,
+   20.72,
+   21.28,
+   22.6,
+   23.32
+  ]
+ },
+ {
+  "n": 7,
+  "text": "L'esprit de l'escalier. French. The perfect comeback, on the stairs, way too late.",
+  "start": 24.099,
+  "end": 28.984,
+  "phrases": [
+   24.119,
+   25.379,
+   25.719,
+   25.939,
+   26.179,
+   27.219,
+   28.059,
+   28.899
+  ]
+ },
+ {
+  "n": 8,
+  "text": "So. Which one are you?",
+  "start": 29.284,
+  "end": 30.622,
+  "phrases": [
+   29.304,
+   29.844
+  ]
+ }
+]

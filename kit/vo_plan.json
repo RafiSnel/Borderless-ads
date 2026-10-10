@@ -1,0 +1,160 @@
+{
+ "03": {
+  "main": "POV: you finally tell a language app the truth. [pause] It asks why you're learning. [pause] Honestly? A kitchen internship. In Madrid. In three weeks. [pause] No judgement. Just a quick level test. [pause] Then: fifty lessons, built for exactly that. [pause] No cartoon animals. No random sentences. [pause] Your words. Your kitchen. Your Madrid. [pause] Borderless. Tell it the truth.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 330
+ },
+ "04": {
+  "main": "English doesn't have a word for these. Honestly? It should. [pause] Tsundoku. Japanese. Buying books, and never reading them. [pause] Sobremesa. Spanish. Staying at the table long after dinner, just talking. [pause] Gezellig. Dutch. Warm, cosy, good company. Try translating that. [pause] Saudade. Portuguese. Missing something you might never get back. [pause] Schadenfreude. German. Enjoying someone else's bad luck. Just a little. [pause] L'esprit de l'escalier. French. The perfect comeback, on the stairs, way too late. [pause] So. Which one are you?",
+  "n_main": 8,
+  "clips": [],
+  "chars": 499
+ },
+ "05": {
+  "main": "Now boarding: your Spanish. [pause] Your course is your boarding pass. [pause] Every lesson takes you further. [pause] Fifty words? Stamp. Two hundred? Stamp. [pause] Your passport fills up as you actually learn. [pause] Earn miles. Spend them in Duty Free. [pause] New looks only. Never shortcuts. [pause] The only way to fill this passport, is to learn. [pause] Your next stamp is waiting.",
+  "n_main": 9,
+  "clips": [],
+  "chars": 327
+ },
+ "06": {
+  "main": "Where are you flying? [pause] Japanese. Korean. Swahili. Greek. Hindi. Dutch. [pause] Seventy-four languages, on one board. [pause] Pick one. Tell it why. [pause] A short test finds your level. [pause] Fifty lessons, built for that trip. [pause] Same airport. Seventy-four different flights. [pause] Nobody gets the same course. [pause] Borderless. Departures are open.",
+  "n_main": 9,
+  "clips": [],
+  "chars": 305
+ },
+ "07": {
+  "main": "The five hardest languages for English speakers. According to the US diplomats' own school. [pause] Five: Arabic. [pause] Written right to left, and letters change shape depending on where they sit. [pause] Four: Korean. [pause] The alphabet is easy. The politeness levels are not. [pause] Three: Cantonese. Six tones. [pause] Say a word a little higher, and it means something else. [pause] Two: Mandarin. Four tones, and thousands of characters to read. [pause] And number one: Japanese. [pause] Three writing systems. And you speak differently depending on who you're talking to. [pause] Each one: around two thousand two hundred class hours. [pause] Hard? Yes. Impossible? No. [pause] All five are on Borderless.",
+  "n_main": 13,
+  "clips": [],
+  "chars": 620
+ },
+ "08": {
+  "main": "The five easiest languages for English speakers. Number one is closer than you think. [pause] Five: Italian. You read it exactly how it's written. [pause] Four: Spanish. Same trick. Plus words you already know. [pause] Hospital. Chocolate. Idea. [pause] Three: Swedish. Verbs don't change for I, you, or they. [pause] Two: Norwegian. Same deal, and the word order feels almost English. [pause] And number one: Dutch. [pause] One of English's closest relatives. Water. Warm. Appel. [pause] Around six hundred class hours each. That's twenty-four weeks. [pause] So, what's your excuse?",
+  "n_main": 10,
+  "clips": [],
+  "chars": 511
+ },
+ "09": {
+  "main": "Borderless. In twenty seconds. [pause] One. Tell it why. [pause] Work. Love. A move. An exam. [pause] Two. A short test finds your level. [pause] Three. Fifty lessons. For that reason. At that level. [pause] Seventy-four languages. [pause] One course. Yours. [pause] That's the app.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 226
+ },
+ "11a": {
+  "main": "Guess the language. Three seconds each. Count your points. [pause] Swedish. [pause] Polish. [pause] Turkish. [pause] Finnish. [pause] Greek. [pause] Swahili. [pause] Plot twist: they all mean thank you. [pause] Six out of six? Comment your score.",
+  "n_main": 9,
+  "clips": [],
+  "chars": 182
+ },
+ "11b": {
+  "main": "Same game. But now, you only get to listen. [pause] Portuguese. [pause] Italian. [pause] German. [pause] Japanese. [pause] French. [pause] Spanish. [pause] Be honest. Was it the language, or my accent? [pause] Comment your score.",
+  "n_main": 9,
+  "clips": [
+   [
+    2,
+    "Obrigado.",
+    "pt"
+   ],
+   [
+    4,
+    "Grazie mille.",
+    "it"
+   ],
+   [
+    6,
+    "Danke schön.",
+    "de"
+   ],
+   [
+    8,
+    "Arigatou gozaimasu.",
+    "ja"
+   ],
+   [
+    10,
+    "Merci beaucoup.",
+    "fr"
+   ],
+   [
+    12,
+    "Muchas gracias.",
+    "es"
+   ]
+  ],
+  "chars": 165
+ },
+ "12": {
+  "main": "Two people open the same app. [pause] Left: a kitchen internship in Madrid. [pause] Right: a first office job in Tokyo. [pause] Her lesson today: explaining the menu. His: making a request. [pause] Her world: a Spanish town. His: Tokyo streets. [pause] Her passport says Hispanidad. His says Nihon. [pause] Same app. Not one lesson in common. [pause] That's Borderless.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 313
+ },
+ "13": {
+  "main": "Want to sound like you actually live in Spain? Five words. [pause] Vale. Okay, sure, deal. You'll say it fifty times a day. [pause] Tío. Tía. Literally, uncle and aunt. Actually? Mate. [pause] Guay. Cool. Say it like g-why. [pause] Venga. Come on, let's go, and somehow also: bye. [pause] Qué fuerte. No way. That's crazy. [pause] Use all five in one sentence, and you're basically from Madrid. [pause] Borderless. The Spanish people actually speak.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 393
+ },
+ "14": {
+  "main": "Six tongue twisters. Six languages. One British guy. Let's go. [pause] Spanish. [pause] German. [pause] French. [pause] Japanese. [pause] Italian. [pause] Dutch. [pause] Your turn. Which one broke you?",
+  "n_main": 8,
+  "clips": [
+   [
+    3,
+    "Tres tristes tigres tragaban trigo en un trigal.",
+    "en"
+   ],
+   [
+    5,
+    "Fischers Fritz fischt frische Fische.",
+    "en"
+   ],
+   [
+    7,
+    "Les chaussettes de l'archiduchesse sont-elles sèches?",
+    "en"
+   ],
+   [
+    9,
+    "Namamugi, namagome, namatamago.",
+    "en"
+   ],
+   [
+    11,
+    "Trentatré trentini entrarono a Trento.",
+    "en"
+   ],
+   [
+    13,
+    "De kat krabt de krullen van de trap.",
+    "en"
+   ]
+  ],
+  "chars": 145
+ },
+ "15": {
+  "main": "Someone drops a joke in the international group chat. [pause] Spain: jajaja. [pause] France: mdr. Short for mort de rire. Dying of laughter. [pause] Japan: www. From warau, to laugh. [pause] Korea: kekeke. [pause] Thailand: five five five. Because five in Thai sounds like ha. [pause] Brazil: just a wall of k's. [pause] And English? lol. While not laughing at all.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 309
+ },
+ "16": {
+  "main": "Your chef texts you. In Spanish. [pause] You panic. [pause] You type. Delete. Type. Delete. [pause] Then you remember yesterday's lesson: can you repeat that? [pause] Me lo repites, por favor? [pause] Tomorrow morning's shift. Can you cover it? [pause] Claro. A qué hora? [pause] Lessons for the conversations you're actually about to have.",
+  "n_main": 8,
+  "clips": [],
+  "chars": 284
+ },
+ "17": {
+  "main": "You mention your four-hundred-day streak in the group chat. [pause] Order us a coffee in Spanish, then. [pause] Un... coffee... por favor? [pause] Four hundred days. For that. [pause] You go quiet. And switch apps. [pause] Two weeks later: a voice note. [pause] Wait. Which app is that? [pause] Borderless.",
+  "n_main": 8,
+  "clips": [
+   [
+    7,
+    "Dos cafés con leche, por favor. Y para mí, uno solo.",
+    "es"
+   ]
+  ],
+  "chars": 250
+ }
+}

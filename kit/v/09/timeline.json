@@ -1,0 +1,88 @@
+[
+ {
+  "n": 1,
+  "text": "Borderless. In twenty seconds.",
+  "start": 0.12,
+  "end": 2.045,
+  "phrases": [
+   0.12,
+   0.92,
+   1.92
+  ]
+ },
+ {
+  "n": 2,
+  "text": "One. Tell it why.",
+  "start": 2.145,
+  "end": 3.393,
+  "phrases": [
+   2.165,
+   2.645
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Work. Love. A move. An exam.",
+  "start": 3.493,
+  "end": 5.93,
+  "phrases": [
+   3.493,
+   4.053,
+   4.473,
+   4.653,
+   5.293
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Two. A short test finds your level.",
+  "start": 6.03,
+  "end": 8.25,
+  "phrases": [
+   6.05,
+   6.51,
+   6.95,
+   7.47
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Three. Fifty lessons. For that reason. At that level.",
+  "start": 8.35,
+  "end": 11.681,
+  "phrases": [
+   8.41,
+   8.95,
+   10.01,
+   10.85
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Seventy-four languages.",
+  "start": 11.781,
+  "end": 13.357,
+  "phrases": [
+   11.801
+  ]
+ },
+ {
+  "n": 7,
+  "text": "One course. Yours.",
+  "start": 13.457,
+  "end": 14.924,
+  "phrases": [
+   13.457,
+   14.377
+  ]
+ },
+ {
+  "n": 8,
+  "text": "That's the app.",
+  "start": 15.024,
+  "end": 15.784,
+  "phrases": [
+   15.044
+  ]
+ }
+]

@@ -1,0 +1,111 @@
+[
+ {
+  "n": 1,
+  "text": "Want to sound like you actually live in Spain? Five words.",
+  "start": 0.12,
+  "end": 3.184,
+  "phrases": [
+   0.14,
+   1.04,
+   1.24,
+   2.48,
+   3.04
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Vale. Okay, sure, deal. You'll say it fifty times a day.",
+  "start": 3.384,
+  "end": 6.8,
+  "phrases": [
+   3.384,
+   3.844,
+   4.384,
+   4.824,
+   5.204,
+   5.784,
+   5.984
+  ]
+ },
+ {
+  "n": 3,
+  "text": "T\u00edo. T\u00eda. Literally, uncle and aunt. Actually? Mate.",
+  "start": 7.0,
+  "end": 10.776,
+  "phrases": [
+   7.02,
+   7.46,
+   7.88,
+   8.52,
+   9.02,
+   9.52,
+   9.66,
+   10.16,
+   10.44,
+   10.7
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Guay. Cool. Say it like g-why.",
+  "start": 10.976,
+  "end": 13.489,
+  "phrases": [
+   10.976,
+   11.516,
+   12.016,
+   12.676,
+   13.036
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Venga. Come on, let's go, and somehow also: bye.",
+  "start": 13.689,
+  "end": 16.902,
+  "phrases": [
+   13.709,
+   14.249,
+   14.669,
+   15.329,
+   15.609,
+   16.609
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Qu\u00e9 fuerte. No way. That's crazy.",
+  "start": 17.102,
+  "end": 19.771,
+  "phrases": [
+   17.122,
+   17.402,
+   18.062,
+   18.882
+  ]
+ },
+ {
+  "n": 7,
+  "text": "Use all five in one sentence, and you're basically from Madrid.",
+  "start": 19.971,
+  "end": 23.659,
+  "phrases": [
+   19.991,
+   22.131,
+   22.471
+  ]
+ },
+ {
+  "n": 8,
+  "text": "Borderless. The Spanish people actually speak.",
+  "start": 23.959,
+  "end": 26.613,
+  "phrases": [
+   23.979,
+   24.679,
+   25.619,
+   25.819,
+   26.519
+  ]
+ }
+]

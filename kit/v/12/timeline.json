@@ -1,0 +1,91 @@
+[
+ {
+  "n": 1,
+  "text": "Two people open the same app.",
+  "start": 0.12,
+  "end": 1.906,
+  "phrases": [
+   0.14,
+   1.6
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Left: a kitchen internship in Madrid.",
+  "start": 2.006,
+  "end": 4.36,
+  "phrases": [
+   2.006,
+   2.526,
+   3.726
+  ]
+ },
+ {
+  "n": 3,
+  "text": "Right: a first office job in Tokyo.",
+  "start": 4.46,
+  "end": 6.772,
+  "phrases": [
+   4.46,
+   4.96
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Her lesson today: explaining the menu. His: making a request.",
+  "start": 6.872,
+  "end": 10.554,
+  "phrases": [
+   6.912,
+   7.872,
+   8.132,
+   9.072,
+   9.532
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Her world: a Spanish town. His: Tokyo streets.",
+  "start": 10.654,
+  "end": 14.088,
+  "phrases": [
+   10.694,
+   11.454,
+   12.574,
+   13.034,
+   13.914
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Her passport says Hispanidad. His says Nihon.",
+  "start": 14.188,
+  "end": 17.49,
+  "phrases": [
+   14.208,
+   15.348,
+   16.128,
+   16.628,
+   17.028
+  ]
+ },
+ {
+  "n": 7,
+  "text": "Same app. Not one lesson in common.",
+  "start": 17.74,
+  "end": 19.906,
+  "phrases": [
+   17.76,
+   18.44
+  ]
+ },
+ {
+  "n": 8,
+  "text": "That's Borderless.",
+  "start": 20.156,
+  "end": 21.31,
+  "phrases": [
+   20.176
+  ]
+ }
+]

@@ -1,0 +1,98 @@
+[
+ {
+  "n": 1,
+  "text": "Someone drops a joke in the international group chat.",
+  "start": 0.12,
+  "end": 2.641,
+  "phrases": [
+   0.14,
+   2.08,
+   2.3
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Spain: jajaja.",
+  "start": 2.941,
+  "end": 4.214,
+  "phrases": [
+   2.961,
+   3.721,
+   3.901,
+   4.101
+  ]
+ },
+ {
+  "n": 3,
+  "text": "France: mdr. Short for mort de rire. Dying of laughter.",
+  "start": 4.414,
+  "end": 8.679,
+  "phrases": [
+   4.454,
+   5.074,
+   6.034,
+   6.714,
+   7.034,
+   7.634,
+   8.514
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Japan: www. From warau, to laugh.",
+  "start": 8.879,
+  "end": 12.494,
+  "phrases": [
+   8.879,
+   9.519,
+   10.999,
+   11.379,
+   11.919
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Korea: kekeke.",
+  "start": 12.694,
+  "end": 13.893,
+  "phrases": [
+   12.714,
+   13.274
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Thailand: five five five. Because five in Thai sounds like ha.",
+  "start": 14.093,
+  "end": 18.267,
+  "phrases": [
+   14.113,
+   14.793,
+   15.953,
+   17.333,
+   17.973
+  ]
+ },
+ {
+  "n": 7,
+  "text": "Brazil: just a wall of k's.",
+  "start": 18.467,
+  "end": 20.577,
+  "phrases": [
+   18.487,
+   19.067,
+   19.987
+  ]
+ },
+ {
+  "n": 8,
+  "text": "And English? lol. While not laughing at all.",
+  "start": 20.877,
+  "end": 23.947,
+  "phrases": [
+   20.877,
+   21.577,
+   22.617
+  ]
+ }
+]

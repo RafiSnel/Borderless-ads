@@ -1,0 +1,88 @@
+[
+ {
+  "n": 1,
+  "text": "Your chef texts you. In Spanish.",
+  "start": 0.12,
+  "end": 2.083,
+  "phrases": [
+   0.14,
+   1.44,
+   1.94
+  ]
+ },
+ {
+  "n": 2,
+  "text": "You panic.",
+  "start": 2.383,
+  "end": 3.023,
+  "phrases": [
+   2.383,
+   2.583,
+   2.943
+  ]
+ },
+ {
+  "n": 3,
+  "text": "You type. Delete. Type. Delete.",
+  "start": 3.223,
+  "end": 5.333,
+  "phrases": [
+   3.243,
+   3.943,
+   4.423,
+   4.883
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Then you remember yesterday's lesson: can you repeat that?",
+  "start": 5.633,
+  "end": 8.488,
+  "phrases": [
+   5.633,
+   7.573,
+   8.213
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Me lo repites, por favor?",
+  "start": 8.788,
+  "end": 10.18,
+  "phrases": [
+   8.808,
+   9.728
+  ]
+ },
+ {
+  "n": 6,
+  "text": "Tomorrow morning's shift. Can you cover it?",
+  "start": 10.88,
+  "end": 13.179,
+  "phrases": [
+   10.9,
+   12.48
+  ]
+ },
+ {
+  "n": 7,
+  "text": "Claro. A qu\u00e9 hora?",
+  "start": 13.779,
+  "end": 14.822,
+  "phrases": [
+   13.799,
+   14.299
+  ]
+ },
+ {
+  "n": 8,
+  "text": "Lessons for the conversations you're actually about to have.",
+  "start": 15.222,
+  "end": 18.226,
+  "phrases": [
+   15.222,
+   16.942,
+   17.162
+  ]
+ }
+]
