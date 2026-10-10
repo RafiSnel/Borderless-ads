@@ -1,0 +1,183 @@
+// ---------- assets ----------
+const IMG = {};
+const SRC = {
+  logo: 'app/logo512.png', mpath: 'app/madrid_path_full_s.jpg', tpath: 'app/tokio_path_full_s.jpg',
+  mwords: 'app/madrid_words.png', mpass: 'app/madrid_passport.png', tpass: 'app/tokio_passport.png',
+  mles: 'app/madrid_lesson_1.png', tles: 'app/tokio_lesson_1.png', mover: 'app/madrid_overview.png', tover: 'app/tokio_overview.png',
+};
+window.ready = Promise.all(Object.entries(SRC).map(([k, s]) => new Promise((r) => { const i = new Image(); i.onload = () => { IMG[k] = i; r(); }; i.src = s; })))
+  .then(() => document.fonts.load('900 100px Inter'));
+// ---------- primitives ----------
+function rr(x, y, w, h, r) { X.beginPath(); X.roundRect(x, y, w, h, r); }
+function bg(t) {
+  X.fillStyle = P.bg; X.fillRect(0, 0, W, H);
+  // faint graph paper drifting, like the app's world sheets
+  X.strokeStyle = 'rgba(91,80,68,0.07)'; X.lineWidth = 2;
+  const o = (t * 18) % 60;
+  for (let x = -60 + o; x < W + 60; x += 60) { X.beginPath(); X.moveTo(x, 0); X.lineTo(x, H); X.stroke(); }
+  for (let y = -60 + o; y < H + 60; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); }
+  const g = X.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 1300);
+  g.addColorStop(0, 'rgba(244,238,226,0)'); g.addColorStop(1, 'rgba(214,200,176,0.55)');
+  X.fillStyle = g; X.fillRect(0, 0, W, H);
+}
+// Big key word that slams in on the beat. Returns nothing; draws centred at (x,y).
+function slam(t, t0, text, x, y, size, color = P.ink, opts = {}) {
+  if (t < t0) return;
+  const p = (t - t0) / 0.22, s = mix(opts.from ?? 1.9, 1, back(p, 1.4));
+  const a = cl(p * 3) * (opts.fadeAt ? 1 - lin(t, opts.fadeAt, opts.fadeAt + 0.12) : 1);
+  if (a <= 0) return;
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.rotate((opts.rot || 0) * (1 - eo(p)) + (opts.tilt || 0)); X.scale(s, s);
+  X.font = F(opts.w || 900, size); X.textAlign = 'center'; X.textBaseline = 'middle';
+  const lines = text.split('\n'), lh = size * 0.96;
+  lines.forEach((l, i) => {
+    const yy = (i - (lines.length - 1) / 2) * lh;
+    if (opts.shadow !== false) { X.fillStyle = 'rgba(31,26,20,0.12)'; X.fillText(l, 6, yy + 10); }
+    X.fillStyle = color; X.fillText(l, 0, yy);
+  });
+  X.restore();
+}
+function label(text, x, y, size, color, w = 700, align = 'center', a = 1) {
+  X.save(); X.globalAlpha = a; X.font = F(w, size); X.textAlign = align; X.textBaseline = 'middle'; X.fillStyle = color; X.fillText(text, x, y); X.restore();
+}
+function pill(text, x, y, size, fg, bgc, a = 1, s = 1) {
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s); X.font = F(700, size);
+  const w = X.measureText(text).width + size * 1.4, h = size * 2;
+  X.fillStyle = 'rgba(31,26,20,0.10)'; rr(-w / 2 + 4, -h / 2 + 8, w, h, h / 2); X.fill();
+  X.fillStyle = bgc; rr(-w / 2, -h / 2, w, h, h / 2); X.fill();
+  X.fillStyle = fg; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, 2); X.restore();
+}
+// A rubber stamp: bordered word, slight rotation, ink texture.
+function stamp(t, t0, text, x, y, size, color, rot) {
+  if (t < t0) return;
+  const p = (t - t0) / 0.16, s = mix(2.2, 1, eo(p));
+  X.save(); X.globalAlpha = cl(p * 2) * 0.95; X.translate(x, y); X.rotate(rot); X.scale(s, s);
+  X.font = F(900, size); const w = X.measureText(text).width + size * 0.9, h = size * 1.45;
+  X.strokeStyle = color; X.lineWidth = size * 0.09; rr(-w / 2, -h / 2, w, h, size * 0.18); X.stroke();
+  X.fillStyle = color; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, size * 0.04);
+  // ink speckle
+  X.globalCompositeOperation = 'destination-out';
+  for (let i = 0; i < 70; i++) { X.beginPath(); X.arc((hash(i + size) - .5) * w, (hash(i * 3.1 + size) - .5) * h, 2 + hash(i * 7.7) * 5, 0, 7); X.fill(); }
+  X.restore();
+}
+// Phone frame showing an image; scrollY in image pixels (image scaled to the screen width).
+function phone(img, cx, cy, w, opts = {}) {
+  const h = w * 2.164, r = w * 0.13, bez = w * 0.035;
+  X.save(); X.translate(cx, cy); X.rotate(opts.rot || 0); const s = opts.scale ?? 1; X.scale(s, s); X.globalAlpha = opts.a ?? 1;
+  X.fillStyle = 'rgba(31,26,20,0.22)'; rr(-w / 2 + 14, -h / 2 + 30, w, h, r); X.fill();
+  X.fillStyle = '#1b1814'; rr(-w / 2, -h / 2, w, h, r); X.fill();
+  const sw = w - bez * 2, sh = h - bez * 2;
+  X.save(); rr(-sw / 2, -sh / 2, sw, sh, r - bez); X.clip();
+  X.fillStyle = P.bg; X.fillRect(-sw / 2, -sh / 2, sw, sh);
+  if (img) {
+    const z = opts.zoom || 1, k = sw / img.width * z, ih = img.height * k, iw = img.width * k;
+    if (opts.focus) { const [fx, fy] = opts.focus; X.drawImage(img, -fx * k, -fy * k, iw, ih); }
+    else { const sy = opts.scrollY ? opts.scrollY * k : 0; X.drawImage(img, -iw / 2, -sh / 2 - sy, iw, ih); }
+  }
+  X.restore();
+  X.fillStyle = '#1b1814'; rr(-w * 0.14, -h / 2 + bez * 0.7, w * 0.28, w * 0.07, w * 0.035); X.fill();
+  X.restore();
+}
+// ---------- the mascot: a little passport with eyes ----------
+function mascot(t, x, y, s, st = {}) {
+  X.save(); X.translate(x, y);
+  const bob = Math.sin(t * 7) * 6 * (st.calm ? 0.4 : 1);
+  const sq = st.squash || 0;
+  X.translate(0, bob); X.rotate(st.tilt || 0); X.scale(s * (1 + sq * 0.12), s * (1 - sq * 0.12));
+  // feet
+  X.fillStyle = P.ink; rr(-62, 150, 44, 22, 11); X.fill(); rr(18, 150, 44, 22, 11); X.fill();
+  // body (passport cover)
+  X.fillStyle = 'rgba(31,26,20,0.18)'; rr(-112, -150, 230, 310, 30); X.fill();
+  X.fillStyle = P.pass; rr(-118, -160, 230, 310, 30); X.fill();
+  X.fillStyle = P.pass2; rr(-118, -160, 26, 310, [30, 0, 0, 30]); X.fill();
+  X.strokeStyle = 'rgba(227,184,113,0.55)'; X.lineWidth = 3; rr(-84, -134, 170, 258, 16); X.stroke();
+  // emblem (globe) on the lower half
+  X.strokeStyle = P.gold; X.lineWidth = 5;
+  X.beginPath(); X.arc(1, 72, 34, 0, 7); X.stroke();
+  X.beginPath(); X.ellipse(1, 72, 14, 34, 0, 0, 7); X.stroke();
+  X.beginPath(); X.moveTo(-33, 72); X.lineTo(35, 72); X.stroke();
+  // arms
+  X.strokeStyle = P.pass; X.lineWidth = 18; X.lineCap = 'round';
+  const wave = st.wave ? Math.sin(t * 18) * 0.5 : 0;
+  X.beginPath(); X.moveTo(-112, 0); X.lineTo(-150, 40 - (st.armsUp ? 90 : 0)); X.stroke();
+  X.beginPath(); X.moveTo(108, 0); X.lineTo(150 + wave * 20, 40 - (st.armsUp ? 90 : 0) - wave * 60); X.stroke();
+  // eyes
+  const blink = st.wink ? 0 : (((t * 0.9 + (st.seed || 0)) % 2.6) < 0.09 ? 0.1 : 1);
+  const lookX = (st.lookX || 0) * 8, lookY = (st.lookY || 0) * 8;
+  [[-42, 1], [44, -1]].forEach(([ex, side], i) => {
+    X.save(); X.translate(ex, -62);
+    const closed = (i === 1 && st.wink) || blink < 1;
+    if (closed && !(i === 0 && st.wink)) {
+      X.strokeStyle = P.white; X.lineWidth = 7; X.beginPath(); X.arc(0, 4, 18, Math.PI * 1.1, Math.PI * 1.9); X.stroke();
+    } else {
+      X.fillStyle = P.white; X.beginPath(); X.ellipse(0, 0, 26, st.wide ? 34 : 30, 0, 0, 7); X.fill();
+      X.fillStyle = P.ink; X.beginPath(); X.arc(lookX, lookY + 4, st.wide ? 11 : 13, 0, 7); X.fill();
+      X.fillStyle = P.white; X.beginPath(); X.arc(lookX + 4, lookY - 1, 4, 0, 7); X.fill();
+    }
+    X.restore();
+  });
+  // mouth
+  X.strokeStyle = P.gold; X.lineWidth = 6; X.lineCap = 'round'; X.beginPath();
+  if (st.mood === 'happy') X.arc(2, -22, 20, 0.15 * Math.PI, 0.85 * Math.PI);
+  else if (st.mood === 'worried') { X.moveTo(-16, -8); X.quadraticCurveTo(0, -20, 18, -8); }
+  else if (st.mood === 'o') { X.ellipse(2, -14, 9, 12, 0, 0, 7); }
+  else { X.moveTo(-14, -14); X.lineTo(18, -14); }
+  X.stroke();
+  // sweat drop
+  if (st.sweat) {
+    const sp = (t * 1.4) % 1;
+    X.fillStyle = '#7fc4e8'; X.globalAlpha = 1 - sp * 0.6;
+    X.beginPath(); const sx = 92, sy = -130 + sp * 40;
+    X.moveTo(sx, sy - 22); X.quadraticCurveTo(sx + 16, sy, sx, sy + 10); X.quadraticCurveTo(sx - 16, sy, sx, sy - 22); X.fill();
+  }
+  X.restore();
+}
+function bubble(text, x, y, size, a = 1, s = 1, tail = 'left') {
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s); X.font = F(800, size);
+  const w = X.measureText(text).width + size * 1.4, h = size * 2.1;
+  X.fillStyle = 'rgba(31,26,20,0.12)'; rr(-w / 2 + 5, -h / 2 + 9, w, h, 30); X.fill();
+  X.fillStyle = P.white; rr(-w / 2, -h / 2, w, h, 30); X.fill();
+  X.beginPath(); const tx = tail === 'left' ? -w / 2 + 50 : w / 2 - 50; X.moveTo(tx - 18, h / 2 - 4); X.lineTo(tx + (tail === 'left' ? -26 : 26), h / 2 + 34); X.lineTo(tx + 18, h / 2 - 4); X.fill();
+  X.fillStyle = P.ink; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, 3); X.restore();
+}
+// Generic (unbranded) "lesson card" used for the sameness grid.
+function lessonCard(x, y, w, s, a, col, tick) {
+  const h = w * 1.25;
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s);
+  X.fillStyle = 'rgba(31,26,20,0.12)'; rr(-w / 2 + 5, -h / 2 + 10, w, h, w * 0.1); X.fill();
+  X.fillStyle = col || P.paper; rr(-w / 2, -h / 2, w, h, w * 0.1); X.fill();
+  X.fillStyle = P.grey; rr(-w * 0.36, -h * 0.36, w * 0.5, w * 0.08, w * 0.04); X.fill();
+  X.fillStyle = P.grey2; rr(-w * 0.36, -h * 0.22, w * 0.72, w * 0.11, w * 0.05); X.fill();
+  for (let i = 0; i < 3; i++) { X.fillStyle = P.grey; rr(-w * 0.36, -h * 0.02 + i * w * 0.17, w * 0.72, w * 0.1, w * 0.05); X.fill(); }
+  X.fillStyle = tick ? P.grey2 : P.grey; X.beginPath(); X.arc(0, h * 0.36, w * 0.09, 0, 7); X.fill();
+  X.restore();
+}
+function confetti(t, t0, cx, cy, n = 40) {
+  if (t < t0 || t > t0 + 1.4) return;
+  const k = t - t0;
+  for (let i = 0; i < n; i++) {
+    const ang = hash(i) * Math.PI * 2, sp = 500 + hash(i + 9) * 900;
+    const x = cx + Math.cos(ang) * sp * k, y = cy + Math.sin(ang) * sp * k + 900 * k * k;
+    X.save(); X.translate(x, y); X.rotate(k * 9 * (hash(i + 3) - .5)); X.globalAlpha = 1 - k / 1.4;
+    X.fillStyle = [P.acc, P.amber, P.sun, P.green, P.pass][i % 5]; X.fillRect(-9, -5, 18, 10); X.restore();
+  }
+}
+function flame(x, y, s, t) {
+  X.save(); X.translate(x, y); X.scale(s, s * (1 + Math.sin(t * 22) * 0.04));
+  const g = X.createLinearGradient(0, -140, 0, 100); g.addColorStop(0, P.sun); g.addColorStop(1, P.acc);
+  X.fillStyle = g; X.beginPath(); X.moveTo(0, -150); X.bezierCurveTo(80, -60, 110, 10, 80, 60); X.bezierCurveTo(55, 105, -55, 105, -80, 60);
+  X.bezierCurveTo(-110, 10, -60, -40, -20, -70); X.bezierCurveTo(-10, -30, 20, -40, 0, -150); X.fill();
+  X.fillStyle = P.paper; X.beginPath(); X.moveTo(0, -20); X.bezierCurveTo(40, 20, 45, 55, 25, 75); X.bezierCurveTo(10, 90, -10, 90, -25, 75); X.bezierCurveTo(-45, 55, -30, 20, 0, -20); X.fill();
+  X.restore();
+}
+function cup(x, y, s) {
+  X.save(); X.translate(x, y); X.scale(s, s);
+  X.fillStyle = 'rgba(31,26,20,0.12)'; X.beginPath(); X.ellipse(0, 150, 190, 30, 0, 0, 7); X.fill();
+  X.fillStyle = P.white; X.beginPath(); X.ellipse(0, 140, 175, 26, 0, 0, 7); X.fill();
+  X.fillStyle = P.paper; X.beginPath(); X.moveTo(-120, -40); X.lineTo(120, -40); X.lineTo(95, 120); X.quadraticCurveTo(0, 150, -95, 120); X.closePath(); X.fill();
+  X.strokeStyle = P.ink; X.lineWidth = 8; X.stroke();
+  X.beginPath(); X.ellipse(150, 30, 42, 50, 0, -1.4, 1.4); X.stroke();
+  X.fillStyle = '#6b4226'; X.beginPath(); X.ellipse(0, -40, 120, 22, 0, 0, 7); X.fill(); X.stroke();
+  X.strokeStyle = P.ink3; X.lineWidth = 7; X.lineCap = 'round';
+  for (let i = 0; i < 3; i++) { X.beginPath(); X.moveTo(-50 + i * 50, -90); X.bezierCurveTo(-30 + i * 50, -130, -70 + i * 50, -160, -50 + i * 50, -200); X.stroke(); }
+  X.restore();
+}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Borderless ad "Lying" — every frame is a pure function of t (seconds). 1080x1920.
+const W = 1080, H = 1920;
+const C = document.getElementById('c'), X = C.getContext('2d');
+const P = {
+  bg: '#f4eee2', bg2: '#eae2d3', paper: '#fbf7ec', ink: '#1f1a14', ink2: '#5b5044', ink3: '#9a8f7e',
+  acc: '#a8512b', acc2: '#8e4322', amber: '#ee8b47', sun: '#f0c04e', pass: '#6e1f2a', pass2: '#571722', gold: '#e3b871',
+  grey: '#cfc8bb', grey2: '#b9b1a3', white: '#ffffff', green: '#4faa72',
+};
+const F = (w, s) => `${w} ${s}px Inter, sans-serif`;
+// ---------- easing ----------
+const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lin = (t, a, b) => cl((t - a) / (b - a));
+const eo = (p) => 1 - Math.pow(1 - cl(p), 3);
+const eio = (p) => { p = cl(p); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; };
+const back = (p, s = 1.9) => { p = cl(p); return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+const elastic = (p) => { p = cl(p); if (p === 0 || p === 1) return p; return Math.pow(2, -10 * p) * Math.sin((p * 10 - .75) * (2 * Math.PI / 3)) + 1; };
+const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+const mix = (a, b, p) => a + (b - a) * p;

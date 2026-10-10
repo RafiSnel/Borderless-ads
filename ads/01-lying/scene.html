@@ -1,0 +1,463 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Borderless ad "Lying" — every frame is a pure function of t (seconds). 1080x1920.
+const W = 1080, H = 1920;
+const C = document.getElementById('c'), X = C.getContext('2d');
+const P = {
+  bg: '#f4eee2', bg2: '#eae2d3', paper: '#fbf7ec', ink: '#1f1a14', ink2: '#5b5044', ink3: '#9a8f7e',
+  acc: '#a8512b', acc2: '#8e4322', amber: '#ee8b47', sun: '#f0c04e', pass: '#6e1f2a', pass2: '#571722', gold: '#e3b871',
+  grey: '#cfc8bb', grey2: '#b9b1a3', white: '#ffffff', green: '#4faa72',
+};
+const F = (w, s) => `${w} ${s}px Inter, sans-serif`;
+// ---------- easing ----------
+const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lin = (t, a, b) => cl((t - a) / (b - a));
+const eo = (p) => 1 - Math.pow(1 - cl(p), 3);
+const eio = (p) => { p = cl(p); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; };
+const back = (p, s = 1.9) => { p = cl(p); return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+const elastic = (p) => { p = cl(p); if (p === 0 || p === 1) return p; return Math.pow(2, -10 * p) * Math.sin((p * 10 - .75) * (2 * Math.PI / 3)) + 1; };
+const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+const mix = (a, b, p) => a + (b - a) * p;
+// ---------- timeline (from the measured voiceover) ----------
+const T = {
+  l1: 0.15, lying: 1.12, l2: 2.229, three: 2.5, l3: 3.854, coffee: 4.85, l4: 5.489, same: 7.25, l5: 8.297, s5b: 9.277, s5c: 10.157,
+  l6: 11.374, l7: 12.966, l8: 14.324, l9: 15.4, tokyo: 16.9, l10: 18.733, fifty: 19.45, around: 20.35,
+  l11: 21.458, world: 22.418, passport: 23.318, l12: 24.425, l13: 26.343, course: 27.0, end: 27.75, out: 30.0,
+};
+// ---------- assets ----------
+const IMG = {};
+const SRC = {
+  logo: 'app/logo512.png', mpath: 'app/madrid_path_full_s.jpg', tpath: 'app/tokio_path_full_s.jpg',
+  mwords: 'app/madrid_words.png', mpass: 'app/madrid_passport.png', tpass: 'app/tokio_passport.png',
+  mles: 'app/madrid_lesson_1.png', tles: 'app/tokio_lesson_1.png', mover: 'app/madrid_overview.png', tover: 'app/tokio_overview.png',
+};
+window.ready = Promise.all(Object.entries(SRC).map(([k, s]) => new Promise((r) => { const i = new Image(); i.onload = () => { IMG[k] = i; r(); }; i.src = s; })))
+  .then(() => document.fonts.load('900 100px Inter'));
+// ---------- primitives ----------
+function rr(x, y, w, h, r) { X.beginPath(); X.roundRect(x, y, w, h, r); }
+function bg(t) {
+  X.fillStyle = P.bg; X.fillRect(0, 0, W, H);
+  // faint graph paper drifting, like the app's world sheets
+  X.strokeStyle = 'rgba(91,80,68,0.07)'; X.lineWidth = 2;
+  const o = (t * 18) % 60;
+  for (let x = -60 + o; x < W + 60; x += 60) { X.beginPath(); X.moveTo(x, 0); X.lineTo(x, H); X.stroke(); }
+  for (let y = -60 + o; y < H + 60; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); }
+  const g = X.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 1300);
+  g.addColorStop(0, 'rgba(244,238,226,0)'); g.addColorStop(1, 'rgba(214,200,176,0.55)');
+  X.fillStyle = g; X.fillRect(0, 0, W, H);
+}
+// Big key word that slams in on the beat. Returns nothing; draws centred at (x,y).
+function slam(t, t0, text, x, y, size, color = P.ink, opts = {}) {
+  if (t < t0) return;
+  const p = (t - t0) / 0.22, s = mix(opts.from ?? 1.9, 1, back(p, 1.4));
+  const a = cl(p * 3) * (opts.fadeAt ? 1 - lin(t, opts.fadeAt, opts.fadeAt + 0.12) : 1);
+  if (a <= 0) return;
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.rotate((opts.rot || 0) * (1 - eo(p)) + (opts.tilt || 0)); X.scale(s, s);
+  X.font = F(opts.w || 900, size); X.textAlign = 'center'; X.textBaseline = 'middle';
+  const lines = text.split('\n'), lh = size * 0.96;
+  lines.forEach((l, i) => {
+    const yy = (i - (lines.length - 1) / 2) * lh;
+    if (opts.shadow !== false) { X.fillStyle = 'rgba(31,26,20,0.12)'; X.fillText(l, 6, yy + 10); }
+    X.fillStyle = color; X.fillText(l, 0, yy);
+  });
+  X.restore();
+}
+function label(text, x, y, size, color, w = 700, align = 'center', a = 1) {
+  X.save(); X.globalAlpha = a; X.font = F(w, size); X.textAlign = align; X.textBaseline = 'middle'; X.fillStyle = color; X.fillText(text, x, y); X.restore();
+}
+function pill(text, x, y, size, fg, bgc, a = 1, s = 1) {
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s); X.font = F(700, size);
+  const w = X.measureText(text).width + size * 1.4, h = size * 2;
+  X.fillStyle = 'rgba(31,26,20,0.10)'; rr(-w / 2 + 4, -h / 2 + 8, w, h, h / 2); X.fill();
+  X.fillStyle = bgc; rr(-w / 2, -h / 2, w, h, h / 2); X.fill();
+  X.fillStyle = fg; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, 2); X.restore();
+}
+// A rubber stamp: bordered word, slight rotation, ink texture.
+function stamp(t, t0, text, x, y, size, color, rot) {
+  if (t < t0) return;
+  const p = (t - t0) / 0.16, s = mix(2.2, 1, eo(p));
+  X.save(); X.globalAlpha = cl(p * 2) * 0.95; X.translate(x, y); X.rotate(rot); X.scale(s, s);
+  X.font = F(900, size); const w = X.measureText(text).width + size * 0.9, h = size * 1.45;
+  X.strokeStyle = color; X.lineWidth = size * 0.09; rr(-w / 2, -h / 2, w, h, size * 0.18); X.stroke();
+  X.fillStyle = color; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, size * 0.04);
+  // ink speckle
+  X.globalCompositeOperation = 'destination-out';
+  for (let i = 0; i < 70; i++) { X.beginPath(); X.arc((hash(i + size) - .5) * w, (hash(i * 3.1 + size) - .5) * h, 2 + hash(i * 7.7) * 5, 0, 7); X.fill(); }
+  X.restore();
+}
+// Phone frame showing an image; scrollY in image pixels (image scaled to the screen width).
+function phone(img, cx, cy, w, opts = {}) {
+  const h = w * 2.164, r = w * 0.13, bez = w * 0.035;
+  X.save(); X.translate(cx, cy); X.rotate(opts.rot || 0); const s = opts.scale ?? 1; X.scale(s, s); X.globalAlpha = opts.a ?? 1;
+  X.fillStyle = 'rgba(31,26,20,0.22)'; rr(-w / 2 + 14, -h / 2 + 30, w, h, r); X.fill();
+  X.fillStyle = '#1b1814'; rr(-w / 2, -h / 2, w, h, r); X.fill();
+  const sw = w - bez * 2, sh = h - bez * 2;
+  X.save(); rr(-sw / 2, -sh / 2, sw, sh, r - bez); X.clip();
+  X.fillStyle = P.bg; X.fillRect(-sw / 2, -sh / 2, sw, sh);
+  if (img) {
+    const z = opts.zoom || 1, k = sw / img.width * z, ih = img.height * k, iw = img.width * k;
+    if (opts.focus) { const [fx, fy] = opts.focus; X.drawImage(img, -fx * k, -fy * k, iw, ih); }
+    else { const sy = opts.scrollY ? opts.scrollY * k : 0; X.drawImage(img, -iw / 2, -sh / 2 - sy, iw, ih); }
+  }
+  X.restore();
+  X.fillStyle = '#1b1814'; rr(-w * 0.14, -h / 2 + bez * 0.7, w * 0.28, w * 0.07, w * 0.035); X.fill();
+  X.restore();
+}
+// ---------- the mascot: a little passport with eyes ----------
+function mascot(t, x, y, s, st = {}) {
+  X.save(); X.translate(x, y);
+  const bob = Math.sin(t * 7) * 6 * (st.calm ? 0.4 : 1);
+  const sq = st.squash || 0;
+  X.translate(0, bob); X.rotate(st.tilt || 0); X.scale(s * (1 + sq * 0.12), s * (1 - sq * 0.12));
+  // feet
+  X.fillStyle = P.ink; rr(-62, 150, 44, 22, 11); X.fill(); rr(18, 150, 44, 22, 11); X.fill();
+  // body (passport cover)
+  X.fillStyle = 'rgba(31,26,20,0.18)'; rr(-112, -150, 230, 310, 30); X.fill();
+  X.fillStyle = P.pass; rr(-118, -160, 230, 310, 30); X.fill();
+  X.fillStyle = P.pass2; rr(-118, -160, 26, 310, [30, 0, 0, 30]); X.fill();
+  X.strokeStyle = 'rgba(227,184,113,0.55)'; X.lineWidth = 3; rr(-84, -134, 170, 258, 16); X.stroke();
+  // emblem (globe) on the lower half
+  X.strokeStyle = P.gold; X.lineWidth = 5;
+  X.beginPath(); X.arc(1, 72, 34, 0, 7); X.stroke();
+  X.beginPath(); X.ellipse(1, 72, 14, 34, 0, 0, 7); X.stroke();
+  X.beginPath(); X.moveTo(-33, 72); X.lineTo(35, 72); X.stroke();
+  // arms
+  X.strokeStyle = P.pass; X.lineWidth = 18; X.lineCap = 'round';
+  const wave = st.wave ? Math.sin(t * 18) * 0.5 : 0;
+  X.beginPath(); X.moveTo(-112, 0); X.lineTo(-150, 40 - (st.armsUp ? 90 : 0)); X.stroke();
+  X.beginPath(); X.moveTo(108, 0); X.lineTo(150 + wave * 20, 40 - (st.armsUp ? 90 : 0) - wave * 60); X.stroke();
+  // eyes
+  const blink = st.wink ? 0 : (((t * 0.9 + (st.seed || 0)) % 2.6) < 0.09 ? 0.1 : 1);
+  const lookX = (st.lookX || 0) * 8, lookY = (st.lookY || 0) * 8;
+  [[-42, 1], [44, -1]].forEach(([ex, side], i) => {
+    X.save(); X.translate(ex, -62);
+    const closed = (i === 1 && st.wink) || blink < 1;
+    if (closed && !(i === 0 && st.wink)) {
+      X.strokeStyle = P.white; X.lineWidth = 7; X.beginPath(); X.arc(0, 4, 18, Math.PI * 1.1, Math.PI * 1.9); X.stroke();
+    } else {
+      X.fillStyle = P.white; X.beginPath(); X.ellipse(0, 0, 26, st.wide ? 34 : 30, 0, 0, 7); X.fill();
+      X.fillStyle = P.ink; X.beginPath(); X.arc(lookX, lookY + 4, st.wide ? 11 : 13, 0, 7); X.fill();
+      X.fillStyle = P.white; X.beginPath(); X.arc(lookX + 4, lookY - 1, 4, 0, 7); X.fill();
+    }
+    X.restore();
+  });
+  // mouth
+  X.strokeStyle = P.gold; X.lineWidth = 6; X.lineCap = 'round'; X.beginPath();
+  if (st.mood === 'happy') X.arc(2, -22, 20, 0.15 * Math.PI, 0.85 * Math.PI);
+  else if (st.mood === 'worried') { X.moveTo(-16, -8); X.quadraticCurveTo(0, -20, 18, -8); }
+  else if (st.mood === 'o') { X.ellipse(2, -14, 9, 12, 0, 0, 7); }
+  else { X.moveTo(-14, -14); X.lineTo(18, -14); }
+  X.stroke();
+  // sweat drop
+  if (st.sweat) {
+    const sp = (t * 1.4) % 1;
+    X.fillStyle = '#7fc4e8'; X.globalAlpha = 1 - sp * 0.6;
+    X.beginPath(); const sx = 92, sy = -130 + sp * 40;
+    X.moveTo(sx, sy - 22); X.quadraticCurveTo(sx + 16, sy, sx, sy + 10); X.quadraticCurveTo(sx - 16, sy, sx, sy - 22); X.fill();
+  }
+  X.restore();
+}
+function bubble(text, x, y, size, a = 1, s = 1, tail = 'left') {
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s); X.font = F(800, size);
+  const w = X.measureText(text).width + size * 1.4, h = size * 2.1;
+  X.fillStyle = 'rgba(31,26,20,0.12)'; rr(-w / 2 + 5, -h / 2 + 9, w, h, 30); X.fill();
+  X.fillStyle = P.white; rr(-w / 2, -h / 2, w, h, 30); X.fill();
+  X.beginPath(); const tx = tail === 'left' ? -w / 2 + 50 : w / 2 - 50; X.moveTo(tx - 18, h / 2 - 4); X.lineTo(tx + (tail === 'left' ? -26 : 26), h / 2 + 34); X.lineTo(tx + 18, h / 2 - 4); X.fill();
+  X.fillStyle = P.ink; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(text, 0, 3); X.restore();
+}
+// Generic (unbranded) "lesson card" used for the sameness grid.
+function lessonCard(x, y, w, s, a, col, tick) {
+  const h = w * 1.25;
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s);
+  X.fillStyle = 'rgba(31,26,20,0.12)'; rr(-w / 2 + 5, -h / 2 + 10, w, h, w * 0.1); X.fill();
+  X.fillStyle = col || P.paper; rr(-w / 2, -h / 2, w, h, w * 0.1); X.fill();
+  X.fillStyle = P.grey; rr(-w * 0.36, -h * 0.36, w * 0.5, w * 0.08, w * 0.04); X.fill();
+  X.fillStyle = P.grey2; rr(-w * 0.36, -h * 0.22, w * 0.72, w * 0.11, w * 0.05); X.fill();
+  for (let i = 0; i < 3; i++) { X.fillStyle = P.grey; rr(-w * 0.36, -h * 0.02 + i * w * 0.17, w * 0.72, w * 0.1, w * 0.05); X.fill(); }
+  X.fillStyle = tick ? P.grey2 : P.grey; X.beginPath(); X.arc(0, h * 0.36, w * 0.09, 0, 7); X.fill();
+  X.restore();
+}
+function confetti(t, t0, cx, cy, n = 40) {
+  if (t < t0 || t > t0 + 1.4) return;
+  const k = t - t0;
+  for (let i = 0; i < n; i++) {
+    const ang = hash(i) * Math.PI * 2, sp = 500 + hash(i + 9) * 900;
+    const x = cx + Math.cos(ang) * sp * k, y = cy + Math.sin(ang) * sp * k + 900 * k * k;
+    X.save(); X.translate(x, y); X.rotate(k * 9 * (hash(i + 3) - .5)); X.globalAlpha = 1 - k / 1.4;
+    X.fillStyle = [P.acc, P.amber, P.sun, P.green, P.pass][i % 5]; X.fillRect(-9, -5, 18, 10); X.restore();
+  }
+}
+function flame(x, y, s, t) {
+  X.save(); X.translate(x, y); X.scale(s, s * (1 + Math.sin(t * 22) * 0.04));
+  const g = X.createLinearGradient(0, -140, 0, 100); g.addColorStop(0, P.sun); g.addColorStop(1, P.acc);
+  X.fillStyle = g; X.beginPath(); X.moveTo(0, -150); X.bezierCurveTo(80, -60, 110, 10, 80, 60); X.bezierCurveTo(55, 105, -55, 105, -80, 60);
+  X.bezierCurveTo(-110, 10, -60, -40, -20, -70); X.bezierCurveTo(-10, -30, 20, -40, 0, -150); X.fill();
+  X.fillStyle = P.paper; X.beginPath(); X.moveTo(0, -20); X.bezierCurveTo(40, 20, 45, 55, 25, 75); X.bezierCurveTo(10, 90, -10, 90, -25, 75); X.bezierCurveTo(-45, 55, -30, 20, 0, -20); X.fill();
+  X.restore();
+}
+function cup(x, y, s) {
+  X.save(); X.translate(x, y); X.scale(s, s);
+  X.fillStyle = 'rgba(31,26,20,0.12)'; X.beginPath(); X.ellipse(0, 150, 190, 30, 0, 0, 7); X.fill();
+  X.fillStyle = P.white; X.beginPath(); X.ellipse(0, 140, 175, 26, 0, 0, 7); X.fill();
+  X.fillStyle = P.paper; X.beginPath(); X.moveTo(-120, -40); X.lineTo(120, -40); X.lineTo(95, 120); X.quadraticCurveTo(0, 150, -95, 120); X.closePath(); X.fill();
+  X.strokeStyle = P.ink; X.lineWidth = 8; X.stroke();
+  X.beginPath(); X.ellipse(150, 30, 42, 50, 0, -1.4, 1.4); X.stroke();
+  X.fillStyle = '#6b4226'; X.beginPath(); X.ellipse(0, -40, 120, 22, 0, 0, 7); X.fill(); X.stroke();
+  X.strokeStyle = P.ink3; X.lineWidth = 7; X.lineCap = 'round';
+  for (let i = 0; i < 3; i++) { X.beginPath(); X.moveTo(-50 + i * 50, -90); X.bezierCurveTo(-30 + i * 50, -130, -70 + i * 50, -160, -50 + i * 50, -200); X.stroke(); }
+  X.restore();
+}
+// ---------- scenes ----------
+function sceneHook(t) {
+  // generic app card with fake praise, then LYING.
+  const cardIn = back(lin(t, 0, 0.35));
+  const crack = t > T.lying;
+  X.save();
+  X.translate(W / 2, 1060); X.scale(cardIn, cardIn); X.rotate(crack ? Math.sin((t - T.lying) * 50) * 0.02 * (1 - lin(t, T.lying, T.lying + .4)) - 0.03 : -0.03);
+  X.fillStyle = 'rgba(31,26,20,0.15)'; rr(-330 + 8, -260 + 16, 660, 520, 50); X.fill();
+  X.fillStyle = P.white; rr(-330, -260, 660, 520, 50); X.fill();
+  X.fillStyle = P.green; X.beginPath(); X.arc(0, -90, 90, 0, 7); X.fill();
+  X.strokeStyle = P.white; X.lineWidth = 22; X.lineCap = 'round'; X.lineJoin = 'round';
+  X.beginPath(); X.moveTo(-40, -90); X.lineTo(-8, -58); X.lineTo(48, -122); X.stroke();
+  label('Great job!', 0, 70, 78, P.ink, 900); label('You\'re basically fluent.', 0, 150, 40, P.ink3, 600);
+  if (crack) {
+    X.strokeStyle = P.ink; X.lineWidth = 7; X.lineJoin = 'miter';
+    const cp = eo(lin(t, T.lying, T.lying + 0.15));
+    const pts = [[-330, -60], [-180, -20], [-120, 60], [20, 10], [90, 110], [200, 60], [330, 140]];
+    X.beginPath(); X.moveTo(...pts[0]); for (let i = 1; i < pts.length * cp; i++) X.lineTo(...pts[i]); X.stroke();
+    X.beginPath(); X.moveTo(-120, 60); X.lineTo(-150, 200 * cp); X.moveTo(90, 110); X.lineTo(130, 110 + 150 * cp); X.stroke();
+  }
+  X.restore();
+  confetti(t, 0.2, W / 2, 900, 46);
+  label('YOUR LANGUAGE APP', W / 2, 560, 52, P.ink2, 800, 'center', eo(lin(t, 0.15, 0.4)) * (crack ? 0.5 : 1));
+  slam(t, T.lying, 'LYING.', W / 2, 420, 250, P.acc, { rot: -0.25, tilt: -0.04 });
+}
+function sceneStreak(t) {
+  const k = t - T.l2;
+  flame(W / 2, 760, back(lin(k, 0, 0.3)) * 1.5, t);
+  const n = Math.round(300 * eo(lin(t, T.three - 0.15, T.three + 0.55)));
+  slam(t, T.l2 + 0.05, String(n), W / 2, 1150, 300, P.ink, { from: 1.3, shadow: true });
+  slam(t, T.three + 0.1, 'DAY STREAK', W / 2, 1360, 96, P.acc);
+}
+function sceneCoffee(t) {
+  const k = t - T.l3;
+  cup(W / 2 - 150, 1180, back(lin(k, 0, 0.3)) * 1.05);
+  const mx = mix(W + 300, 790, eo(lin(k, 0.12, 0.45)));
+  mascot(t, mx, 1180, 1.05, { mood: 'worried', sweat: true, lookX: -1, seed: 1 });
+  if (k > 0.4) bubble('Un… café… por…?', 600, 830, 54, cl((k - .4) * 6), back(lin(k, .4, .6)), 'right');
+  slam(t, T.coffee - 0.35, "CAN'T ORDER\nA COFFEE.", W / 2, 470, 128, P.ink, { rot: 0.15 });
+}
+function gridLayout(n) { const cols = n <= 1 ? 1 : n <= 4 ? 2 : n <= 9 ? 3 : 4; return cols; }
+function sceneSame(t, phase) {
+  // phase 'build' (line 4) or 'stamps' (line 5)
+  const k = t - T.l4;
+  let n = 1; if (t > T.l4 + 0.75) n = 4; if (t > T.l4 + 1.3) n = 9; if (t > T.same) n = 20;
+  const cols = gridLayout(n), rows = Math.ceil(n / cols);
+  const cw = n === 1 ? 420 : n === 4 ? 330 : n === 9 ? 250 : 190;
+  const gx = cw * 1.18, gy = cw * 1.25 * 1.12;
+  const tick = Math.floor(t * 3) % 2 === 0;
+  const steps = [T.l4, T.l4 + 0.75, T.l4 + 1.3, T.same];
+  const lastStep = steps.filter((s) => t >= s).pop();
+  for (let i = 0; i < n; i++) {
+    const c = i % cols, r = Math.floor(i / cols);
+    const x = W / 2 + (c - (cols - 1) / 2) * gx, y = 1060 + (r - (rows - 1) / 2) * gy;
+    const pop = back(lin(t, lastStep + i * 0.012, lastStep + 0.2 + i * 0.012));
+    lessonCard(x, y, cw, pop, 1, P.paper, phase === 'stamps' && tick);
+  }
+  if (phase === 'build') {
+    slam(t, T.l4 + 0.05, 'EVERYONE', W / 2, 330, 120, P.ink2, { from: 1.4, fadeAt: T.same - 0.05 });
+    slam(t, T.same, 'SAME\nLESSON.', W / 2, 360, 170, P.acc, { rot: -0.12 });
+  } else {
+    X.fillStyle = 'rgba(244,238,226,0.55)'; X.fillRect(0, 0, W, H);
+    stamp(t, T.l5 + 0.02, 'SAME WORDS.', W / 2, 640, 110, P.acc, -0.08);
+    stamp(t, T.s5b, 'SAME ORDER.', W / 2, 1010, 110, P.acc2, 0.06);
+    stamp(t, T.s5c, 'SAME EVERYTHING.', W / 2, 1380, 92, P.ink, -0.05);
+  }
+}
+function sceneOpposite(t) {
+  const k = t - T.l6;
+  // cards explode outwards
+  if (k < 0.7) {
+    for (let i = 0; i < 20; i++) {
+      const c = i % 4, r = Math.floor(i / 4);
+      const x0 = W / 2 + (c - 1.5) * 224, y0 = 1060 + (r - 2) * 266;
+      const dx = x0 - W / 2, dy = y0 - 1000, d = Math.hypot(dx, dy) + 1;
+      const e = eo(k / 0.7) * 1400;
+      X.save(); X.translate(x0 + dx / d * e, y0 + dy / d * e); X.rotate(e * 0.002 * (hash(i) - .5)); lessonCard(0, 0, 190, 1, 1 - k / 0.7); X.restore();
+    }
+  }
+  const fl = 1 - lin(k, 0, 0.18); if (fl > 0) { X.fillStyle = `rgba(255,255,255,${fl})`; X.fillRect(0, 0, W, H); }
+  const s = back(lin(k, 0.05, 0.4));
+  X.save(); X.translate(W / 2, 760); X.scale(s, s); X.rotate((1 - eo(lin(k, 0, .5))) * -0.4);
+  X.beginPath(); X.arc(0, 0, 190, 0, 7); X.clip(); X.drawImage(IMG.logo, -190, -190, 380, 380); X.restore();
+  slam(t, T.l6 + 0.12, 'Borderless', W / 2, 1110, 150, P.ink, { from: 1.3, w: 900 });
+  slam(t, T.l6 + 0.75, 'does the opposite.', W / 2, 1270, 74, P.acc, { from: 1.2, w: 800, shadow: false });
+}
+function sceneWhy(t) {
+  const k = t - T.l7;
+  mascot(t, W / 2, 1120, 1.25, { mood: 'o', wide: true, lookY: -1, seed: 2, squash: Math.max(0, 1 - k * 5) });
+  if (k > 0.05) bubble('Why are you learning?', W / 2 + 40, 660, 56, cl(k * 8), back(lin(k, .05, .25)), 'left');
+  const chips = [['Internship', 230, 920], ['Moving abroad', 860, 880], ['Exam', 180, 1430], ['Partner', 900, 1380], ['Travel', 260, 1660], ['Just because', 820, 1640]];
+  chips.forEach(([txt, x, y], i) => { const t0 = T.l7 + 0.25 + i * 0.13; if (t > t0) pill(txt, x, y, 44, i === 0 ? P.white : P.ink, i === 0 ? P.acc : P.paper, 1, back(lin(t, t0, t0 + 0.2))); });
+}
+function sceneLevel(t) {
+  const k = t - T.l8;
+  const lv = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  const x0 = 140, x1 = W - 140, y = 1080;
+  X.save(); X.globalAlpha = eo(k * 5);
+  X.fillStyle = P.bg2; rr(x0 - 20, y - 22, x1 - x0 + 40, 44, 22); X.fill();
+  const fill = eo(lin(k, 0.1, 0.7)) * 0.4 + 0.0;
+  X.fillStyle = P.acc; rr(x0 - 20, y - 22, (x1 - x0 + 40) * Math.min(fill / 1, 1), 44, 22); X.fill();
+  lv.forEach((l, i) => label(l, x0 + i * (x1 - x0) / 5, y + 90, 46, i === 2 ? P.acc : P.ink3, 800));
+  X.restore();
+  // needle sweeps past and settles on B1 with a bounce
+  const target = x0 + 2 * (x1 - x0) / 5;
+  const sweep = k < 0.45 ? mix(x0, x1 - 60, eio(k / 0.45)) : mix(x1 - 60, target, elastic(lin(k, 0.45, 1.0)));
+  X.save(); X.translate(sweep, y - 120);
+  X.fillStyle = P.ink; X.beginPath(); X.moveTo(-30, -40); X.lineTo(30, -40); X.lineTo(0, 30); X.closePath(); X.fill(); X.restore();
+  slam(t, T.l8 + 0.05, 'YOUR LEVEL', W / 2, 640, 140, P.ink, { from: 1.4 });
+  if (k > 0.75) pill('B1 · tested, not guessed', W / 2, 1400, 46, P.white, P.ink, eo((k - .75) * 5), back(lin(k, .75, .95)));
+}
+function sceneCities(t) {
+  const k = t - T.l9;
+  const toTokyo = t > T.tokyo;
+  // Madrid phone, scrolling the real lesson map; whip to Tokyo on the word
+  const scrollM = 200 + k * 520, scrollT = 200 + (t - T.tokyo) * 520;
+  if (!toTokyo || t < T.tokyo + 0.2) {
+    const out = toTokyo ? eio(lin(t, T.tokyo, T.tokyo + 0.2)) : 0;
+    const inn = eo(lin(k, 0, 0.3));
+    phone(IMG.mpath, W / 2 + mix(700, 0, inn) - out * 1200, 1180, 600, { scrollY: scrollM, rot: -0.03 + out * -0.15 });
+  }
+  if (toTokyo) {
+    const inn = eo(lin(t, T.tokyo, T.tokyo + 0.25));
+    phone(IMG.tpath, W / 2 + mix(1200, 0, inn), 1180, 600, { scrollY: scrollT, rot: 0.03 - (1 - inn) * 0.15 });
+  }
+  if (!toTokyo) { pill('Kitchen job', W / 2, 250, 50, P.white, P.acc, 1, back(lin(k, .05, .25))); slam(t, T.l9 + 0.45, 'MADRID', W / 2, 400, 130, P.ink, { from: 1.5 }); }
+  else { pill('First office job', W / 2, 250, 50, P.white, P.pass, 1, back(lin(t, T.tokyo + .05, T.tokyo + .25))); slam(t, T.tokyo + 0.45, 'TOKYO', W / 2, 400, 130, P.ink, { from: 1.5 }); }
+  // last beat of the line: both side by side, tilted
+  if (t > T.l10 - 0.55) {
+    const p = eo(lin(t, T.l10 - 0.55, T.l10 - 0.3));
+    X.fillStyle = P.bg; X.globalAlpha = p; X.fillRect(0, 0, W, H); X.globalAlpha = 1; bg(t); X.globalAlpha = 1;
+    phone(IMG.mover, W / 2 - 230, 1080, 430, { rot: -0.08, scale: mix(0.7, 1, p) });
+    phone(IMG.tover, W / 2 + 230, 1080, 430, { rot: 0.08, scale: mix(0.7, 1, p) });
+    slam(t, T.l10 - 0.5, 'SAME APP.\nDIFFERENT COURSE.', W / 2, 330, 88, P.acc, { from: 1.4 });
+  }
+}
+function sceneFifty(t) {
+  const k = t - T.l10;
+  if (t < T.around) {
+    const n = Math.max(1, Math.round(50 * eo(lin(t, T.l10 + 0.05, T.fifty + 0.1))));
+    slam(t, T.l10, String(n), W / 2, 900, 520, P.acc, { from: 1.2 });
+    slam(t, T.fifty, 'LESSONS', W / 2, 1260, 150, P.ink, { from: 1.6 });
+  } else {
+    const p = eo(lin(t, T.around, T.around + 0.3));
+    phone(IMG.mpath, W / 2, mix(2200, 1120, p), 640, { scrollY: 4300 - (t - T.around) * 2000, rot: mix(0.2, -0.02, p) });
+    slam(t, T.around, 'AROUND\nYOUR LIFE.', W / 2, 300, 120, P.ink, { from: 1.4 });
+  }
+}
+function sceneYours(t) {
+  // three quick beats: words / world / passport
+  if (t < T.world) {
+    const p = eo(lin(t, T.l11, T.l11 + 0.25));
+    phone(IMG.mwords, W / 2, mix(2100, 1130, p), 640, { scrollY: 300 + (t - T.l11) * 120, rot: 0.02 });
+    slam(t, T.l11, 'YOUR WORDS.', W / 2, 330, 140, P.acc);
+  } else if (t < T.passport) {
+    const p = eo(lin(t, T.world, T.world + 0.2));
+    phone(IMG.tpath, W / 2 + mix(1100, 0, p), 1130, 640, { scrollY: 900 + (t - T.world) * 500, rot: -0.02 });
+    slam(t, T.world, 'YOUR WORLD.', W / 2, 330, 140, P.ink);
+  } else {
+    const p = back(lin(t, T.passport, T.passport + 0.3));
+    phone(IMG.mpass, W / 2 - 230, 1130, 460, { zoom: 1.7, focus: [585, 1910], rot: -0.07, scale: p });
+    phone(IMG.tpass, W / 2 + 230, 1130, 460, { zoom: 1.7, focus: [585, 1910], rot: 0.07, scale: back(lin(t, T.passport + 0.12, T.passport + 0.42)) });
+    slam(t, T.passport, 'YOUR PASSPORT.', W / 2, 330, 118, P.pass);
+    if (t > T.passport + 0.45) mascot(t, 900, 1690, 0.62, { mood: 'happy', armsUp: true, seed: 3, squash: Math.max(0, 1 - (t - T.passport - .45) * 6) });
+  }
+}
+function sceneEveryone(t) {
+  const k = t - T.l12;
+  for (let i = 0; i < 24; i++) {
+    const c = i % 4, r = Math.floor(i / 4);
+    const x = W / 2 + (c - 1.5) * 210, y = 1120 + (r - 2.5) * 250;
+    lessonCard(x, y, 170, back(lin(k, i * 0.012, 0.2 + i * 0.012)), 0.85, '#e7e1d5', Math.floor(t * 3) % 2 === 0);
+  }
+  X.fillStyle = 'rgba(244,238,226,0.35)'; X.fillRect(0, 0, W, H);
+  slam(t, T.l12 + 0.02, 'EVERYONE ELSE', W / 2, 330, 110, P.ink3, { from: 1.3 });
+  slam(t, T.l12 + 0.6, 'GETS A LESSON.', W / 2, 460, 110, P.ink3, { from: 1.3 });
+}
+function sceneCourse(t) {
+  const k = t - T.l13;
+  // one card turns terracotta and fills the screen
+  const grow = eio(lin(t, T.course, T.end));
+  if (t < T.end) {
+    for (let i = 0; i < 24; i++) {
+      const c = i % 4, r = Math.floor(i / 4);
+      if (i === 13) continue;
+      lessonCard(W / 2 + (c - 1.5) * 210, 1120 + (r - 2.5) * 250, 170, 1, 0.85 * (1 - grow), '#e7e1d5');
+    }
+    const x = mix(W / 2 + 0.5 * 210, W / 2, grow), y = mix(1120 + 0.5 * 250, H / 2, grow);
+    const glow = eo(lin(k, 0, 0.25));
+    X.save(); X.shadowColor = P.amber; X.shadowBlur = 80 * glow;
+    const w = mix(170, 1400, grow);
+    X.translate(x, y); X.fillStyle = P.acc; rr(-w / 2, -w * 0.625, w, w * 1.25, mix(17, 0, grow)); X.fill(); X.restore();
+    slam(t, T.l13 + 0.1, 'YOU GET', W / 2, 330, 120, P.ink, { from: 1.3, fadeAt: T.end - 0.1 });
+    slam(t, T.course, 'A COURSE.', W / 2, 470, 170, P.acc2, { from: 1.6, fadeAt: T.end - 0.1 });
+  } else {
+    // end card on terracotta
+    X.fillStyle = P.acc; X.fillRect(0, 0, W, H);
+    X.strokeStyle = 'rgba(255,255,255,0.08)'; X.lineWidth = 2;
+    for (let x = 0; x < W; x += 60) { X.beginPath(); X.moveTo(x, 0); X.lineTo(x, H); X.stroke(); }
+    for (let y = 0; y < H; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); }
+    const e = t - T.end;
+    const s = back(lin(e, 0, 0.35));
+    X.save(); X.translate(W / 2, 640); X.scale(s, s); X.beginPath(); X.arc(0, 0, 150, 0, 7); X.clip(); X.drawImage(IMG.logo, -150, -150, 300, 300); X.restore();
+    slam(t, T.end + 0.1, 'Borderless', W / 2, 900, 150, P.white, { from: 1.25, shadow: false });
+    label('A course built around you.', W / 2, 1030, 56, 'rgba(255,255,255,0.9)', 600, 'center', eo(lin(e, 0.35, 0.6)));
+    label('€9,99 per course  ·  borderlesslearn.com', W / 2, 1150, 38, 'rgba(255,255,255,0.75)', 600, 'center', eo(lin(e, 0.6, 0.85)));
+    mascot(t, W / 2, 1520, 0.95, { mood: 'happy', wink: e > 1.0 && e < 1.6, wave: e > 0.4, seed: 4, squash: Math.max(0, 1 - (e - .3) * 5) * (e > .3 ? 1 : 0) });
+  }
+}
+// camera shake on the big hits
+const HITS = [T.lying, T.same, T.l5 + 0.02, T.s5b, T.s5c, T.l6, T.passport, T.course];
+function shake(t) {
+  let a = 0; for (const h of HITS) { const d = t - h; if (d >= 0 && d < 0.25) a = Math.max(a, (1 - d / 0.25) * 22); }
+  return [Math.sin(t * 91) * a, Math.cos(t * 77) * a];
+}
+// scene switch punch: a short zoom at every scene start
+const STARTS = [0, T.l2, T.l3, T.l4, T.l6, T.l7, T.l8, T.l9, T.l10, T.l11, T.l12, T.l13];
+function punch(t) { let s = 1; for (const st of STARTS) { const d = t - st; if (d >= 0 && d < 0.18) s = 1 + (1 - d / 0.18) * 0.06; } return s; }
+function frame(t) {
+  bg(t);
+  X.save();
+  const [sx, sy] = shake(t), pz = punch(t);
+  X.translate(W / 2 + sx, H / 2 + sy); X.scale(pz, pz); X.translate(-W / 2, -H / 2);
+  if (t < T.l2) sceneHook(t);
+  else if (t < T.l3) sceneStreak(t);
+  else if (t < T.l4) sceneCoffee(t);
+  else if (t < T.l5) sceneSame(t, 'build');
+  else if (t < T.l6) sceneSame(t, 'stamps');
+  else if (t < T.l7) sceneOpposite(t);
+  else if (t < T.l8) sceneWhy(t);
+  else if (t < T.l9) sceneLevel(t);
+  else if (t < T.l10) sceneCities(t);
+  else if (t < T.l11) sceneFifty(t);
+  else if (t < T.l12) sceneYours(t);
+  else if (t < T.l13) sceneEveryone(t);
+  else sceneCourse(t);
+  X.restore();
+}
+// motion blur: average a few sub-frames inside the shutter
+const ACC = document.createElement('canvas'); ACC.width = W; ACC.height = H; const AX = ACC.getContext('2d');
+window.renderAt = function (t, fps = 30, sub = 3) {
+  AX.clearRect(0, 0, W, H);
+  for (let i = 0; i < sub; i++) {
+    frame(t - (i / sub) * (0.5 / fps));
+    AX.globalAlpha = 1 / (i + 1); AX.drawImage(C, 0, 0);
+  }
+  X.globalAlpha = 1; X.drawImage(ACC, 0, 0);
+};
+window.DURATION = T.out;
+</script></body></html>
