@@ -1,8 +1,11 @@
-// SF · "The comeback" — 2D short film. Bar → sad walk → montage inside the app → comeback.
+// SF · "The comeback" v2 — bar → tear → sucked into the phone → action → boss Ñ → KO → LOCK IN → comeback.
 window.ready = (async () => {
   await loadFonts();
   await loadImages({ path: 'app/madrid_path_full_s.jpg', les0: 'app/madrid_lesson_0.png', les2: 'app/madrid_lesson_2.png', over: 'app/madrid_overview.png', pass: 'app/madrid_passport.png', words: 'app/madrid_words.png' });
-  const T = { bar: 0, gem1: 0.4, flame1: 1.5, fail: 3.3, laugh: 7.4, card1: 9.5, street: 11.3, buzz: 14.5, phone: 15.2, mont: 16.0, again: 19.5, ghost1: 21.0, punch1: 21.7, ghost2: 22.5, punch2: 23.2, night: 23.4, tomorrow: 24.0, stamps: 26.0, top: 27.0, back: 28.4, door: 28.5, flame3: 29.6, win: 30.8, crack1: 33.0, crack2: 33.6, crack3: 34.2, run: 34.9, alone: 36.0, vale: 36.6, end: 38.4 };
+  const T = { bar: 0, gem1: 0.4, flame1: 1.5, fail: 3.3, laugh: 7.4, card1: 9.5, street: 11.3, stop: 14.0, close: 14.6, tear: 15.0, echo1: 15.5, echo2: 16.4, buzz: 17.8, pov: 18.4, wipe: 19.0, det: 19.6, portal: 20.2, suck: 20.75, land: 21.6,
+    run: 22.6, corner: 23.8, quiz: 24.8, again: 25.35, words: 26.6, leap: 28.2, night: 29.2, stamps: 30.0, boss: 31.0, ring: 32.0, jab1: 32.5, jab2: 32.9, cocky: 33.25, windup: 33.95, oblivious: 34.25, hook: 34.55, floor: 35.25,
+    counts: [35.9, 36.7, 37.5, 38.3, 39.1, 39.9, 40.7], ghostA: 36.2, ghostB: 37.0, ghostC: 37.8, eyes: 39.4, rise: 40.1, vamos: 40.8, lockin: 41.3, combo: 41.65, upper: 42.75, kotxt: 43.1, raise: 43.4,
+    sprint: 44.2, tomorrow: 44.4, cards: 45.6, chips2: 46.5, top: 47.3, final: 48.0, back: 48.7, door: 48.7, flame3: 50.0, win: 51.2, perfect: 56.0, noway: 59.3, what: 61.3, algo: 63.1, flee: 64.1, alone: 65.4, vale: 66.0, end: 68.2 };
   window.T = T; const DUR = T.end; window.DURATION = DUR;
   const INK = '#1f1a14', CREAM = '#f6efe2', OR = '#ee8b47';
 
@@ -115,30 +118,152 @@ window.ready = (async () => {
     X.restore(); }
   function bubble(t, t0, t1, text, sx, sy, tail = -0.3, size = 50) { HOST.say(t, t0, t1, text, sx, sy, { size, maxw: 820, tail }); }
 
-  // camera shots: [t, cx, cy, zoom]
+  // cheap blur of everything drawn so far: shrink the canvas to 1/8 and scale it back up (canvas filter blur is far too slow here)
+  const LOW = document.createElement('canvas'); LOW.width = Math.ceil(W / 8); LOW.height = Math.ceil(H / 8); const LX = LOW.getContext('2d');
+  function blurSoFar() { LX.imageSmoothingQuality = 'high'; LX.clearRect(0, 0, LOW.width, LOW.height); LX.drawImage(C, 0, 0, W, H, 0, 0, LOW.width, LOW.height);
+    X.save(); X.setTransform(1, 0, 0, 1, 0, 0); X.imageSmoothingQuality = 'high'; X.drawImage(LOW, 0, 0, W, H); X.restore(); }
+  // ---------- hero extras: brows, tear, KO eyes, boxing gloves ----------
+  function heroX(t, x, y, s, st = {}, fx = {}) { hero(t, x, y, s, { ...st, extra2: (tt) => heroFx(tt, fx) }); }
+  function heroFx(t, fx) {
+    if (fx.ko) [-42, 44].forEach((ex) => { X.fillStyle = '#6e1f2a'; X.beginPath(); X.ellipse(ex, -62, 31, 35, 0, 0, 7); X.fill(); X.strokeStyle = '#fff'; X.lineWidth = 5; X.beginPath();
+      for (let a = 0; a < 12; a += 0.25) { const r = a * 2.3, aa = a + t * 7; X.lineTo(ex + Math.cos(aa) * r, -62 + Math.sin(aa) * r); } X.stroke(); });
+    if (fx.brows) { X.strokeStyle = INK; X.lineWidth = 11; X.lineCap = 'round'; X.beginPath();
+      if (fx.brows === 'angry') { X.moveTo(-74, -112); X.lineTo(-18, -92); X.moveTo(20, -92); X.lineTo(76, -112); }
+      else { X.moveTo(-72, -96); X.lineTo(-22, -112); X.moveTo(22, -112); X.lineTo(72, -96); } X.stroke(); }
+    if (fx.tear != null && fx.tear > 0) { const k = fx.tear; X.strokeStyle = 'rgba(127,196,232,0.75)'; X.lineWidth = 7; X.lineCap = 'round';
+      X.beginPath(); X.moveTo(-52, -30); X.lineTo(-52, -30 + Math.min(1, k) * 95); X.stroke();
+      const ty = -30 + Math.min(1.5, k) * 95; X.fillStyle = '#8fd0f0'; X.beginPath(); X.moveTo(-52, ty - 22); X.quadraticCurveTo(-34, ty + 2, -52, ty + 12); X.quadraticCurveTo(-70, ty + 2, -52, ty - 22); X.fill();
+      X.fillStyle = 'rgba(255,255,255,0.8)'; X.beginPath(); X.arc(-56, ty - 2, 4, 0, 7); X.fill(); }
+    if (fx.gloves) { const g = fx.gloves;
+      [['l', -112, 0, -150, 40], ['r', 108, 0, 150, 40]].forEach(([k, sx, sy, hx, hy]) => { const p = g[k] || [hx, hy];
+        X.strokeStyle = '#6e1f2a'; X.lineWidth = 20; X.lineCap = 'round'; X.beginPath(); X.moveTo(sx, sy); X.lineTo(p[0], p[1]); X.stroke();
+        X.fillStyle = '#d8322f'; X.beginPath(); X.arc(p[0], p[1], 42, 0, 7); X.fill(); X.fillStyle = '#fff'; rr(p[0] - 34, p[1] + 22, 68, 14, 6); X.fill();
+        X.fillStyle = 'rgba(255,255,255,0.35)'; X.beginPath(); X.arc(p[0] - 14, p[1] - 16, 11, 0, 7); X.fill(); }); }
+  }
+  const pk = (t, tp, up = 0.07, down = 0.22) => t < tp - up || t > tp + down ? 0 : t < tp ? eo((t - tp + up) / up) : 1 - ei((t - tp) / down);
+  // stretchy cartoon punch in screen space: arm from (x0,y0) to (x1,y1)
+  function sPunch(x0, y0, x1, y1, k, col = '#d8322f') { if (k <= 0) return; const x = mix(x0, x1, k), y = mix(y0, y1, k);
+    X.strokeStyle = '#6e1f2a'; X.lineWidth = 22; X.lineCap = 'round'; X.beginPath(); X.moveTo(x0, y0); X.lineTo(x, y); X.stroke();
+    X.fillStyle = col; X.beginPath(); X.arc(x, y, 50, 0, 7); X.fill(); X.fillStyle = '#fff'; rr(x - 40, y + 26, 80, 16, 6); X.fill(); }
+  function comic(t, t0, text, x, y, col = '#ffd23d', size = 120) { if (t < t0 || t > t0 + 0.45) return; const k = back(lin(t, t0, t0 + 0.12), 3) * (1 - lin(t, t0 + 0.33, t0 + 0.45));
+    X.save(); X.translate(x, y); X.rotate(-0.12 + hash(t0) * 0.24); X.scale(k, k);
+    X.fillStyle = '#fff'; X.beginPath(); for (let i = 0; i < 24; i++) { const a = i / 24 * 6.283, r = i % 2 ? size * 1.0 : size * 1.55; X.lineTo(Math.cos(a) * r * 1.4, Math.sin(a) * r * 0.9); } X.closePath(); X.fill(); X.strokeStyle = INK; X.lineWidth = 7; X.stroke();
+    txt(text, 0, 6, font('bungee', 400, size * 0.8), col, { stroke: INK, sw: 9 }); X.restore(); }
+
+  // ---------- the boss: the letter Ñ ----------
+  function enye(t, x, y, s, m = {}) {
+    X.save(); X.translate(x, y); X.rotate(m.tilt || 0); X.scale(s, s);
+    X.fillStyle = 'rgba(0,0,0,0.25)'; X.beginPath(); X.ellipse(0, 250, 180, 30, 0, 0, 7); X.fill();
+    const bob = m.ko ? 0 : Math.abs(Math.sin(t * 6)) * -10; X.translate(0, bob);
+    X.fillStyle = INK; rr(-120, 214, 70, 34, 14); X.fill(); rr(50, 214, 70, 34, 14); X.fill();
+    X.fillStyle = 'rgba(0,0,0,0.25)'; X.save(); X.translate(10, 10);
+    const N = () => { X.beginPath(); X.moveTo(-150, 220); X.lineTo(-150, -200); X.lineTo(-62, -200); X.lineTo(70, 40); X.lineTo(70, -200); X.lineTo(150, -200); X.lineTo(150, 220); X.lineTo(62, 220); X.lineTo(-70, -20); X.lineTo(-70, 220); X.closePath(); };
+    N(); X.fill(); X.restore(); X.fillStyle = '#26365e'; N(); X.fill(); X.fillStyle = '#34497c'; X.fillRect(-150, -200, 30, 420);
+    // face on the upper-left stroke
+    const ang = m.mood === 'angry', hurt = m.mood === 'hurt' || m.ko;
+    [-112, -40].forEach((ex) => { if (hurt) { X.strokeStyle = '#fff'; X.lineWidth = 7; X.beginPath(); X.moveTo(ex - 14, -88); X.lineTo(ex + 14, -64); X.moveTo(ex + 14, -88); X.lineTo(ex - 14, -64); X.stroke(); return; }
+      X.fillStyle = '#fff'; X.beginPath(); X.ellipse(ex, -76, 22, 24, 0, 0, 7); X.fill(); X.fillStyle = INK; X.beginPath(); X.arc(ex - 6 + (m.lookX || 0) * 5, -72, 10, 0, 7); X.fill(); });
+    X.strokeStyle = INK; X.lineWidth = 9; X.lineCap = 'round'; X.beginPath(); X.moveTo(-138, ang ? -118 : -110); X.lineTo(-88, ang ? -100 : -108); X.moveTo(-66, ang ? -100 : -108); X.lineTo(-16, ang ? -118 : -110); X.stroke();
+    X.strokeStyle = '#fff'; X.lineWidth = 7; X.beginPath(); if (hurt) { X.ellipse(-76, -26, 14, 18, 0, 0, 7); } else if (ang) { X.moveTo(-104, -20); X.lineTo(-48, -30); } else { X.moveTo(-104, -30); X.quadraticCurveTo(-76, -12, -46, -34); } X.stroke();
+    // the tilde: a mohawk
+    if (!m.noTilde) { X.save(); X.translate(0, -240); X.strokeStyle = '#e23b3b'; X.lineWidth = 44; X.lineCap = 'round'; X.beginPath(); for (let i = 0; i <= 20; i++) { const u = i / 20; X.lineTo(-130 + u * 260, Math.sin(u * 6.283 + Math.PI) * 34 + Math.sin(t * 8) * 4); } X.stroke(); X.restore(); }
+    // gloves
+    const g = m.gloves || {}; [['l', -150, -60, -200, 10], ['r', 150, -60, 200, 10]].forEach(([k, sx, sy, hx, hy]) => { const p = g[k] || [hx, hy];
+      X.strokeStyle = '#26365e'; X.lineWidth = 22; X.lineCap = 'round'; X.beginPath(); X.moveTo(sx, sy); X.lineTo(p[0], p[1]); X.stroke();
+      X.fillStyle = '#2f7fd0'; X.beginPath(); X.arc(p[0], p[1], 48, 0, 7); X.fill(); X.fillStyle = '#fff'; rr(p[0] - 38, p[1] + 26, 76, 15, 6); X.fill(); });
+    X.restore();
+  }
+  function tilde(x, y, s, rot) { X.save(); X.translate(x, y); X.rotate(rot); X.scale(s, s); X.strokeStyle = '#e23b3b'; X.lineWidth = 44; X.lineCap = 'round'; X.beginPath(); for (let i = 0; i <= 20; i++) { const u = i / 20; X.lineTo(-130 + u * 260, Math.sin(u * 6.283 + Math.PI) * 34); } X.stroke(); X.restore(); }
+  function referee(t, x, y, s, m = {}) { // striped shirt, whistle, counting hand
+    X.save(); X.translate(x, y); X.scale(s, s); X.rotate(m.tilt || 0);
+    X.fillStyle = INK; rr(-70, 150, 50, 24, 10); X.fill(); rr(20, 150, 50, 24, 10); X.fill();
+    X.save(); rr(-110, -170, 220, 330, 40); X.clip(); X.fillStyle = '#fff'; X.fillRect(-110, -170, 220, 330); X.fillStyle = '#1b1b1b'; for (let i = -4; i < 6; i++) X.fillRect(-110 + i * 44, -170, 22, 330); X.restore();
+    X.fillStyle = '#f2d6b8'; X.beginPath(); X.arc(0, -230, 80, 0, 7); X.fill(); X.fillStyle = '#222'; X.beginPath(); X.arc(0, -262, 72, Math.PI, 0); X.fill();
+    X.fillStyle = INK; X.beginPath(); X.arc(-26, -228, 8, 0, 7); X.arc(26, -228, 8, 0, 7); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.beginPath(); X.moveTo(-20, -190); X.lineTo(20, -190); X.stroke();
+    X.strokeStyle = '#fff'; X.lineWidth = 20; X.lineCap = 'round'; const up = m.raise ? 1 : 0;
+    X.beginPath(); X.moveTo(-100, -120); X.lineTo(m.raiseL ? -170 : -150, m.raiseL ? -330 : -20); X.stroke();
+    X.beginPath(); X.moveTo(100, -120); X.lineTo(160, m.count ? -260 : -20); X.stroke();
+    if (m.count) { X.fillStyle = '#f2d6b8'; X.beginPath(); X.arc(160, -280, 32, 0, 7); X.fill(); for (let i = 0; i < Math.min(5, m.count); i++) { X.fillRect(136 + i * 12, -340, 9, 46); } }
+    X.restore();
+  }
+  function ringSet(t, blur = 0) {
+    const g = X.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#120c1e'); g.addColorStop(1, '#2b1c38'); X.fillStyle = g; X.fillRect(-500, -500, W + 1000, H + 1000);
+    // crowd
+    for (let r = 0; r < 4; r++) for (let i = 0; i < 16; i++) { const x = -140 + i * 90 + (r % 2) * 45, y = 760 + r * 70 + Math.abs(Math.sin(t * 9 + i * 1.7 + r)) * -14; X.fillStyle = ['#3a2a52', '#46305e', '#2f2346'][(i + r) % 3]; X.beginPath(); X.arc(x, y, 34, 0, 7); X.fill(); rr(x - 40, y + 26, 80, 80, 20); X.fill(); }
+    for (let i = 0; i < 6; i++) { const f = hash(Math.floor(t * 10) * 13 + i); if (f > 0.7) { X.fillStyle = 'rgba(255,255,255,0.9)'; X.beginPath(); X.arc(hash(i * 5 + Math.floor(t * 10)) * W, 760 + hash(i * 9 + Math.floor(t * 10)) * 260, 10, 0, 7); X.fill(); } }
+    // spotlights
+    [[200, 0.6], [880, -0.6]].forEach(([x, a]) => { const c = X.createLinearGradient(x, 0, 540, 1300); c.addColorStop(0, 'rgba(255,240,200,0.35)'); c.addColorStop(1, 'rgba(255,240,200,0)'); X.fillStyle = c; X.beginPath(); X.moveTo(x - 30, -100); X.lineTo(x + 30, -100); X.lineTo(820, 1500); X.lineTo(260, 1500); X.closePath(); X.fill(); });
+    // posts + ropes (back)
+    X.fillStyle = '#1a1a1a'; X.fillRect(40, 930, 30, 360); X.fillRect(1010, 930, 30, 360);
+    ['#c4622d', '#f6efe2', '#c4622d'].forEach((c, i) => { X.strokeStyle = c; X.lineWidth = 12; X.beginPath(); X.moveTo(55, 960 + i * 90); X.lineTo(1025, 960 + i * 90); X.stroke(); });
+    // canvas
+    X.fillStyle = '#efe6d4'; X.beginPath(); X.moveTo(-60, 1260); X.lineTo(1140, 1260); X.lineTo(1400, 1720); X.lineTo(-320, 1720); X.closePath(); X.fill();
+    X.fillStyle = 'rgba(196,98,45,0.18)'; X.beginPath(); X.ellipse(540, 1450, 300, 70, 0, 0, 7); X.fill();
+    X.fillStyle = '#c4622d'; X.fillRect(-400, 1720, W + 800, 300); txt('BOSS FIGHT · LESSON 31 · LA Ñ', W / 2, 1800, font('anton', 400, 54), '#f6efe2');
+  }
+  function pathBg(sy) { const img = IMG.path; const k = W / img.width; X.drawImage(img, 0, cl(sy, 1560, 4600), img.width, H / k, 0, 0, W, H); }
+  function speedLines(t, a = 0.5, n = 26, v = 2600) { X.strokeStyle = `rgba(255,255,255,${a})`; X.lineWidth = 4; for (let i = 0; i < n; i++) { const x = hash(i) * W, y = ((hash(i * 3) * H + t * v) % H); X.beginPath(); X.moveTo(x, y); X.lineTo(x, y + 140); X.stroke(); } }
+  function rays(t, col, cx = W / 2, cy = 900) { X.fillStyle = col; X.fillRect(0, 0, W, H); X.strokeStyle = 'rgba(255,255,255,0.22)'; X.lineWidth = 18; for (let i = 0; i < 24; i++) { const a = i / 24 * 6.28 + t * 0.6; X.beginPath(); X.moveTo(cx, cy); X.lineTo(cx + Math.cos(a) * 1800, cy + Math.sin(a) * 1800); X.stroke(); } }
+  function whiteFlash(t, t0, t1) { if (t < t0 || t > t1) return; const m = (t0 + t1) / 2; const k = t < m ? lin(t, t0, m) : 1 - lin(t, m, t1); X.fillStyle = `rgba(255,255,255,${k})`; X.fillRect(0, 0, W, H); }
+  function desat(a) { if (a <= 0) return; X.save(); X.globalCompositeOperation = 'saturation'; X.fillStyle = `rgba(128,128,128,${a})`; X.fillRect(0, 0, W, H); X.restore(); }
+  function vignette(a) { const v = X.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 1200); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, `rgba(0,0,0,${a})`); X.fillStyle = v; X.fillRect(0, 0, W, H); }
+  function portalScreen(t, cx, cy, w, mixApp) { const h = w * 2.05;
+    X.save(); X.translate(cx, cy); X.fillStyle = '#111'; rr(-w / 2 - w * 0.05, -h / 2 - w * 0.05, w * 1.1, h + w * 0.1, w * 0.16); X.fill();
+    rr(-w / 2, -h / 2, w, h, w * 0.12); X.clip();
+    X.fillStyle = '#ee8b47'; X.fillRect(-w, -h, w * 2, h * 2);
+    for (let i = 0; i < 14; i++) { const a = i / 14 * 6.283 + t * 5; X.fillStyle = i % 2 ? '#f6efe2' : '#c4622d'; X.beginPath(); X.moveTo(0, 0); X.arc(0, 0, h, a, a + 6.283 / 28); X.closePath(); X.fill(); }
+    const gl = X.createRadialGradient(0, 0, 0, 0, 0, w * 0.6); gl.addColorStop(0, 'rgba(255,255,255,1)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); X.fillStyle = gl; X.fillRect(-w, -h, w * 2, h * 2);
+    if (mixApp > 0) { X.globalAlpha = mixApp; X.drawImage(IMG.over, 0, 0, IMG.over.width, IMG.over.width * h / w, -w / 2, -h / 2, w, h); }
+    X.restore(); }
+  function lessonPhone(img, cx, cy, w, rot = 0, fy = 1150) { X.save(); X.translate(cx, cy); X.rotate(rot); phone(img, 0, 0, w, { focus: [585, fy], zoom: 1.1 }); X.restore(); }
+  function tick(x, y, s, col = '#3aa35b') { X.save(); X.translate(x, y); X.scale(s, s); X.fillStyle = col; X.beginPath(); X.arc(0, 0, 60, 0, 7); X.fill(); X.strokeStyle = '#fff'; X.lineWidth = 16; X.lineCap = 'round'; X.beginPath(); X.moveTo(-26, 2); X.lineTo(-6, 22); X.lineTo(28, -20); X.stroke(); X.restore(); }
+
+  // ---------- camera shots: [t, cx, cy, zoom] (bar + street + comeback) ----------
   const SHOTS = [[0, 540, 1000, 1.0], [0.4, 440, 1060, 1.9], [1.5, 240, 1080, 2.1], [3.3, 870, 1110, 2.2], [5.2, 450, 1110, 1.6], [6.2, 880, 1090, 3.0], [7.4, 540, 1020, 1.15], [7.9, 240, 1090, 2.4], [8.4, 440, 1060, 2.4], [8.9, 650, 1080, 2.4], [9.5, 650, 1080, 1.9], [10.4, 880, 1120, 2.5],
-    [T.street, 540, 960, 1.0], [12.8, 560, 1160, 2.2], [14.0, 540, 960, 1.0], [T.phone, 400, 1290, 2.3],
-    [T.door, 540, 1000, 1.0], [T.flame3, 240, 1090, 2.2], [T.win, 880, 1080, 2.2], [32.0, 540, 1050, 1.3], [T.crack1, 650, 1080, 2.6], [T.crack2, 240, 1090, 2.6], [T.crack3, 440, 1060, 2.6], [T.run, 540, 1000, 1.0], [T.alone, 870, 1100, 1.8], [T.vale, 880, 1080, 2.8]];
+    [T.street, 540, 960, 1.0], [12.7, 700, 1180, 1.7], [T.stop, 560, 1150, 1.25], [T.close, 560, 1225, 3.1], [T.buzz, 470, 1280, 2.0],
+    [T.door, 540, 1000, 1.0], [T.flame3, 240, 1090, 2.2], [T.win, 880, 1080, 2.2], [T.win + 1.3, 540, 1050, 1.3], [T.perfect, 650, 1080, 2.4], [T.noway, 440, 1060, 2.4], [T.what, 240, 1090, 2.6],
+    [T.algo, 880, 1090, 2.7], [T.flee, 540, 1000, 1.0], [T.alone, 760, 1100, 1.5], [T.vale, 880, 1080, 2.8]];
   let CAM = [540, 960, 1];
   function shot(t) { let s = SHOTS[0]; for (const x of SHOTS) if (t >= x[0]) s = x; const d = t - s[0]; const z = s[3] * (1 + d * 0.025); CAM = [s[1], s[2], z];
     X.translate(W / 2, H / 2); X.scale(z, z); X.translate(-s[1], -s[2]); }
   const scr = (wx, wy) => [W / 2 + (wx - CAM[0]) * CAM[2], H / 2 + (wy - CAM[1]) * CAM[2]];
+  function cam(cx, cy, z) { X.translate(W / 2, H / 2); X.scale(z, z); X.translate(-cx, -cy); }
+  function keyCam(t, keys) { let k = keys[0]; for (const x of keys) if (t >= x[0]) k = x; const z = k[3] * (1 + (t - k[0]) * 0.03); cam(k[1], k[2], z); }
+
+  // ---------- lesson + day counters ----------
+  const LK = [[T.land, 1], [T.run, 2], [T.corner, 4], [T.quiz, 5], [T.words, 6], [T.leap, 10], [T.night, 24], [T.stamps, 27], [T.boss, 31], [T.sprint, 32], [T.top, 50]];
+  const interp = (t, K) => { if (t <= K[0][0]) return K[0][1]; for (let i = 1; i < K.length; i++) if (t < K[i][0]) return mix(K[i - 1][1], K[i][1], lin(t, K[i - 1][0], K[i][0])); return K[K.length - 1][1]; };
+  const DK = [[T.land, 1], [T.words, 3], [T.leap, 5], [T.night, 9], [T.boss, 11], [T.sprint, 12], [T.top, 16]];
 
   // ---------- sound cues ----------
   const cues = [];
-  SHOTS.forEach(([t0]) => t0 > 0.1 && cues.push(['whoosh', t0, 0.25]));
-  cues.push(['tick', T.fail + 1.2, 0.5], ['tick', T.fail + 2.4, 0.5], ['gasp', T.laugh - 0.2, 0.4], ['boing', T.laugh, 0.5], ['scratch', T.mont - 0.15, 0.9], ['boom', T.mont, 1.0], ['vibrate', T.buzz, 0.6], ['vibrate', T.buzz + 0.45, 0.6],
-    ['impact', T.again, 0.8], ['impact', T.punch1, 1], ['glitch', T.punch1, 0.6], ['impact', T.punch2, 1], ['glitch', T.punch2, 0.6], ['boom', T.tomorrow, 0.9],
-    ['stamp', T.stamps, 1], ['stamp', T.stamps + 0.3, 1], ['stamp', T.stamps + 0.6, 1], ['fanfare', T.top, 0.5], ['whoosh', T.back, 0.8], ['boom', T.door, 1.0],
-    ['shutter', T.crack1, 0.8], ['glitch', T.crack1, 0.6], ['hum', T.crack2, 0.5], ['glitch', T.crack3, 0.6], ['whoosh', T.run, 0.8], ['ratchet', T.run + 0.1, 0.7], ['ratchet', T.run + 0.4, 0.7], ['ding', T.vale + 0.1, 0.5]);
-  for (let k = 0; k < 22; k++) cues.push(['tick', 16.6 + k * 0.5, 0.25]);
+  SHOTS.forEach(([t0]) => t0 > 0.1 && t0 < T.land && cues.push(['whoosh', t0, 0.22]));
+  SHOTS.forEach(([t0]) => t0 >= T.door && cues.push(['whoosh', t0, 0.18]));
+  cues.push(['tick', T.fail + 1.2, 0.5], ['tick', T.fail + 2.4, 0.5], ['gasp', T.laugh - 0.2, 0.4], ['boing', T.laugh, 0.5],
+    ['vibrate', T.buzz, 0.6], ['vibrate', T.buzz + 0.45, 0.6], ['swell', T.wipe, 0.4], ['riser', T.portal - 0.4, 0.5],
+    ['boom', T.land, 1.0], ['whoosh', T.run, 0.5], ['boing', T.run + 0.62, 0.5], ['whoosh', T.corner, 0.8], ['whoosh', T.corner + 0.55, 0.6],
+    ['hit', T.quiz + 0.3, 0.9], ['fail', T.quiz + 0.35, 0.7], ['impact', T.again, 0.8], ['hit', T.quiz + 1.1, 0.9], ['correct', T.quiz + 1.15, 0.8], ['coin', T.quiz + 1.35, 0.6],
+    ['flaplong', T.leap, 0.4], ['type', T.night, 0.5], ['stamp', T.stamps, 1], ['stamp', T.stamps + 0.3, 1], ['stamp', T.stamps + 0.6, 1],
+    ['gong', T.boss, 0.8], ['impact', T.boss + 0.3, 0.8], ['bell', T.ring, 1], ['bell', T.ring + 0.18, 1],
+    ['hit', T.jab1, 1], ['hit', T.jab2, 1], ['whoosh', T.windup, 0.5], ['whoosh', T.hook - 0.12, 0.9],
+    ['heart', T.floor + 0.6, 0.6], ['heart', T.floor + 1.5, 0.6], ['heart', T.floor + 2.4, 0.6], ['heart', T.floor + 3.3, 0.6], ['heart', T.eyes - 0.4, 0.8], ['heart', T.eyes + 0.3, 0.9], ['heart', T.eyes + 0.9, 1],
+    ['impact', T.vamos, 0.9], ['boom', T.lockin, 1.0], ['scratch', T.lockin - 0.12, 0.5],
+    ['hit', T.combo, 1], ['hit', T.combo + 0.25, 1], ['hit', T.combo + 0.5, 1], ['hit', T.combo + 0.75, 1], ['impact', T.upper, 1], ['boom', T.upper, 0.8], ['bell', T.kotxt, 1], ['bell', T.kotxt + 0.18, 1], ['bell', T.kotxt + 0.36, 1], ['fanfare', T.raise, 0.6],
+    ['whoosh', T.sprint, 0.7], ['boom', T.tomorrow, 0.9], ['page', T.cards, 0.6], ['page', T.cards + 0.27, 0.6], ['page', T.cards + 0.54, 0.6], ['correct', T.cards + 0.15, 0.5], ['correct', T.cards + 0.42, 0.5], ['correct', T.cards + 0.69, 0.5],
+    ['hit', T.chips2 + 0.15, 0.9], ['hit', T.chips2 + 0.4, 0.9], ['hit', T.chips2 + 0.65, 0.9], ['fanfare', T.top, 0.6], ['stamp', T.final + 0.15, 1],
+    ['whoosh', T.back, 0.8], ['boom', T.door, 1.0],
+    ['shutter', T.perfect + 0.9, 0.8], ['glitch', T.perfect + 0.9, 0.6], ['glitch', T.noway + 0.3, 0.6], ['hum', T.what + 0.9, 0.5], ['gasp', T.flee - 0.25, 0.6],
+    ['whoosh', T.flee, 0.8], ['ratchet', T.flee + 0.1, 0.7], ['ratchet', T.flee + 0.4, 0.7], ['ding', T.vale + 0.1, 0.5]);
+  [0, 1, 2, 3].forEach((i) => cues.push(['hit', T.words + 0.2 + i * 0.3, 0.9], ['pop', T.words + 0.22 + i * 0.3, 0.6]));
+  for (let x = T.leap; x < T.night; x += 0.25) cues.push(['tick', x, 0.35]);
+  for (let x = T.sprint; x < T.cards; x += 0.2) cues.push(['tick', x, 0.3]);
   window.CUES = { dur: DUR, cues, sfx_gain: 0.4 };
 
-  const hits = [T.laugh, T.mont, T.punch1, T.punch2, T.tomorrow, T.stamps, T.door, T.run];
+  const hits = [T.laugh, T.land, T.quiz + 0.3, T.quiz + 1.1, T.jab1, T.jab2, T.hook, T.floor, T.vamos, T.lockin, T.combo, T.combo + 0.25, T.combo + 0.5, T.combo + 0.75, T.upper, T.kotxt, T.tomorrow, T.door, T.flee];
   window.SCENE = {
     frame(t) {
       X.fillStyle = '#000'; X.fillRect(0, 0, W, H);
-      X.save(); camera(t, hits, [], 22);
+      X.save(); camera(t, hits, [], 24);
       if (t < T.street) {
         // ======== BAR: the roast ========
         X.save(); shot(t); bar(t);
@@ -147,7 +272,7 @@ window.ready = (async () => {
         flame(t, 230, 1150, 0.78, { ...bm('f'), shades: true, mood: laughing ? 'laugh' : 'smug', noLids: true, point: t > T.card1 });
         gem(t, 440, 1130, 0.75, bm('g'));
         card(t, 650, 1140, 0.72, { ...bm('c'), mood: laughing && t < T.card1 ? 'laugh' : t >= T.card1 ? 'smug' : bm('c').mood, lid: '#fffdf6' });
-        hero(t, 880, 1150, 0.8, { mood: t < T.fail ? 'happy' : laughing ? 'worried' : 'worried', sweat: t > T.fail + 0.6, wide: t > T.laugh, lookX: t > T.laugh ? -1 : -0.5, lookY: t > T.card1 ? 1 : 0, squash: t > T.laugh && t < T.laugh + 0.3 ? 1 : 0, seed: 1 });
+        hero(t, 880, 1150, 0.8, { mood: t < T.fail ? 'happy' : 'worried', sweat: t > T.fail + 0.6, wide: t > T.laugh, lookX: t > T.laugh ? -1 : -0.5, lookY: t > T.card1 ? 1 : 0, squash: t > T.laugh && t < T.laugh + 0.3 ? 1 : 0, seed: 1 });
         table(t); X.restore();
         let p; p = scr(440, 900); bubble(t, T.gem1, T.flame1, '¿Qué pasa, tío?', p[0], p[1] - 40);
         p = scr(230, 880); bubble(t, T.flame1, T.fail, '¡Esto es fiesta!', p[0] + 120, p[1] - 40);
@@ -155,86 +280,249 @@ window.ready = (async () => {
         if (laughing && t < T.card1) { ['JAJAJA', 'HAHAHA', 'JAJAJA'].forEach((w, i) => { const k = back(lin(t, T.laugh + i * 0.15, T.laugh + i * 0.15 + 0.2), 2.5); X.save(); X.translate([290, 790, 420][i], [330, 470, 610][i] + Math.sin(t * 20 + i) * 14); X.rotate([-0.12, 0.1, -0.05][i]); X.scale(k, k); txt(w, 0, 0, font('anton', 400, 130), '#fff', { stroke: '#e0601c', sw: 14 }); X.restore(); }); }
         p = scr(650, 900); bubble(t, T.card1, T.street, 'Who even ARE you?', p[0], p[1] - 40);
         sub(t, T.gem1, T.flame1, "What's up, mate?"); sub(t, T.flame1, T.fail, 'This is a party!');
-      } else if (t < T.mont) {
-        // ======== STREET: the sad walk ========
+      } else if (t < T.pov) {
+        // ======== STREET: the sad walk, the tear ========
         X.save(); shot(t); street(t);
-        const walkK = lin(t, T.street, T.buzz); const x = mix(940, 470, walkK);
+        const x = mix(940, 560, eo(lin(t, T.street, T.stop)));
         X.fillStyle = 'rgba(0,0,0,0.3)'; X.beginPath(); X.ellipse(x, 1500, 120, 22, 0, 0, 7); X.fill();
-        hero(t, x, 1340, 0.85, { mood: 'worried', lookY: 1, lookX: -0.5, tilt: -0.06, walk: t < T.buzz ? t * 7 : undefined, calm: true, acc: t > T.buzz ? ['phone'] : [], phoneGlow: t > T.buzz ? '#ffd27a' : undefined, sweat: false, seed: 2 });
-        // puddle reflection
-        X.save(); X.globalAlpha = 0.18; X.translate(0, 3030); X.scale(1, -1); hero(t, x, 1340, 0.85, { mood: 'worried', lookY: 1, walk: t < T.buzz ? t * 7 : undefined }); X.restore();
-        X.restore(); rain(t, 0.45);
-        ghost(t, 12.6, 14.0, 'jajaja…', 300, 620); ghost(t, 13.2, 14.2, 'who even are you?', 640, 820);
-        if (t > T.buzz) { const k = eo(lin(t, T.buzz, T.buzz + 0.3)); X.fillStyle = `rgba(255,210,120,${0.25 * k * (0.6 + 0.4 * Math.sin(t * 20))})`; X.fillRect(0, 0, W, H); }
-        if (t > T.phone + 0.15) { const k = eio(lin(t, T.phone + 0.15, T.mont - 0.05)); const hx = mix(940, 470, 1) - 150 * 0.85 * Math.cos(0.2), hy = 1340 + 30 * 0.85; shot(t); const hp = scr(hx, hy); X.setTransform(1, 0, 0, 1, 0, 0); X.save(); X.fillStyle = `rgba(0,0,0,${k})`; X.fillRect(0, 0, W, H); phoneFrame(IMG.over, mix(hp[0], W / 2, k), mix(hp[1], H / 2, k), mix(68 * 0.85 * CAM[2], 900, k), 380, 1); X.restore(); }
+        const tear = lin(t, T.tear, T.tear + 1.8) * 1.4;
+        const st = { mood: 'worried', lookY: t > T.close ? 0.3 : 1, lookX: t > T.close ? 0 : -0.5, tilt: -0.05, walk: t < T.stop ? t * 6 : undefined, calm: true, acc: t > T.buzz ? ['phone'] : [], phoneGlow: '#ffd27a', seed: 2 };
+        heroX(t, x, 1340, 0.85, st, { brows: 'sad', tear: t > T.tear ? tear : 0 });
+        X.save(); X.globalAlpha = 0.16; X.translate(0, 3030); X.scale(1, -1); hero(t, x, 1340, 0.85, { mood: 'worried', lookY: 1, walk: t < T.stop ? t * 6 : undefined }); X.restore();
+        X.restore(); rain(t, t > T.close && t < T.buzz ? 0.3 : 0.45);
+        ghost(t, T.echo1, T.echo1 + 1.5, 'jajaja…', 300, 560); ghost(t, T.echo2, T.echo2 + 1.4, 'who even are you?', 600, 760);
+        if (t > T.buzz) { const k = eo(lin(t, T.buzz, T.buzz + 0.3)); X.fillStyle = `rgba(255,210,120,${0.22 * k * (0.6 + 0.4 * Math.sin(t * 20))})`; X.fillRect(0, 0, W, H); }
+        vignette(0.55);
+      } else if (t < T.portal) {
+        // ======== POV: his phone's front camera ========
+        X.fillStyle = '#0b0f1a'; X.fillRect(0, 0, W, H);
+        X.save(); X.beginPath(); X.roundRect(60, 120, W - 120, H - 240, 60); X.clip();
+        street(t); blurSoFar(); rain(t, 0.25);
+        const d = t - T.pov; const det = t > T.det;
+        const wipeK = lin(t, T.wipe, T.wipe + 0.45);
+        X.save(); X.translate(W / 2, 1180); X.rotate(Math.sin(t * 2) * 0.02); X.translate(-W / 2, -1180);
+        heroX(t, W / 2, 1220, 2.5, { mood: det ? 'neutral' : 'worried', calm: true, lookY: det ? 0 : 0.2, squash: det && t < T.det + 0.2 ? 1 : 0, seed: 9 },
+          { brows: det ? 'angry' : 'sad', tear: wipeK < 0.5 ? 1.2 : 0 });
+        X.restore();
+        if (wipeK > 0 && wipeK < 1) { const a = mix(-0.6, 0.9, wipeK); X.strokeStyle = '#6e1f2a'; X.lineWidth = 60; X.lineCap = 'round'; X.beginPath(); X.moveTo(W / 2 - 360, 1500); X.lineTo(W / 2 - 160 + a * 260, 1040); X.stroke(); }
+        X.restore();
+        // phone UI
+        X.strokeStyle = '#111'; X.lineWidth = 40; X.beginPath(); X.roundRect(60, 120, W - 120, H - 240, 60); X.stroke();
+        X.fillStyle = '#111'; rr(W / 2 - 110, 140, 220, 50, 25); X.fill();
+        X.fillStyle = 'rgba(255,255,255,0.9)'; X.beginPath(); X.arc(W / 2, 1640, 70, 0, 7); X.fill(); X.strokeStyle = '#fff'; X.lineWidth = 8; X.beginPath(); X.arc(W / 2, 1640, 86, 0, 7); X.stroke();
+        if (t > T.pov + 0.25) { const k = back(lin(t, T.pov + 0.25, T.pov + 0.55), 2); X.save(); X.translate(W / 2, mix(120, 300, k)); X.globalAlpha = cl(k);
+          X.fillStyle = 'rgba(246,239,226,0.96)'; rr(-420, -70, 840, 140, 34); X.fill(); X.fillStyle = '#6e1f2a'; rr(-390, -44, 88, 88, 20); X.fill();
+          X.strokeStyle = '#e3b871'; X.lineWidth = 4; X.beginPath(); X.arc(-346, 0, 22, 0, 7); X.stroke();
+          X.textAlign = 'left'; X.font = font('inter', 800, 34); X.fillStyle = INK; X.fillText('Borderless', -280, -12); X.font = font('inter', 500, 32); X.fillStyle = '#5a5048'; X.fillText('Lesson 1 is ready. Ordering at the bar.', -280, 30); X.textAlign = 'center'; X.restore(); }
+        X.fillStyle = 'rgba(0,0,0,0.5)'; rr(110, 1490, 150, 50, 25); X.fill(); X.fillStyle = '#e23b3b'; X.beginPath(); X.arc(140, 1515, 10, 0, 7); X.fill(); txt('0:' + String(Math.floor(d * 1 + 3)).padStart(2, '0'), 205, 1516, font('mono', 700, 28), '#fff');
+      } else if (t < T.land) {
+        // ======== SUCKED INTO THE PHONE ========
+        X.save(); cam(540, 1100, mix(1.0, 1.15, lin(t, T.portal, T.land))); street(t); X.restore(); rain(t, 0.4);
+        const grow = eo(lin(t, T.portal, T.portal + 0.45)); const zoom = ei(lin(t, T.suck + 0.45, T.land - 0.05));
+        const pw = mix(70, 520, grow) * mix(1, 5.5, zoom), px = mix(430, 540, grow), py = mix(1300, 820, grow);
+        // pull lines toward the screen
+        if (t > T.portal + 0.3) { X.strokeStyle = 'rgba(255,230,190,0.55)'; X.lineWidth = 5; for (let i = 0; i < 40; i++) { const a = hash(i) * 6.283, r0 = 1300 - ((t * 1800 + hash(i * 3) * 1300) % 1300); X.beginPath(); X.moveTo(px + Math.cos(a) * r0, py + Math.sin(a) * r0); X.lineTo(px + Math.cos(a) * (r0 + 160), py + Math.sin(a) * (r0 + 160)); X.stroke(); } }
+        const glow = X.createRadialGradient(px, py, 50, px, py, 900); glow.addColorStop(0, `rgba(238,139,71,${0.5 * grow})`); glow.addColorStop(1, 'rgba(238,139,71,0)'); X.fillStyle = glow; X.fillRect(0, 0, W, H);
+        portalScreen(t, px, py, pw, 1 - lin(t, T.portal + 0.2, T.portal + 0.6));
+        // the hero: crouch, jump, spin and shrink into the screen
+        const j = lin(t, T.suck, T.suck + 0.5); const crouch = t > T.suck - 0.3 && t < T.suck ? 1 : 0;
+        if (j < 1) { const hx = mix(540, px, ei(j)), hy = mix(1380, py, ei(j)) - Math.sin(j * Math.PI) * 220; const hs = mix(0.95, 0.04, ei(j));
+          X.save(); X.translate(hx, hy); X.rotate(ei(j) * 9); X.scale(1, 1 + j * 0.6); X.translate(-hx, -hy);
+          heroX(t, hx, hy, hs, { mood: j > 0 ? 'o' : 'neutral', squash: crouch, wide: j > 0, acc: [], seed: 2 }, { brows: 'angry' }); X.restore(); }
+        whiteFlash(t, T.land - 0.25, T.land + 0.05);
       } else if (t < T.back) {
-        // ======== MONTAGE: inside the app ========
-        const lessons = Math.min(50, Math.max(1, Math.round(1 + 49 * lin(t, T.mont + 0.5, T.top))));
-        const seg = [[T.mont, 'path'], [17.0, 'band'], [18.0, 'card0'], [19.0, 'path'], [20.2, 'words'], [21.0, 'ghost'], [22.4, 'card2'], [23.4, 'night'], [24.0, 'path'], [T.stamps, 'stamps'], [T.top, 'top']];
-        let cur = seg[0]; seg.forEach((s) => { if (t >= s[0]) cur = s; });
-        const kind = cur[1], d = t - cur[0];
-        const pathBg = (speed) => { const img = IMG.path; const k = W / img.width; const sy = Math.max(1560, mix(4550, 1900, lin(t, T.mont, T.top)) - d * speed); X.drawImage(img, 0, sy, img.width, H / k, 0, 0, W, H); };
-        if (kind === 'path' || kind === 'top' || kind === 'ghost' || kind === 'words') {
-          pathBg(kind === 'path' && t > 24 ? 140 : 60);
-          if (kind === 'path' && t > 24) { X.strokeStyle = 'rgba(255,255,255,0.5)'; X.lineWidth = 4; for (let i = 0; i < 26; i++) { const x = hash(i) * W, y = ((hash(i * 3) * H + t * 2600) % H); X.beginPath(); X.moveTo(x, y); X.lineTo(x, y + 120); X.stroke(); } }
-          const run = kind === 'top' ? 0 : 1;
-          hero(t, 540, 1260, 0.95, { mood: kind === 'top' ? 'happy' : 'neutral', acc: ['headband'], sweat: t > 20, walk: run ? t * (t > 24 ? 22 : 13) : undefined, armsUp: kind === 'top', wave: kind === 'top', lookY: -0.4, seed: 3 });
-          if (kind === 'words') { [['una caña', 260, 0], ['la cuenta', 800, 0.1], ['¿me lo repites?', 300, 0.25], ['invito yo', 780, 0.35], ['unas bravas', 540, 0.45]].forEach(([w, x, o], i) => { const k = eo(lin(d, o, o + 0.35)); const yy = mix(-100, 600 + (i % 3) * 120, k);
-            X.save(); X.translate(x, yy); X.rotate((i - 2) * 0.06); X.font = font('archivo', 400, 46); const ww = X.measureText(w).width + 50; X.fillStyle = OR; rr(-ww / 2, -40, ww, 80, 40); X.fill(); txt(w, 0, 2, font('archivo', 400, 46), '#fff'); X.restore(); }); }
-          if (kind === 'ghost') { ghost(t, T.ghost1, T.punch1, 'Who even ARE you?', 540, 760, T.punch1); ghost(t, T.ghost2, T.punch2, 'JAJAJA', 540, 760, T.punch2);
-            const pk = (tp) => t > tp - 0.15 && t < tp + 0.25; if (pk(T.punch1) || pk(T.punch2)) { X.fillStyle = '#fff'; txt('POW!', 820, 980, font('bungee', 400, 110), '#ffd23d', { stroke: INK, sw: 10 }); } }
-          if (kind === 'top') { confetti(t, T.top, W / 2, 700, 70, [OR, '#fff', '#ffd23d', '#6e1f2a'], 1.6); const k = back(lin(t, T.top, T.top + 0.3)); X.save(); X.translate(W / 2, 420); X.scale(k, k); txt('50 / 50', 0, 0, font('anton', 400, 200), '#fff', { stroke: INK, sw: 16 }); X.restore(); }
-        } else if (kind === 'band') {
-          X.fillStyle = '#ee8b47'; X.fillRect(0, 0, W, H); X.strokeStyle = 'rgba(255,255,255,0.25)'; X.lineWidth = 16; for (let i = 0; i < 24; i++) { const a = i / 24 * 6.28 + t * 0.4; X.beginPath(); X.moveTo(W / 2, 900); X.lineTo(W / 2 + Math.cos(a) * 1600, 900 + Math.sin(a) * 1600); X.stroke(); }
-          hero(t, W / 2, 1000, 2.2, { mood: 'neutral', acc: d > 0.35 ? ['headband'] : [], lookY: 0, squash: d > 0.35 && d < 0.6 ? 1 : 0, seed: 4 });
-          slam(t, cur[0] + 0.35, 'LOCK IN.', W / 2, 330, font('anton', 400, 170), '#fff', { stroke: INK, sw: 14, rot: -0.06 });
-        } else if (kind === 'card0' || kind === 'card2') {
+        // ======== INSIDE THE APP: action ========
+        const lesson = Math.round(interp(t, LK)), day = Math.round(interp(t, DK));
+        let hud = true;
+        if (t < T.run) { // landing
+          const d = t - T.land; pathBg(4300 - d * 40);
+          const fall = eo(lin(t, T.land, T.land + 0.22)); const y = mix(-300, 1240, fall);
+          if (d > 0.2) { const k = lin(d, 0.2, 0.7); X.strokeStyle = `rgba(255,255,255,${1 - k})`; X.lineWidth = 14; X.beginPath(); X.ellipse(540, 1400, 100 + k * 380, 26 + k * 90, 0, 0, 7); X.stroke(); }
+          heroX(t, 540, y, 1.1, { mood: d > 0.5 ? 'happy' : 'o', acc: ['headband'], squash: d > 0.2 && d < 0.45 ? 1.4 : 0, armsUp: d > 0.55, seed: 3 }, { brows: d < 0.5 ? 'angry' : undefined });
+          if (d > 0.45) slam(t, T.land + 0.45, 'LESSON 1', W / 2, 360, font('anton', 400, 150), '#fff', { stroke: INK, sw: 14, rot: -0.05 });
+        } else if (t < T.corner) { // side-scrolling run
+          const d = t - T.run, off = d * 1500;
+          const sky = X.createLinearGradient(0, 0, 0, 1300); sky.addColorStop(0, '#f6d9a8'); sky.addColorStop(1, '#f3ead8'); X.fillStyle = sky; X.fillRect(0, 0, W, H);
+          for (let i = 0; i < 8; i++) { const x = ((i * 300 - off * 0.35) % 2400 + 2400) % 2400 - 300, h = 300 + hash(i) * 260; X.fillStyle = '#e7cfa8'; X.fillRect(x, 1250 - h, 240, h); X.fillStyle = '#d9b98c'; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) X.fillRect(x + 30 + c * 70, 1250 - h + 40 + r * 80, 36, 44); }
+          X.fillStyle = '#d9c3a0'; X.fillRect(0, 1250, W, 700); X.fillStyle = '#6b6f7a'; X.fillRect(0, 1380, W, 110);
+          X.fillStyle = '#fff'; for (let i = 0; i < 8; i++) { const x = ((i * 260 - off) % 2080 + 2080) % 2080 - 200; X.fillRect(x, 1430, 120, 12); }
+          for (let i = 0; i < 3; i++) { const x = 900 + i * 900 - off; X.fillStyle = '#6e1f2a'; X.fillRect(x, 1080, 14, 300); X.fillStyle = '#f6efe2'; rr(x - 90, 1030, 200, 80, 14); X.fill(); txt('LESSON ' + (2 + i), x + 10, 1072, font('anton', 400, 40), '#6e1f2a'); }
+          const bx = 1250 - off; X.fillStyle = '#ee8b47'; rr(bx - 80, 1240, 160, 140, 18); X.fill(); txt('¿EL?', bx, 1290, font('anton', 400, 46), '#fff'); txt('¿LA?', bx, 1345, font('anton', 400, 46), '#fff');
+          const jk = lin(t, T.run + 0.5, T.run + 1.0); const jy = Math.sin(jk * Math.PI) * 300;
+          X.save(); X.translate(360, 1240 - jy); X.rotate(0.14 + jk * 6.283); X.translate(-360, -(1240 - jy));
+          heroX(t, 360, 1240 - jy, 0.8, { mood: 'happy', acc: ['headband'], walk: jk > 0 && jk < 1 ? undefined : t * 26, lookX: 1, sweat: true, seed: 3 }); X.restore();
+          X.strokeStyle = 'rgba(255,255,255,0.7)'; X.lineWidth = 6; for (let i = 0; i < 12; i++) { const y = 900 + hash(i) * 500, x = ((hash(i * 7) * 1400 - off * 2.2) % 1400 + 1400) % 1400 - 200; X.beginPath(); X.moveTo(x, y); X.lineTo(x + 220, y); X.stroke(); }
+        } else if (t < T.quiz) { // corner whip + dive into a lesson card
+          const d = t - T.corner;
+          X.save(); X.translate(W / 2, H / 2); X.rotate(-eio(lin(t, T.corner + 0.05, T.corner + 0.4)) * Math.PI / 2); X.scale(1.5, 1.5); X.translate(-W / 2, -H / 2); pathBg(3600 - d * 600); X.restore();
+          if (d > 0.05 && d < 0.45) { X.fillStyle = 'rgba(255,255,255,0.35)'; for (let i = 0; i < 18; i++) X.fillRect(0, hash(i) * H, W, 6 + hash(i * 3) * 10); }
+          const a = lin(t, T.corner, T.corner + 0.55); const hs = 0.75 + Math.sin(a * Math.PI) * 0.45;
+          heroX(t, mix(200, 760, a), 1250 - Math.sin(a * Math.PI) * 400, hs, { mood: 'happy', acc: ['headband'], tilt: mix(-0.3, 0.5, a), seed: 3 });
+          const dk = ei(lin(t, T.corner + 0.5, T.quiz)); if (dk > 0) { X.fillStyle = `rgba(246,239,226,${dk})`; X.fillRect(0, 0, W, H); lessonPhone(IMG.les0, W / 2, 960, mix(120, 1400, dk), (1 - dk) * 0.6); }
+        } else if (t < T.words) { // quiz: wrong, AGAIN, right
           X.fillStyle = CREAM; X.fillRect(0, 0, W, H);
-          phone(kind === 'card0' ? IMG.les0 : IMG.les2, 640, 960, 560, { focus: [585, 1150], zoom: 1.1, rot: 0.04 });
-          hero(t, 210, 1450, 0.8, { mood: 'o', acc: ['headband'], lookX: 1, lookY: -0.5, sweat: kind === 'card2', squash: d < 0.2 ? 1 : 0, seed: 5 });
-          slam(t, cur[0] + 0.1, kind === 'card0' ? 'LESSON 1' : 'LESSON 23', W / 2, 220, font('anton', 400, 120), INK, { rot: -0.04 });
-          if (kind === 'card0' && t > T.again) slam(t, T.again, 'AGAIN.', W / 2, 1750, font('anton', 400, 170), '#e23b3b', { stroke: '#fff', sw: 14, rot: 0.05 });
-        } else if (kind === 'night') {
+          txt('LESSON 5 · AT THE BAR', W / 2, 250, font('bebas', 400, 54), '#a8512b', { ls: 4 }); txt('Order a beer.', W / 2, 360, font('serif', 400, 96), INK);
+          const opts = [['Yo cerveza.', 640], ['Una caña, por favor.', 840], ['Cerveza… ¿sí?', 1040]]; const wrongT = T.quiz + 0.3, rightT = T.quiz + 1.1;
+          opts.forEach(([s, y], i) => { const wrong = i === 0 && t > wrongT, right = i === 1 && t > rightT; const sh = wrong && t < wrongT + 0.35 ? Math.sin(t * 90) * 14 : 0;
+            X.fillStyle = wrong ? '#f4c4c0' : right ? '#c8ecd2' : '#fff'; rr(150 + sh, y - 70, 780, 140, 30); X.fill(); X.strokeStyle = wrong ? '#d8322f' : right ? '#3aa35b' : '#d9cdb8'; X.lineWidth = 6; X.stroke();
+            txt(s, 540 + sh, y + 4, font('archivo', 400, 50), INK);
+            if (wrong) { X.save(); X.translate(860, y); X.strokeStyle = '#d8322f'; X.lineWidth = 16; X.lineCap = 'round'; X.beginPath(); X.moveTo(-26, -26); X.lineTo(26, 26); X.moveTo(26, -26); X.lineTo(-26, 26); X.stroke(); X.restore(); }
+            if (right) tick(860, y, back(lin(t, rightT, rightT + 0.2), 3) * 0.8); });
+          const hx = 250, hy = 1480, hs = 0.95;
+          heroX(t, hx, hy, hs, { mood: t > rightT ? 'happy' : t > wrongT + 0.1 ? 'worried' : 'neutral', acc: ['headband'], sweat: t > wrongT, lookX: 1, lookY: -1, seed: 5 }, { brows: t > T.again && t < rightT ? 'angry' : undefined, gloves: {} });
+          sPunch(hx + 150 * hs, hy + 40 * hs, 540, 640, pk(t, wrongT)); sPunch(hx + 150 * hs, hy + 40 * hs, 640, 840, pk(t, rightT));
+          comic(t, wrongT, '¡PUM!', 760, 520, '#d8322f', 80); comic(t, rightT, '¡SÍ!', 820, 720, '#3aa35b', 80);
+          if (t > T.again && t < rightT + 0.1) slam(t, T.again, 'AGAIN.', 680, 1360, font('anton', 400, 190), '#e23b3b', { stroke: '#fff', sw: 14, rot: 0.05 });
+          if (t > rightT) confetti(t, rightT, 640, 840, 30, ['#3aa35b', '#ffd23d', '#fff', OR], 0.9);
+        } else if (t < T.leap) { // word fight
+          rays(t, '#ee8b47', W / 2, 1150);
+          const hx = 540, hy = 1260, hs = 1.15; const W4 = [['la cuenta', -1, '¡PUM!'], ['invito yo', 1, '¡ZAS!'], ['¿me lo repites?', -1, '¡TOMA!'], ['unas bravas', 1, '¡OLÉ!']];
+          let gl = {};
+          W4.forEach(([w, side, c], i) => { const tp = T.words + 0.2 + i * 0.3; const ty = 640 + (i % 2) * 140;
+            if (t < tp) { const k = lin(t, tp - 0.45, tp); if (k > 0) { const x = mix(side < 0 ? -300 : W + 300, side < 0 ? 300 : 780, k); X.save(); X.translate(x, ty); X.rotate(t * 3 * side); X.font = font('archivo', 400, 54); const ww = X.measureText(w).width + 60; X.fillStyle = '#fff'; rr(-ww / 2, -46, ww, 92, 46); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke(); txt(w, 0, 3, font('archivo', 400, 54), INK); X.restore(); } }
+            else if (t < tp + 0.5) { const b = (t - tp) / 0.5; for (let q = 0; q < w.length; q++) { const a = q / w.length * 6.283 + i; X.save(); X.translate((side < 0 ? 300 : 780) + Math.cos(a) * b * 500, ty + Math.sin(a) * b * 400 + b * b * 300); X.rotate(b * 8 * (q % 2 ? 1 : -1)); X.globalAlpha = 1 - b; txt(w[q], 0, 0, font('archivo', 400, 60), '#fff', { stroke: INK, sw: 6 }); X.restore(); } }
+            const k = pk(t, tp); if (k > 0) { if (side < 0) gl.l = [-150 - k * 140, -60 - k * 300]; else gl.r = [150 + k * 140, -60 - k * 300]; }
+            comic(t, tp, c, side < 0 ? 330 : 750, ty - 160, '#ffd23d', 70); });
+          heroX(t, hx, hy, hs, { mood: 'happy', acc: ['headband'], sweat: true, squash: 0, seed: 6 }, { brows: 'angry', gloves: gl });
+        } else if (t < T.night) { // leap along the path
+          const d = t - T.leap; pathBg(3900 - d * 1500); speedLines(t, 0.4);
+          const hop = Math.abs(Math.sin(d * Math.PI * 4)); heroX(t, 540, 1250 - hop * 160, 0.85 + hop * 0.1, { mood: 'happy', acc: ['headband'], sweat: true, squash: hop < 0.12 ? 0.8 : 0, seed: 3 });
+          for (let i = 0; i < 4; i++) { const tp = T.leap + 0.12 + i * 0.25; if (t > tp) tick(260 + (i % 2) * 560, 700 + i * 120 + (t - tp) * 1500, back(lin(t, tp, tp + 0.15), 3) * 0.9); }
+        } else if (t < T.stamps) { // 02:14 at night
           X.fillStyle = '#0d1020'; X.fillRect(0, 0, W, H); const lamp = X.createRadialGradient(540, 760, 20, 540, 900, 700); lamp.addColorStop(0, 'rgba(255,214,140,0.5)'); lamp.addColorStop(1, 'rgba(255,214,140,0)'); X.fillStyle = lamp; X.fillRect(0, 0, W, H);
-          hero(t, 540, 1050, 1.6, { mood: 'worried', acc: ['headband', 'phone'], phoneGlow: '#ffe7b0', sweat: true, lookX: -0.8, lookY: 0.5, seed: 6 });
-          txt('DAY 9 · 02:14', W / 2, 300, font('mono', 700, 60), '#ffd27a');
-        } else if (kind === 'stamps') {
-          X.fillStyle = '#e9dcc4'; X.fillRect(0, 0, W, H);
-          phone(IMG.pass, W / 2, 1000, 620, { focus: [585, 1900], zoom: 1.35 });
+          heroX(t, 540, 1050, 1.6, { mood: 'neutral', acc: ['headband', 'phone'], phoneGlow: '#ffe7b0', sweat: true, lookX: -0.8, lookY: 0.5, seed: 6 }, { brows: 'angry' });
+          txt('DAY 9 · 02:14', W / 2, 330, font('mono', 700, 64), '#ffd27a');
+        } else if (t < T.boss) { // stamps
+          X.fillStyle = '#e9dcc4'; X.fillRect(0, 0, W, H); phone(IMG.pass, W / 2, 1000, 620, { focus: [585, 1900], zoom: 1.35 });
           [['50', 'WORDS', 300, 600, '#a8512b'], ['200', 'WORDS', 760, 720, '#2f7fd0'], ['600', 'WORDS', 520, 1450, '#6e1f2a']].forEach(([a, b, x, y, c], i) => { const t0 = T.stamps + i * 0.3; if (t < t0) return; const k = mix(2.2, 1, eo(lin(t, t0, t0 + 0.14)));
             X.save(); X.translate(x, y); X.rotate((i - 1) * 0.2); X.scale(k, k); X.strokeStyle = c; X.lineWidth = 10; X.beginPath(); X.arc(0, 0, 140, 0, 7); X.stroke(); txt(a, 0, -20, font('anton', 400, 90), c); txt(b, 0, 55, font('bebas', 400, 46), c); X.restore(); });
+        } else if (t < T.ring) { // BOSS FIGHT poster
+          hud = false; const d = t - T.boss;
+          X.fillStyle = '#6e1f2a'; X.fillRect(0, 0, W, H); X.fillStyle = '#26365e'; X.beginPath(); X.moveTo(W, 0); X.lineTo(W, H); X.lineTo(0, H); X.lineTo(W, 300); X.fill();
+          X.fillStyle = '#26365e'; X.beginPath(); X.moveTo(W * 0.62, 0); X.lineTo(W, 0); X.lineTo(W, H); X.lineTo(W * 0.38, H); X.fill();
+          const sl = eo(lin(t, T.boss, T.boss + 0.3));
+          heroX(t, mix(-300, 300, sl), 1180, 1.1, { mood: 'neutral', acc: ['headband'], seed: 3 }, { brows: 'angry', gloves: { l: [-120, -80], r: [120, -80] } });
+          enye(t, mix(W + 300, 790, sl), 1150, 0.95, { mood: 'angry', lookX: -1 });
+          slam(t, T.boss + 0.3, 'VS', W / 2, 880, font('bungee', 400, 220), '#ffd23d', { stroke: INK, sw: 16 });
+          slam(t, T.boss + 0.05, 'BOSS FIGHT', W / 2, 260, font('anton', 400, 150), '#fff', { stroke: INK, sw: 12, rot: -0.04 });
+          if (d > 0.45) txt('LESSON 31 · LA Ñ', W / 2, 1650, font('anton', 400, 80), '#fff');
+        } else if (t < T.hook + 0.7) { // the ring: good start, cocky, then THE HOOK
+          hud = t < T.hook;
+          X.save();
+          const RK = [[T.ring, 540, 1100, 1.0], [T.jab1 - 0.1, 600, 1120, 1.45], [T.cocky, 360, 1080, 1.9], [T.windup, 780, 1020, 2.0], [T.oblivious, 380, 1130, 2.3], [T.hook, 480, 1100, 1.25]];
+          keyCam(t, RK); ringSet(t);
+          const fly = lin(t, T.hook, T.hook + 0.7);
+          const nGl = t < T.windup ? { l: [-200, -40], r: [-170 + pk(t, T.cocky + 0.3) * -80, -80] } : t < T.hook - 0.1 ? { l: [-200, -40], r: [mix(200, 340, eo(lin(t, T.windup, T.windup + 0.4))), mix(-40, -120, lin(t, T.windup, T.windup + 0.4))] } : { l: [-200, -40], r: [mix(340, -560, eo(lin(t, T.hook - 0.1, T.hook))), -80] };
+          const rec = pk(t, T.jab1, 0.05, 0.4) + pk(t, T.jab2, 0.05, 0.4);
+          enye(t, 760 + rec * 40, 1160, 0.75, { mood: t > T.windup ? 'angry' : rec > 0.2 ? 'hurt' : 'neutral', tilt: rec * 0.18, gloves: nGl, lookX: -1 });
+          if (fly <= 0) {
+            const cocky = t > T.cocky && t < T.windup + 0.2; const jab = (tp) => pk(t, tp, 0.06, 0.2);
+            const gl = cocky ? { l: [-170, -150], r: [170, -150] } : { l: [-100, -5], r: [100 + (jab(T.jab1) + jab(T.jab2)) * 340, -5 - (jab(T.jab1) + jab(T.jab2)) * 60] };
+            heroX(t, 360, 1250, 0.9, { mood: t > T.jab1 ? 'happy' : 'neutral', acc: ['headband'], lookX: cocky ? -1 : 1, wink: t > T.oblivious, walk: t * 8, calm: true, seed: 3 }, { gloves: gl, brows: t < T.jab1 ? 'angry' : undefined });
+          } else { const hx = mix(360, 90, eo(fly)), hy = 1250 - Math.sin(fly * Math.PI) * 260 + fly * 120;
+            X.save(); X.translate(hx, hy); X.rotate(-eo(fly) * 1.6); X.translate(-hx, -hy);
+            heroX(t, hx, hy, 0.9, { mood: 'o', acc: ['headband'], wide: true, seed: 3 }, { ko: fly > 0.3, gloves: { l: [-210, -60], r: [190, 20] } }); X.restore();
+            for (let i = 0; i < 6; i++) { const k = fly * (0.8 + hash(i) * 0.6); X.fillStyle = '#7fc4e8'; X.beginPath(); X.arc(360 + Math.cos(i * 1.3) * 300 * k, 1100 - Math.sin(i * 1.1 + 0.5) * 260 * k + k * k * 300, 10, 0, 7); X.fill(); } }
+          X.restore();
+          comic(t, T.jab1, '¡PUM!', 740, 800, '#ffd23d', 80); comic(t, T.jab2, '¡PAM!', 820, 900, '#ffd23d', 80);
+          if (t > T.cocky + 0.1 && t < T.windup) bubble(t, T.cocky + 0.1, T.windup, 'Too easy.', 560, 760, -0.35, 60);
+          if (t > T.windup && t < T.hook) { X.fillStyle = `rgba(160,0,0,${0.18 * lin(t, T.windup, T.hook)})`; X.fillRect(0, 0, W, H); }
+          if (t >= T.hook && t < T.hook + 0.1) { X.save(); X.globalCompositeOperation = 'difference'; X.fillStyle = '#fff'; X.fillRect(0, 0, W, H); X.restore(); }
+          if (t >= T.hook + 0.1) desat(lin(t, T.hook + 0.1, T.hook + 0.6) * 0.9);
+          if (t > T.hook && t < T.hook + 0.35) comic(t, T.hook, '¡CRACK!', W / 2, 700, '#e23b3b', 130);
+        } else if (t < T.lockin) { // ======== DOWN. silence, count, echoes, GET UP ========
+          hud = false;
+          const up = eio(lin(t, T.rise, T.rise + 0.6)); const awake = t > T.eyes;
+          X.save(); const zz = mix(2.3, 1.35, up) * (1 + (t - T.floor) * 0.01); cam(mix(470, 540, up), mix(1330, 1120, up), zz);
+          ringSet(t * 0.2); if (t < T.rise + 0.3) blurSoFar();
+          // referee leaning in, counting
+          const n = T.counts.filter((c) => t >= c).length;
+          referee(t, 690, 1170, 0.75, { count: n, tilt: -0.25 });
+          const hx = mix(470, 540, up), hy = mix(1390, 1180, up);
+          X.save(); X.translate(hx, hy); X.rotate(mix(-Math.PI / 2, 0, up)); X.translate(-hx, -hy);
+          heroX(t, hx, hy, 1.0, { mood: awake ? 'neutral' : 'o', acc: ['headband'], calm: true, wide: awake, lookX: awake ? 0.6 : 0, sweat: true, squash: t > T.vamos && t < T.vamos + 0.25 ? 1 : 0, seed: 3 },
+            { ko: !awake, brows: awake ? 'angry' : undefined, gloves: up > 0.5 ? { l: [-80, -60], r: [80, -60] } : { l: [-200, 60], r: [200, 60] } });
+          X.restore(); X.restore();
+          desat(mix(0.9, 0, lin(t, T.eyes + 0.5, T.lockin))); vignette(mix(0.85, 0.4, lin(t, T.eyes, T.lockin)));
+          if (awake) { const pulse = Math.max(0, Math.sin((t - T.eyes) * 8)) * 0.18 * (1 - lin(t, T.rise, T.lockin)); X.fillStyle = `rgba(200,20,20,${pulse})`; X.fillRect(0, 0, W, H); }
+          T.counts.forEach((c, i) => { if (t < c || t > c + 0.75 || i > 6) return; const k = lin(t, c, c + 0.75); X.save(); X.globalAlpha = 0.45 * (1 - k); txt(String(i + 1), W / 2, 420, font('anton', 400, mix(240, 330, k)), '#fff'); X.restore(); });
+          ghost(t, T.ghostA, T.ghostA + 1.4, 'Who even ARE you?', 540, 620); ghost(t, T.ghostB, T.ghostB + 1.3, 'JAJAJA', 360, 860); ghost(t, T.ghostC, T.ghostC + 1.8, 'Day 1204. Never missed one.', 560, 740);
+          if (t > T.vamos) { slam(t, T.vamos, '¡VAMOS!', W / 2, 420, font('anton', 400, 200), '#fff', { stroke: '#e23b3b', sw: 16, rot: -0.06 }); }
+        } else if (t < T.sprint) { // ======== LOCK IN → destroy the Ñ ========
+          if (t < T.combo - 0.05) { hud = false; rays(t, '#e23b3b', W / 2, 1000); heroX(t, W / 2, 1100, 2.0, { mood: 'neutral', acc: ['headband'], squash: t < T.lockin + 0.2 ? 1.2 : 0, seed: 4 }, { brows: 'angry', gloves: { l: [-90, -90], r: [90, -90] } });
+            slam(t, T.lockin, 'LOCK IN.', W / 2, 330, font('anton', 400, 210), '#fff', { stroke: INK, sw: 16, rot: -0.06 });
+          } else {
+            X.save(); keyCam(t, [[T.combo - 0.05, 600, 1080, 1.5], [T.upper, 620, 900, 1.05], [T.raise, 540, 1060, 1.15]]); ringSet(t);
+            const uk = lin(t, T.upper, T.upper + 0.6); const comboRec = [0, 1, 2, 3].reduce((a, i) => a + pk(t, T.combo + i * 0.25, 0.05, 0.25), 0);
+            if (uk < 1) enye(t, 760 + comboRec * 50 + uk * 200, 1160 - eo(uk) * 1500, 0.75, { mood: 'hurt', tilt: comboRec * 0.2 + uk * 3, noTilde: t > T.upper, gloves: { l: [-230, -120], r: [230, -120] } });
+            if (t > T.upper) { const tk = lin(t, T.upper, T.upper + 1.6); tilde(mix(760, 470, tk), mix(880, 1240, eo(tk)) - Math.sin(tk * Math.PI) * 500, 0.7, tk * 12 * (1 - tk * 0.6)); }
+            const ci = Math.floor((t - T.combo) / 0.25); const jab = [0, 1, 2, 3].map((i) => pk(t, T.combo + i * 0.25, 0.06, 0.18));
+            const up = pk(t, T.upper, 0.08, 0.5);
+            const gl = t > T.raise ? { l: [-90, -80], r: [170, -330] } : { l: [-60 + (jab[1] + jab[3]) * 420, -70 - jab[3] * 60], r: [60 + (jab[0] + jab[2]) * 420 + up * 200, -70 - up * 340] };
+            heroX(t, t > T.raise ? 470 : 380, 1250, 0.9, { mood: t > T.kotxt ? 'happy' : 'neutral', acc: ['headband'], walk: t * 10, calm: true, lookX: 1, seed: 3 }, { brows: t < T.kotxt ? 'angry' : undefined, gloves: gl });
+            if (t > T.raise) referee(t, 760, 1100, 0.85, { raiseL: true });
+            X.restore();
+            ['¡PUM!', '¡PAM!', '¡ZAS!', '¡TOMA!'].forEach((c, i) => comic(t, T.combo + i * 0.25, c, [760, 640, 820, 700][i], [820, 720, 900, 780][i], '#ffd23d', 80));
+            comic(t, T.upper, '¡BOOM!', 640, 560, '#e23b3b', 110);
+            if (t > T.kotxt) { slam(t, T.kotxt, 'K.O.', W / 2, 420, font('bungee', 400, 260), '#ffd23d', { stroke: INK, sw: 18 }); confetti(t, T.raise, W / 2, 600, 70, [OR, '#fff', '#ffd23d', '#6e1f2a'], 1.4); }
+          }
+        } else if (t < T.cards) { // euphoric sprint + THERE IS NO TOMORROW
+          const d = t - T.sprint; pathBg(3300 - d * 1300); speedLines(t, 0.55, 34, 3400);
+          heroX(t, 540, 1260, 0.95, { mood: 'happy', acc: ['headband'], sweat: true, walk: t * 28, lookY: -0.4, seed: 3 }, { brows: 'angry' });
+          if (t >= T.tomorrow) { const k = back(lin(t, T.tomorrow, T.tomorrow + 0.25), 2.4); X.save(); X.translate(W / 2, 640); X.rotate(-0.08); X.scale(k, k); txt('THERE IS', 0, -90, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); txt('NO TOMORROW!', 0, 80, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); X.restore(); }
+        } else if (t < T.chips2) { // lesson cards flying past, each one done
+          X.fillStyle = CREAM; X.fillRect(0, 0, W, H); speedLines(t, 0.0);
+          [IMG.les0, IMG.les2, IMG.les0].forEach((im, i) => { const t0 = T.cards + i * 0.27; const k = lin(t, t0, t0 + 0.45); if (k <= 0 || k >= 1) return;
+            lessonPhone(im, mix(1500, -500, ei(k)), 960, 640, mix(0.3, -0.3, k), 1150 - i * 200); if (k > 0.25) tick(mix(1500, -500, ei(k)) + 220, 600, 1.1); });
+          heroX(t, 540, 1550, 0.75, { mood: 'happy', acc: ['headband'], walk: t * 26, seed: 3 });
+        } else if (t < T.top) { // quick word smashes
+          rays(t, '#ee8b47', W / 2, 1150); let gl = {};
+          [['¿cuánto es?', -1], ['la carta', 1], ['vale', -1]].forEach(([w, side], i) => { const tp = T.chips2 + 0.15 + i * 0.25; const ty = 700 + (i % 2) * 140;
+            if (t < tp) { const k = lin(t, tp - 0.3, tp); if (k > 0) { X.save(); X.translate(mix(side < 0 ? -300 : W + 300, side < 0 ? 300 : 780, k), ty); X.font = font('archivo', 400, 54); const ww = X.measureText(w).width + 60; X.fillStyle = '#fff'; rr(-ww / 2, -46, ww, 92, 46); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke(); txt(w, 0, 3, font('archivo', 400, 54), INK); X.restore(); } }
+            const k = pk(t, tp); if (k > 0) { if (side < 0) gl.l = [-150 - k * 140, -60 - k * 300]; else gl.r = [150 + k * 140, -60 - k * 300]; }
+            comic(t, tp, ['¡PUM!', '¡ZAS!', '¡OLÉ!'][i], side < 0 ? 330 : 750, ty - 150, '#ffd23d', 70); });
+          heroX(t, 540, 1260, 1.15, { mood: 'happy', acc: ['headband'], sweat: true, seed: 6 }, { brows: 'angry', gloves: gl });
+        } else if (t < T.final) { // 50/50
+          pathBg(1600); heroX(t, 540, 1260, 1.05, { mood: 'happy', acc: ['headband'], armsUp: true, wave: true, seed: 3 });
+          confetti(t, T.top, W / 2, 700, 80, [OR, '#fff', '#ffd23d', '#6e1f2a'], 1.6); const k = back(lin(t, T.top, T.top + 0.3)); X.save(); X.translate(W / 2, 430); X.scale(k, k); txt('50 / 50', 0, 0, font('anton', 400, 220), '#fff', { stroke: INK, sw: 16 }); X.restore();
+        } else { // passport stamped
+          X.fillStyle = '#e9dcc4'; X.fillRect(0, 0, W, H); phone(IMG.pass, W / 2, 1000, 620, { focus: [585, 1900], zoom: 1.35 });
+          const k = mix(2.4, 1, eo(lin(t, T.final + 0.15, T.final + 0.3))); if (t > T.final + 0.15) { X.save(); X.translate(W / 2, 980); X.rotate(-0.15); X.scale(k, k); X.strokeStyle = '#a8512b'; X.lineWidth = 14; rr(-330, -120, 660, 240, 30); X.stroke(); txt('LISTO.', 0, 10, font('anton', 400, 150), '#a8512b'); X.restore(); }
+          whiteFlash(t, T.back - 0.4, T.back + 0.2);
         }
-        // overlays: counter + days
-        X.fillStyle = 'rgba(0,0,0,0.75)'; rr(40, 60, 380, 90, 20); X.fill(); txt(`LESSON ${lessons}/50`, 230, 107, font('anton', 400, 56), '#fff');
-        const day = t < 19 ? 1 : t < 21.5 ? 5 : t < 23.4 ? 9 : t < T.top ? 14 : 14; X.fillStyle = 'rgba(0,0,0,0.75)'; rr(W - 300, 60, 260, 90, 20); X.fill(); txt(`DAY ${day}`, W - 170, 107, font('anton', 400, 56), '#ffd27a');
-        if (t >= T.tomorrow && t < T.stamps) { const k = back(lin(t, T.tomorrow, T.tomorrow + 0.25), 2.4); X.save(); X.translate(W / 2, 700); X.rotate(-0.08); X.scale(k, k); txt('THERE IS', 0, -90, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); txt('NO TOMORROW!', 0, 80, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); X.restore(); }
-        if (t > T.top + 0.9) { const k = eio(lin(t, T.top + 0.9, T.back)); X.fillStyle = `rgba(255,255,255,${k})`; X.fillRect(0, 0, W, H); }
+        if (hud) { X.fillStyle = 'rgba(0,0,0,0.75)'; rr(40, 60, 380, 90, 20); X.fill(); txt(`LESSON ${lesson}/50`, 230, 107, font('anton', 400, 56), '#fff');
+          X.fillStyle = 'rgba(0,0,0,0.75)'; rr(W - 300, 60, 260, 90, 20); X.fill(); txt(`DAY ${day}`, W - 170, 107, font('anton', 400, 56), '#ffd27a'); }
       } else {
         // ======== COMEBACK ========
         X.save(); shot(t); bar(t);
-        const shock = t > T.win + 1.6; const gone = t > T.run;
-        const runK = (o) => eo(lin(t, T.run + o, T.run + o + 0.6));
-        if (!gone || runK(0) < 1) {
+        const shC = t > T.perfect - 0.2, shG = t > T.noway - 0.2, shF = t > T.what - 0.1; const gone = t > T.flee;
+        const runK = (o) => eo(lin(t, T.flee + o, T.flee + o + 0.6)); const jump = (o) => t > T.flee - 0.3 + o && t < T.flee + o ? -Math.sin(lin(t, T.flee - 0.3 + o, T.flee + o) * Math.PI) * 60 : 0;
+        if (runK(0.16) < 1) {
           const fx = mix(230, -500, runK(0)), gx = mix(440, -500, runK(0.08)), cx = mix(650, -500, runK(0.16));
-          flame(t, fx, 1150, 0.78, { mood: shock ? 'shock' : 'smug', shades: !shock, noLids: true, out: T.crack2 });
-          gem(t, gx, 1130, 0.75, { mood: shock ? 'shock' : 'smug', crack: T.crack3 });
-          card(t, cx, 1140, 0.72, { mood: shock ? 'shock' : 'smug', crack: T.crack1, lid: '#fffdf6' });
-          if (gone) for (let i = 0; i < 8; i++) { const k = ((t - T.run) * 1.5 + i * 0.1) % 1; X.fillStyle = `rgba(230,200,170,${0.7 * (1 - k)})`; X.beginPath(); X.arc(300 - k * 300 + i * 40, 1300 - k * 80, 30 + k * 60, 0, 7); X.fill(); }
+          const shadesDown = shF ? eo(lin(t, T.what + 0.2, T.what + 0.6)) : 0;
+          flame(t, fx, 1150 + jump(0), 0.78, { mood: shF ? 'shock' : 'smug', shades: t < T.what + 0.35, noLids: true, out: T.what + 0.95 });
+          if (shF && shadesDown < 1) { X.save(); X.translate(fx, 1150 + shadesDown * 400); X.scale(0.78, 0.78); X.restore(); }
+          gem(t, gx, 1130 + jump(0.08), 0.75, { mood: shG ? 'shock' : 'smug', crack: T.noway + 0.3 });
+          card(t, cx, 1140 + jump(0.16), 0.72, { mood: shC ? 'shock' : 'smug', crack: T.perfect + 0.9, lid: '#fffdf6' });
+          if (gone) for (let i = 0; i < 8; i++) { const k = ((t - T.flee) * 1.5 + i * 0.1) % 1; X.fillStyle = `rgba(230,200,170,${0.7 * (1 - k)})`; X.beginPath(); X.arc(300 - k * 300 + i * 40, 1300 - k * 80, 30 + k * 60, 0, 7); X.fill(); }
         }
         const inK = eo(lin(t, T.door, T.door + 1.0));
-        hero(t, mix(1250, 880, inK), 1150, 0.8, { mood: t > T.vale ? 'happy' : 'neutral', acc: ['shades', 'headband'], walk: inK < 1 ? t * 6 : undefined, wink: t > T.vale, point: t > T.win && t < T.win + 1.2, seed: 7 });
-        table(t, gone && t > T.alone ? false : false); X.restore();
-        if (t < T.door + 0.7) { const k = 1 - lin(t, T.door, T.door + 0.7); X.fillStyle = `rgba(255,255,255,${k})`; X.fillRect(0, 0, W, H); }
+        hero(t, mix(1250, 880, inK), 1150, 0.8, { mood: t > T.vale ? 'happy' : 'neutral', acc: ['shades', 'headband'], walk: inK < 1 ? t * 6 : undefined, wink: t > T.vale, point: t > T.win && t < T.win + 1.2, lookX: t > T.algo && t < T.flee ? -1 : 0, seed: 7 });
+        table(t); X.restore();
+        whiteFlash(t, T.door - 0.2, T.door + 0.6);
         let p = scr(230, 880); bubble(t, T.flame3, T.win, 'Back for more?', p[0] + 140, p[1] - 40);
         bigBubble(t, T.win + 0.05, T.win + 4.6, ['Camarero:', 'tres cañas y unas bravas', 'para mis amigos.', 'Invito yo.'], [0, 0.95, 2.5, 3.75], W / 2, 470);
-        sub(t, T.win + 0.05, T.win + 4.5, 'Waiter: three beers and patatas bravas\nfor my friends. On me.');
+        sub(t, T.win + 0.05, T.win + 4.6, 'Waiter: three beers and patatas bravas\nfor my friends. On me.');
+        p = scr(650, 900); bubble(t, T.perfect, T.noway - 0.1, 'That was… grammatically perfect.', Math.max(330, Math.min(750, p[0])), p[1] - 60, -0.1, 58);
+        p = scr(440, 900); bubble(t, T.noway, T.what - 0.1, 'No way.', p[0], p[1] - 60, -0.2, 70);
+        p = scr(230, 880); bubble(t, T.what, T.algo, 'Wait… what?', Math.max(300, p[0] + 140), p[1] - 60, -0.3, 70);
+        p = scr(880, 900); bubble(t, T.algo, T.flee + 0.6, '¿Algo más?', p[0] - 200, p[1] - 60, 0.3, 80); sub(t, T.algo, T.flee + 0.6, 'Anything else?');
+        if (t > T.flee - 0.25 && t < T.flee + 0.5) { X.save(); X.translate(260, 700); X.rotate(-0.1); txt('AAAH!', 0, 0, font('bungee', 400, 140), '#fff', { stroke: '#e23b3b', sw: 12 }); X.restore(); }
         p = scr(880, 900); bubble(t, T.vale, T.end, 'Vale.', p[0] - 200, p[1] - 60, 0.3, 80); sub(t, T.vale, T.end, 'Cool.');
-        if (t > T.run + 0.3 && t < T.alone) txt('…', W / 2, 600, font('anton', 400, 200), '#fff');
       }
       X.restore();
-      // letterbox bars for the cinematic feel
       X.fillStyle = '#000'; X.fillRect(0, 0, W, 40); X.fillRect(0, H - 40, W, 40);
-      if (t > T.end - 0.5) { X.fillStyle = `rgba(0,0,0,${lin(t, T.end - 0.5, T.end)})`; X.fillRect(0, 0, W, H); }
+      if (t > T.end - 0.6) { X.fillStyle = `rgba(0,0,0,${lin(t, T.end - 0.6, T.end)})`; X.fillRect(0, 0, W, H); }
     },
   };
 })();

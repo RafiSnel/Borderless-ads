@@ -11,6 +11,12 @@ const HOST = {
         X.beginPath(); X.moveTo(0, 18); X.lineTo(38, -2); X.lineTo(38, 38); X.closePath(); X.fill();
         X.fillStyle = '#b5841a'; X.beginPath(); X.arc(0, 18, 10, 0, 7); X.fill();
       }
+      if (acc.includes('headband')) {
+        X.fillStyle = '#e23b3b'; X.fillRect(-118, -128, 230, 24); X.fillStyle = '#fff'; X.fillRect(-118, -120, 230, 5);
+        X.fillStyle = '#e23b3b'; X.save(); X.translate(112, -116); X.rotate(0.5 + Math.sin(tt * 14) * 0.25); rr(0, -8, 60, 16, 6); X.fill(); X.restore();
+        X.save(); X.translate(112, -116); X.rotate(0.9 + Math.sin(tt * 14 + 1) * 0.25); rr(0, -7, 52, 14, 6); X.fill(); X.restore();
+      }
+      if (acc.includes('phone')) { X.save(); X.translate(-150, 30); X.rotate(-0.2); X.fillStyle = '#111'; rr(-34, -60, 68, 120, 12); X.fill(); X.fillStyle = st.phoneGlow || '#f4eee2'; rr(-28, -52, 56, 104, 8); X.fill(); X.restore(); }
       if (acc.includes('shades')) {
         X.fillStyle = '#111'; rr(-76, -86, 68, 46, 14); X.fill(); rr(10, -86, 68, 46, 14); X.fill(); X.fillRect(-10, -72, 22, 8);
         X.fillStyle = 'rgba(255,255,255,0.35)'; X.fillRect(-64, -80, 18, 6); X.fillRect(22, -80, 18, 6);
@@ -29,6 +35,7 @@ const HOST = {
         X.fillStyle = '#fff'; rr(-90, -70, 180, 120, 16); X.fill(); X.strokeStyle = '#111'; X.lineWidth = 5; X.stroke();
         X.font = font('anton', 400, 78); X.fillStyle = '#111'; X.textAlign = 'center'; X.textBaseline = 'middle'; X.fillText(st.card, 0, -8); X.restore();
       }
+      if (st.extra2) st.extra2(tt);
       if (st.point) { X.fillStyle = st.body || '#6e1f2a'; X.beginPath(); X.arc(150 + Math.sin(tt * 10) * 4, -30, 20, 0, 7); X.fill(); }
     };
     mascot(t, x, y, s, { ...st, extra });
