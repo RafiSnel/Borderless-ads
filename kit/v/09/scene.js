@@ -22,6 +22,14 @@ window.ready = (async () => {
   B.forEach((b, i) => cues.push([b[2] >= 900 ? 'boom' : i % 2 ? 'hit' : 'impact', b[0], b[2] >= 900 ? 0.9 : 1]));
   for (let x = 0.62; x < STOP - 0.1; x += 0.5) cues.push(['tick', x, 0.55]);
   cues.push(['whoosh', s(6), 0.8], ['riser', s(6) + 0.9, 0.4], ['click', p(4, 3) || s(4) + 1.4, 0.8], ['shutter', STOP, 0.9], ['ding', END + 0.2, 0.4]);
+  const PEEKS = [
+  { t: p(2, 1), d: 0.75, side: 'R', y: 1680, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'WHY?' },
+  { t: p(4, 3), d: 0.75, side: 'L', y: 1680, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', say: 'B1!' },
+  { t: p(5, 1), d: 0.9, side: 'R', y: 1700, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'FIFTY.' },
+  { t: p(7, 1), d: 0.6, side: 'L', y: 1700, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', armsUp: true, say: 'Mine!' },
+  { t: s(8) + 0.5, d: 3, side: 'B', x: W / 2, y: 1640, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', wave: true, say: "That's the app." },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.4 };
   const hits = B.map((b) => b[0]);
   function fitFont(lines, size, maxW) {
@@ -32,7 +40,7 @@ window.ready = (async () => {
       const b = cur(t); const inv = b ? b[5] % 2 === 1 : false;
       const BG = inv ? '#fff' : '#000', FG = inv ? '#000' : '#fff';
       X.fillStyle = BG; X.fillRect(0, 0, W, H);
-      X.save(); camera(t, hits, [], 26);
+      X.save(); camera(t, hits, [], 26); HOST.pp(t, L);
       if (b) {
         const age = t - b[0]; const k = eo(lin(age, 0, 0.12));
         const [_, lines, size, , kind] = b;
@@ -66,6 +74,7 @@ window.ready = (async () => {
       X.fillStyle = FG; X.fillRect(0, 0, W * fr, 18);
       txt('0:' + tc.toFixed(1).padStart(4, '0'), W - 40, 70, font('mono', 700, 44), FG, { align: 'right' });
       if (t >= STOP) txt('■', 50, 70, font('mono', 700, 40), FG, { align: 'left' }); else txt('●', 50, 70, font('mono', 700, 40), FG, { align: 'left', a: Math.floor(t * 2) % 2 ? 1 : 0.3 });
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

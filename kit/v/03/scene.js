@@ -36,6 +36,14 @@ window.ready = (async () => {
   KW.forEach(([t]) => cues.push(['impact', t, 0.55]));
   [0, 1, 2, 3].forEach((k) => cues.push(['tick', p(4, 1) + k * 0.12, 1]));
   cues.push(['kaching', p(5, 1) + 1.3, 0.9], ['whoosh', 0.02, 0.7], ['swell', END, 0.5], ['ding', END, 0.8]);
+  const PEEKS = [
+  { t: p(3, 1) + 0.05, d: 1.2, side: 'R', y: 1300, mood: 'o', wide: true, say: 'A kitchen?!' },
+  { t: p(3, 4) - 0.05, d: 1.1, side: 'L', y: 1380, mood: 'worried', sweat: true, say: '3 WEEKS?' },
+  { t: p(5, 3) - 0.6, d: 1.0, side: 'R', y: 1350, mood: 'happy', armsUp: true, say: 'Fifty!' },
+  { t: s(6) + 0.1, d: 2.6, side: 'R', y: 1350, mood: 'o', says: [[s(6) + 0.1, 'Excuse me?'], [p(6, 1) + 0.15, "I'm a passport.", { mood: 'worried' }]] },
+  { t: s(8) + 0.95, d: 4, side: 'B', x: W / 2, y: 1600, s: 0.75, mood: 'happy', wave: true, say: 'Tell me everything.' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.34 };
   const hits = KW.map((k) => k[0]);
   window.SCENE = {
@@ -43,7 +51,7 @@ window.ready = (async () => {
       X.fillStyle = '#efe9df'; X.fillRect(0, 0, W, H);
       X.fillStyle = 'rgba(168,81,43,0.05)';
       for (let i = 0; i < 40; i++) { X.beginPath(); X.arc((i % 5) * 240 + 100, Math.floor(i / 5) * 260 + 120, 26, 0, 7); X.fill(); }
-      X.save(); camera(t, hits, [0], 14);
+      X.save(); camera(t, hits, [0], 14); HOST.pp(t, L);
       // phone-sized chat fills the frame
       CHAT.draw(t, M, th);
       // header with the app
@@ -81,6 +89,7 @@ window.ready = (async () => {
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.45, 'Tell it the truth.', W / 2, 1230, font('inter', 700, 64), '#ee8b47', { from: 1.3 });
       }
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

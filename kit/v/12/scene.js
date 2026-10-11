@@ -47,6 +47,13 @@ window.ready = (async () => {
     ['guitar', s(4), 0.8], ['bell', his4, 0.6], ['guitar', s(5), 0.8], ['bell', his5, 0.6], ['guitar', s(6), 0.8], ['bell', his6, 0.6],
     ['guitar', s(7), 0.7], ['bell', s(7), 0.5], ['impact', p(7, 1) || s(7) + 0.7, 1], ['whoosh', s(8) - 0.05, 0.6], ['impact', s(8) + 0.1, 0.8], ['ding', END, 0.5]];
   [s(2), s(3), s(4), his4, s(5), his5, s(6), his6].forEach((x) => cues.push(['page', x, 0.35]));
+  const PEEKS = [
+  { t: 0.3, d: s(7) - 0.6, side: 'T', x: W / 2, y: 175, s: 0.38, mood: 'happy', noTilt: true, size: 40, maxw: 380, says: [[0.35, 'Same app.'], [p(2, 1), 'Madrid!', { lookX: -1 }], [p(3, 1), 'Tokyo!', { lookX: 1 }],
+    [p(4, 1), 'Menus.', { lookX: -1 }], [p(4, 3), 'Requests.', { lookX: 1 }], [p(5, 1), 'Spain…', { lookX: -1 }], [p(5, 3), '…or Tokyo.', { lookX: 1 }],
+    [p(6, 1), 'Hispanidad.', { lookX: -1 }], [p(6, 3), 'Nihon.', { lookX: 1 }]] },
+  { t: s(8) + 0.2, d: 3, side: 'B', x: W / 2, y: 1640, s: 0.62, mood: 'happy', wave: true, say: "That's me." },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [p(7, 1) || s(7) + 0.7, s(8) + 0.1];
 
@@ -55,7 +62,7 @@ window.ready = (async () => {
       // split background
       X.fillStyle = CREAM; X.fillRect(0, 0, W, H);
       X.fillStyle = 'rgba(196,98,45,0.10)'; X.fillRect(0, 0, W / 2, H); X.fillStyle = 'rgba(122,31,53,0.10)'; X.fillRect(W / 2, 0, W / 2, H);
-      X.save(); camera(t, hits, [], 16);
+      X.save(); camera(t, hits, [], 16); HOST.pp(t, L);
       if (t < s(8)) {
         side(t, LEFT, 270, TERRA, 'Her'); side(t, RIGHT, 810, BORD, 'His');
         const c = caps(t); if (c) { label(t, c[0][0], c[0][1], 270, c[0][2]); label(t, c[1][0], c[1][1], 810, c[1][2]); }
@@ -75,6 +82,7 @@ window.ready = (async () => {
         X.fillStyle = TERRA; X.fillRect(W / 2 - 240, 1300, 230, 10); X.fillStyle = BORD; X.fillRect(W / 2 + 10, 1300, 230, 10);
       }
       X.restore();
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

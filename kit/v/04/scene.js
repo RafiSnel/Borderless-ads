@@ -109,6 +109,16 @@ window.ready = (async () => {
   cues.push(['impact', p(2, 2) + 0.75, 0.6], ['tick', s(3) + 0.5, 0.6], ['tick', s(3) + 0.8, 0.6], ['tick', s(3) + 1.1, 0.6], ['pop', s(4) + 0.7, 0.6],
     ['scratch', (L[4].phrases[5] ?? s(4) + 2.4) + 0.3, 0.8], ['scratch', (L[4].phrases[5] ?? s(4) + 2.4) + 0.7, 0.8], ['boing', p(6, 2), 0.9], ['ding', e(7) - 0.6, 0.8],
     ['page', s(8) - 0.05, 0.9], ['scratch', s(8) + 0.4, 0.8], ['ding', END, 0.6]);
+  const PEEKS = [
+  { t: p(1, 3), d: 1.1, side: 'R', y: 1560, mood: 'happy', say: 'Agreed.' },
+  { t: p(2, 3) + 0.2, d: 1.5, side: 'L', y: 1560, mood: 'worried', sweat: true, say: '…guilty.' },
+  { t: p(4, 2), d: 1.8, side: 'R', y: 1560, mood: 'happy', armsUp: true, say: 'Dutch! My favourite.' },
+  { t: p(5, 3), d: 1.2, side: 'L', y: 1560, mood: 'worried', say: 'Oof. Feelings.' },
+  { t: p(6, 4) - 0.2, d: 1.1, side: 'R', y: 1560, mood: 'happy', wink: true, say: 'Hehe.' },
+  { t: p(7, 5), d: 1.6, side: 'L', y: 1560, mood: 'o', wide: true, say: 'Every. Single. Time.' },
+  { t: s(8) + 0.1, d: 4, side: 'R', y: 1560, mood: 'happy', armsUp: true, point: true, say: 'Which one are you?' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   window.SCENE = {
     frame(t) {
@@ -117,7 +127,7 @@ window.ready = (async () => {
       let pageIdx = -1; WORDS.forEach(([n], i) => { if (t >= s(n) - 0.12) pageIdx = i; }); if (t >= s(8) - 0.12) pageIdx = 99;
       const pageStart = pageIdx === -1 ? 0 : pageIdx === 99 ? s(8) - 0.12 : s(WORDS[pageIdx][0]) - 0.12;
       const flip = lin(t, pageStart, pageStart + 0.2);
-      X.save(); camera(t, [p(2, 2) + 0.75, p(6, 2)], [], 12);
+      X.save(); camera(t, [p(2, 2) + 0.75, p(6, 2)], [], 12); HOST.pp(t, L);
       if (flip < 1 && pageIdx !== -1) { paper(t, 0, 0); X.save(); X.translate(-W * eio(flip) * 1.1, 0); X.rotate(-eio(flip) * 0.15); paper(t, 0, 0); X.restore(); }
       else paper(t, 0, 0);
       if (flip >= 1 || pageIdx === -1) {
@@ -135,6 +145,7 @@ window.ready = (async () => {
         } else wordPage(t, pageIdx);
       }
       X.restore();
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

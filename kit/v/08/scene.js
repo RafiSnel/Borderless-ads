@@ -59,6 +59,14 @@ window.ready = (async () => {
     ['swell', t1, 0.7], ['boom', t1, 1.3], ['pop', t1 + 0.4, 0.7],
     ['pop', p(8, 3), 0.8], ['pop', p(8, 4), 0.8], ['pop', p(8, 5), 0.8], ['whoosh', s(9), 0.5], ['boing', s(10), 0.7], ['pop', p(10, 2) || s(10) + 1.0, 0.8], ['jingle', END, 0.6]];
   for (let k = 0; k < 24; k++) cues.push(['tick', s(9) + 0.3 + k * 0.07, 0.4]);
+  const PEEKS = [
+  { t: p(1, 4) - 0.1, d: 1.6, side: 'R', y: 1720, s: 0.62, mood: 'o', wide: true, say: 'Closer?' },
+  { t: p(2, 3), d: 1.3, side: 'L', y: 1740, s: 0.6, mood: 'happy', say: 'Bellissimo.' },
+  { t: p(5, 4) + 0.3, d: 1.0, side: 'R', y: 1740, s: 0.6, mood: 'happy', armsUp: true, say: 'Too easy.' },
+  { t: p(7, 2) + 0.2, d: 1.6, side: 'L', y: 1740, s: 0.6, mood: 'happy', armsUp: true, say: 'Gezellig!' },
+  { t: p(10, 1) + 0.3, d: 3, side: 'R', y: 1760, s: 0.6, mood: 'worried', sweat: true, say: '…none?' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [s(2), s(3), s(5), s(6), t1, s(10)];
 
@@ -67,7 +75,7 @@ window.ready = (async () => {
       X.fillStyle = at(BGC, t)[1]; X.fillRect(0, 0, W, H);
       // halftone dots
       X.fillStyle = 'rgba(0,0,0,0.07)'; for (let y = 0; y < H; y += 46) for (let x = (y / 46) % 2 ? 23 : 0; x < W; x += 46) { X.beginPath(); X.arc(x, y, 6, 0, 7); X.fill(); }
-      X.save(); camera(t, hits, [s(2), s(3), s(5), s(6), s(9), s(10)], 18);
+      X.save(); camera(t, hits, [s(2), s(3), s(5), s(6), s(9), s(10)], 18); HOST.pp(t, L);
       const dark = t >= s(7) && t < t1;
       if (!dark && t < s(9)) mapCard(t);
       if (t < s(2)) {
@@ -141,6 +149,7 @@ window.ready = (async () => {
       }
       X.restore();
       txt('Based on US Foreign Service Institute estimates', W / 2, 1890, font('inter', 600, 28), 'rgba(0,0,0,0.55)');
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

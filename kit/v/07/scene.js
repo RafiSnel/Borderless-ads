@@ -56,13 +56,22 @@ window.ready = (async () => {
     ['whoosh', s(13), 0.7], ['neon', s(13) + 0.1, 1], ['ding', END, 0.7]];
   for (let k = 0; k < 6; k++) cues.push(['pop', s(6) + 1.0 + k * 0.12, 0.45]);
   for (let k = 0; k < 14; k++) cues.push(['tick', s(11) + 0.1 + k * 0.08, 0.5]);
+  const PEEKS = [
+  { t: 0.3, d: 1.7, side: 'R', y: 1700, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'Uh oh.' },
+  { t: p(5, 1) + 0.1, d: 1.5, side: 'L', y: 1720, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'worried', sweat: true, say: 'How polite?!' },
+  { t: p(8, 3) + 0.1, d: 1.4, side: 'R', y: 1720, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'THOUSANDS?' },
+  { t: p(9, 1) + 0.25, d: 0.75, side: 'L', y: 1720, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', say: 'Called it.' },
+  { t: p(12, 3) + 0.05, d: 1.3, side: 'R', y: 1720, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', armsUp: true, say: "Let's go!" },
+  { t: s(13) + 0.3, d: 3.5, side: 'L', y: 1740, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', wave: true, say: 'All five.' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [s(2), s(4), s(6), s(8), t1, s(10), s(13)];
 
   window.SCENE = {
     frame(t) {
       grid(t);
-      X.save(); camera(t, hits, [s(2), s(4), s(6), s(8), s(11), s(12), s(13)], 22);
+      X.save(); camera(t, hits, [s(2), s(4), s(6), s(8), s(11), s(12), s(13)], 22); HOST.pp(t, L);
       // black-out before number one
       const black = t > s(9) && t < t1 ? 1 : 0;
       if (!black) map(t, t >= s(11) && t < s(13) ? 0.35 : 1);
@@ -158,6 +167,7 @@ window.ready = (async () => {
       X.restore();
       // source line, always visible after the intro
       txt('Based on US Foreign Service Institute estimates', W / 2, 1880, font('inter', 600, 28), 'rgba(255,255,255,0.55)');
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

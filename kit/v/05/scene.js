@@ -58,12 +58,20 @@ window.ready = (async () => {
     ['stamp', p(4, 1) + 0.05, 1], ['stamp', st4b + 0.35, 1], ['whoosh', s(5), 0.6], ['page', s(5) + 0.4, 0.6], ['kaching', s(6) + 0.3, 0.9], ['whoosh', p(6, 1), 0.6],
     ['stamp', s(7) + 0.5, 1], ['swell', s(8) + 0.9, 0.5], ['whoosh', p(8, 2) || s(8) + 1.6, 0.6], ['stamp', e(8) - 0.15, 1.1], ['flaplong', s(9), 0.9], ['dingdong', END, 0.9]];
   for (let k = 0; k < 6; k++) cues.push(['tick', s(5) + 0.3 + k * 0.1, 0.4]);
+  const PEEKS = [
+  { t: 0.25, d: 1.4, side: 'R', y: 1600, mood: 'happy', wave: true, say: 'Boarding!' },
+  { t: p(4, 1) + 0.1, d: 2.0, side: 'L', y: 1680, s: 0.62, mood: 'happy', armsUp: true, says: [[p(4, 1) + 0.1, 'Stamp!'], [p(4, 3) + 0.35, 'Another one!', { wink: true }]] },
+  { t: s(7) + 0.05, d: 1.9, side: 'R', y: 1640, s: 0.62, mood: 'happy', acc: ['shades'], say: 'New look.' },
+  { t: s(8) + 0.1, d: 1.8, side: 'L', y: 1640, s: 0.62, mood: 'o', wide: true, say: "That's me!" },
+  { t: e(9) + 0.3, d: 4, side: 'B', x: W / 2, y: 1610, s: 0.7, mood: 'happy', wave: true, say: 'See you at the gate.' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [p(4, 1) + 0.05, st4b + 0.35, s(7) + 0.5, e(8) - 0.15];
   window.SCENE = {
     frame(t) {
       sky(t);
-      X.save(); camera(t, hits, [s(2), s(3), s(4), s(5), s(6), s(7), s(8), s(9)], 20);
+      X.save(); camera(t, hits, [s(2), s(3), s(4), s(5), s(6), s(7), s(8), s(9)], 20); HOST.pp(t, L);
       if (t < s(2)) {
         board(t, [[0.0, 'MADRID   B12'], [0.15, 'SPANISH  NOW'], [0.3, 'BOARDING ·  ']]);
         const lit = Math.floor(t * 3) % 2 === 0; X.fillStyle = lit ? '#4cd964' : '#1d5c2b'; X.beginPath(); X.arc(980, 790, 22, 0, 7); X.fill();
@@ -115,6 +123,7 @@ window.ready = (async () => {
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.45, 'Now boarding.', W / 2, 1230, font('bebas', 400, 90), YEL, { from: 1.3, ls: 4 });
       }
+      HOST.peeks(t, PEEKS);
     },
   };
   function stampWord(t, t0) { stamp(t, t0, 'NO SHORTCUTS', W / 2, 1150, font('anton', 400, 130), '#d6455d', -0.14); }

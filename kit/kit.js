@@ -162,11 +162,12 @@ function mascot(t, x, y, s, st = {}) {
   else if (st.mood === 'o') X.ellipse(2, -14, 9, 12, 0, 0, 7);
   else { X.moveTo(-14, -14); X.lineTo(18, -14); }
   X.stroke();
-  if (st.sweat) {
+  if (st.sweat) { X.save();
     const sp = (t * 1.4) % 1; X.fillStyle = '#7fc4e8'; X.globalAlpha = 1 - sp * 0.6;
     X.beginPath(); const sx = 92, sy = -130 + sp * 40;
     X.moveTo(sx, sy - 22); X.quadraticCurveTo(sx + 16, sy, sx, sy + 10); X.quadraticCurveTo(sx - 16, sy, sx, sy - 22); X.fill();
-  }
+  X.restore(); }
+  if (st.extra) st.extra(t);
   X.restore();
 }
 function confetti(t, t0, cx, cy, n = 40, cols = ['#a8512b', '#ee8b47', '#f0c04e', '#4faa72', '#6e1f2a'], dur = 1.4) {

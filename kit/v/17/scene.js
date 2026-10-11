@@ -25,6 +25,14 @@ window.ready = (async () => {
   for (let k = 0; k < 14; k++) cues.push(['pop', sent3 + 0.4 + k * 0.11, 0.35]);
   cues.push(['whoosh', quiet, 0.5], ['click', p(5, 1) || quiet + 1.0, 0.8], ['whoosh', (p(5, 1) || quiet + 1.0) + 0.05, 0.6], ['swell', later, 0.4], ['plop', vn, 0.9], ['click', s(7) - 0.1, 0.6],
     ['plop', s(8) - 0.1, 0.8], ['plop', s(8) + 0.2, 0.8], ['plop', s(8) + 0.5, 0.8], ['micdrop', s(9), 1.1]);
+  const PEEKS = [
+  { t: 0.9, d: 1.6, side: 'R', y: 1480, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', acc: ['shades'], say: '400 days!' },
+  { t: e(3) + 0.3, d: 1.2, side: 'L', y: 1480, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'worried', sweat: true, say: 'Oof.' },
+  { t: p(7, 1), d: 1.4, side: 'R', y: 1480, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'That accent!' },
+  { t: p(8, 1), d: 0.85, side: 'L', y: 1480, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', wink: true, say: 'Me.' },
+  { t: s(9) + 0.55, d: 3, side: 'B', x: W / 2, y: 1640, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', armsUp: true, say: 'Comeback.' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [sent3 + 0.35, p(4, 2) || s(4) + 1.2, s(9)];
   function skulls(t, t0, t1) {
@@ -35,7 +43,7 @@ window.ready = (async () => {
   window.SCENE = {
     frame(t) {
       const g = X.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1b1030'); g.addColorStop(1, '#0d0818'); X.fillStyle = g; X.fillRect(0, 0, W, H);
-      X.save(); camera(t, hits, [], 16);
+      X.save(); camera(t, hits, [], 16); HOST.pp(t, L);
       const dark = t >= quiet && t < later + 0.9;
       const drop = t >= s(9) ? ei(lin(t, s(9), s(9) + 0.45)) : 0;
       X.save(); if (drop > 0) { X.translate(W / 2, H / 2); X.rotate(drop * 0.6); X.translate(-W / 2, -H / 2 + drop * 2200); }
@@ -66,6 +74,7 @@ window.ready = (async () => {
         slam(t, s(9) + 0.3, 'Borderless', W / 2, 1140, font('inter', 900, 150), '#fff', {});
         slam(t, s(9) + 0.6, 'POV: the comeback.', W / 2, 1290, font('inter', 700, 56), '#ffd24d', { from: 1.3 });
       }
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

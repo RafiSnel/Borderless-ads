@@ -26,6 +26,13 @@ window.ready = (async () => {
   drafts.forEach(([s0, t0, t1], i) => { for (let k = 0; k < Math.min(s0.length, 10); k++) cues.push(['type', t0 + k * 0.05, 0.5]); if (i < 3) cues.push(['back', t1 - 0.25, 0.7], ['back', t1 - 0.12, 0.7]); });
   cues.push(['ding', p(4, 1), 0.8], ['page', s(4) + 0.1, 0.5], ['whoosh', s(5) + 0.05, 0.7], ['plop', s(6) + 0.1, 0.9], ['pop', p(6, 1), 0.6], ['whoosh', s(7) + 0.02, 0.7],
     ['boing', e(7) - 0.05, 0.6], ['jingle', e(7) + 0.1, 0.6], ['plop', e(7) + 0.25, 0.8], ['whoosh', s(8), 0.5], ['ding', END, 0.6]);
+  const PEEKS = [
+  { t: s(2), d: 1.0, side: 'L', y: 1520, s: 0.65, mood: 'worried', wide: true, sweat: true, say: 'AAAH.' },
+  { t: p(4, 1) + 0.05, d: 0.9, side: 'R', y: 1640, s: 0.6, mood: 'o', wide: true, say: 'Lesson 3!' },
+  { t: s(7) + 0.3, d: 0.9, side: 'L', y: 1520, s: 0.62, mood: 'happy', armsUp: true, acc: ['shades'], say: 'Nailed it.' },
+  { t: s(8) + 0.4, d: 3, side: 'B', x: W / 2, y: 1690, s: 0.6, mood: 'happy', wave: true, say: '¡Claro!' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [0.55, s(2), p(4, 1), e(7)];
   window.SCENE = {
@@ -34,7 +41,7 @@ window.ready = (async () => {
       X.fillStyle = 'rgba(0,0,0,0.035)'; for (let i = 0; i < 60; i++) { X.font = '50px "Noto Color Emoji"'; }
       for (let y = 300; y < 1700; y += 160) for (let x = 60; x < W; x += 180) { X.globalAlpha = 0.05; txt((x + y) % 3 ? '🍳' : '🔪', x + ((y / 160) % 2) * 90, y, font('inter', 400, 50), '#000'); } X.globalAlpha = 1;
       const panic = t > s(2) && t < s(4) ? 1 : 0; const panicTxt = t > s(2) && t < s(3);
-      X.save(); camera(t, hits, [], 14);
+      X.save(); camera(t, hits, [], 14); HOST.pp(t, L);
       if (panic) X.translate((hash(Math.floor(t * 40)) - 0.5) * 18, (hash(Math.floor(t * 40) + 3) - 0.5) * 12);
       if (t < s(8)) {
         CHAT.draw(t, M, th);
@@ -80,6 +87,7 @@ window.ready = (async () => {
         slam(t, p(8, 2) + 0.55, 'about to have.', W / 2, 1300, font('serif', 400, 84), '#fff', {});
         slam(t, END - 0.2, 'Borderless', W / 2, 1540, font('inter', 900, 110), '#fff', {});
       }
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

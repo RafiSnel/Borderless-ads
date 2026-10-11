@@ -85,13 +85,21 @@ window.ready = (async () => {
     ['boom', s(9), 1], ['flap', s(9), 1], ['flap', p(9, 1), 0.9], ['dingdong', END, 0.8]];
   HERO.forEach((h, i) => cues.push(['flap', heroT[i], 0.9]));
   for (let k = 0; k < 10; k++) cues.push(['tick', s(8) + 0.1 + k * (e(8) - s(8) - 0.2) / 10, 0.5]);
+  const PEEKS = [
+  { t: 0.15, d: 0.95, side: 'R', y: 1790, s: 0.55, glow: 'rgba(255,255,255,0.22)', mood: 'o', say: 'Where to?' },
+  { t: p(3, 1), d: 0.9, side: 'L', y: 1680, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: '74?!' },
+  { t: p(4, 1) - 0.1, d: 1.2, side: 'R', y: 1680, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', point: true, say: 'This one!' },
+  { t: p(6, 3) - 0.1, d: 1.3, side: 'L', y: 1700, s: 0.6, glow: 'rgba(255,255,255,0.22)', mood: 'happy', armsUp: true, say: 'Bags packed.' },
+  { t: s(9) + 0.6, d: 4, side: 'B', x: W / 2, y: 1560, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', wave: true, say: 'Departures open!' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.38 };
   const hits = [0.12, s(3) + 0.1, s(4), p(6, 2) - 0.1, s(9)];
 
   window.SCENE = {
     frame(t) {
       night(t);
-      X.save(); camera(t, hits, [s(2), s(3), s(4), s(7), s(8), s(9)], 18);
+      X.save(); camera(t, hits, [s(2), s(3), s(4), s(7), s(8), s(9)], 18); HOST.pp(t, L);
       if (t < s(3)) {
         // tilt up onto the giant board
         const k = eo(lin(t, 0, 1.0)); X.save(); X.translate(W / 2, H / 2); X.scale(mix(1.35, 1, k), mix(1.35, 1, k)); X.translate(-W / 2, -H / 2 + mix(520, 0, k));
@@ -146,6 +154,7 @@ window.ready = (async () => {
         flapRow(t, p(9, 1), 'DEPARTURES OPEN', 90, 1040, 54, 92, { settle: 0.3, stagger: 0.02, seed: 4, gap: 4, fg: GRN });
       }
       X.restore();
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

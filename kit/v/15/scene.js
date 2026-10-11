@@ -27,6 +27,15 @@ window.ready = (async () => {
   cues.push(['laugh', s(2) + 0.35, 0.35], ['page', p(3, 2), 0.5], ['pop', p(3, 4), 0.6], ['scratch', p(4, 1) + 0.2, 0.3], ['pop', p(4, 2), 0.6], ['pop', s(5) + 0.8, 0.6], ['pop', p(6, 2), 0.6], ['ding', p(6, 3), 0.5]);
   for (let k = 0; k < 10; k++) cues.push(['plop', p(7, 1) + 0.6 + k * 0.09, 0.5]);
   cues.push(['ding', END, 0.6]);
+  const PEEKS = [
+  { t: p(1, 1) + 0.1, d: 0.85, side: 'R', y: 1520, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'neutral', say: 'Ha. Ha.' },
+  { t: p(4, 1) + 0.2, d: 1.3, side: 'L', y: 1520, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, say: 'Grass?' },
+  { t: p(6, 2), d: 1.4, side: 'R', y: 1520, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', say: '555!' },
+  { t: p(7, 1) + 0.1, d: 1.3, side: 'L', y: 1520, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'o', wide: true, sweat: true, say: 'KKKKKK' },
+  { t: p(8, 2), d: 1.2, side: 'R', y: 1520, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'neutral', say: 'lol.' },
+  { t: END + 0.3, d: 3, side: 'B', x: W / 2, y: 1600, s: 0.62, glow: 'rgba(255,255,255,0.22)', mood: 'happy', wave: true, say: 'jajaja' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.34 };
   function grass(t, t0) { // 'w' grows like grass
     if (t < t0) return; const k = lin(t, t0, t0 + 1.2);
@@ -38,7 +47,7 @@ window.ready = (async () => {
       X.fillStyle = '#0f1115'; X.fillRect(0, 0, W, H);
       // vibration on each incoming message
       let vib = 0; M.forEach((m) => { if (!m.me && t > m.t && t < m.t + 0.18) vib = 1 - (t - m.t) / 0.18; });
-      X.save(); X.translate((hash(Math.floor(t * 60)) - 0.5) * 16 * vib, (hash(Math.floor(t * 60) + 9) - 0.5) * 10 * vib);
+      X.save(); X.translate((hash(Math.floor(t * 60)) - 0.5) * 16 * vib, (hash(Math.floor(t * 60) + 9) - 0.5) * 10 * vib); HOST.pp(t, L);
       if (t > p(4, 1) + 0.2 && t < s(5) + 0.2) grass(t, p(4, 1) + 0.2);
       CHAT.draw(t, M, th);
       // header
@@ -75,6 +84,7 @@ window.ready = (async () => {
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.4, 'jajaja · mdr · www · ㅋㅋ · 555 · kkk', W / 2, 1220, font('inter', 800, 46), '#ffd65c', { from: 1.3 });
       }
+      HOST.peeks(t, PEEKS);
     },
   };
 })();

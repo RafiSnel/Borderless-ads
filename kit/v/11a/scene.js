@@ -18,6 +18,7 @@ window.ready = (async () => {
     frame(t) {
       ARC.bg(t);
       X.save(); camera(t, hits, [], 14);
+      { const PB = []; rounds.forEach((r) => { const d = (r.ans - r.show - 0.2) / 3; PB.push(r.show, r.show + 0.2 + d, r.show + 0.2 + 2 * d); }); const pz = HOST.punch(t, PB, 0.04, 0.16); X.translate(W / 2, H / 2); X.scale(pz, pz); X.translate(-W / 2, -H / 2); }
       let ri = -1; rounds.forEach((r, i) => { if (t >= r.show - 0.15) ri = i; }); if (t >= s(8)) ri = 6;
       const score = rounds.filter((r) => t >= r.ans + 0.25).length; const last = rounds.filter((r) => t >= r.ans + 0.25).map((r) => r.ans + 0.25).pop();
       ARC.title(t, t < s(8) ? 'READING ROUND' : null);
@@ -53,11 +54,20 @@ window.ready = (async () => {
           txt(sc, 920, y, ARC.px(44), c, { align: 'right', a: i === 0 && Math.floor(t * 3) % 2 ? 0.3 : 1 }); });
         txt('COMMENT YOUR SCORE', W / 2, 1100, ARC.px(34), ARC.MAG);
       }
-      const mood = t >= s(9) || (ri >= 0 && ri < 6 && t > rounds[ri].ans && t < rounds[ri].ans + 0.6) ? 'cheer' : 'idle';
-      ARC.host(t, 110, 1370, mood, 20); ARC.podium();
-      if (ri < 0) ARC.bubble(t, 0.3, 'READY?', 400, 1400);
-      else if (ri < 6 && t < rounds[ri].ans) ARC.bubble(t, rounds[ri].show + 0.4, 'TICK TOCK', 400, 1400);
-      else if (t >= s(9)) ARC.bubble(t, s(9), '6/6 ?!', 400, 1400);
+      // quizmaster
+      { const R2 = ['Point!', 'Nice!', 'Too easy?', 'Kiitos!', 'Yes!', 'Asante!'];
+        let txt0 = null, t0 = 0, st = { mood: 'happy', acc: ['bowtie', 'mic'] };
+        if (ri < 0) { st.wave = true; if (t < p(1, 1)) { txt0 = "I'm your quizmaster."; t0 = 0.2; } else if (t < p(1, 3)) { txt0 = 'Three seconds each.'; t0 = p(1, 1); } else { txt0 = 'Count your points!'; t0 = p(1, 3); st.armsUp = true; } }
+        else if (ri < 6) { const r = rounds[ri];
+          if (t < r.ans) { const k = Math.min(2, Math.floor((t - r.show - 0.2) / ((r.ans - r.show - 0.2) / 3))); if (t >= r.show + 0.2) { txt0 = ['3…', '2…', '1…'][Math.max(0, k)]; t0 = r.show + 0.2 + Math.max(0, k) * (r.ans - r.show - 0.2) / 3; }
+            st = { mood: k >= 1 ? 'worried' : 'neutral', wide: k >= 2, sweat: k >= 2, lookX: -0.6, lookY: -1, acc: ['bowtie', 'mic'] }; }
+          else { txt0 = R2[ri]; t0 = r.ans; st = { mood: 'happy', armsUp: true, acc: ['bowtie', 'mic'], squash: Math.max(0, 1 - (t - r.ans) * 5) }; } }
+        else if (t < s(9)) { const tt = p(8, 1) || s(8) + 0.8; if (t < tt) { txt0 = 'Plot twist…'; t0 = s(8); } else { txt0 = 'All six = THANK YOU!'; t0 = tt; } st = { mood: 'o', wide: true, acc: ['bowtie', 'mic'], armsUp: t > tt }; }
+        else { const tt = p(9, 1) || s(9) + 1.2; if (t < tt) { txt0 = 'Six out of six?'; t0 = s(9); } else { txt0 = 'Comment it!'; t0 = tt; } st = { mood: 'happy', armsUp: true, wave: true, acc: ['bowtie', 'mic'] }; }
+        const ein = HOST.enter(t, 0.0, 0.35); X.save(); X.translate(mix(-420, 0, ein), 0);
+        const gl = X.createRadialGradient(230, 1440, 20, 230, 1440, 320); gl.addColorStop(0, 'rgba(255,225,77,0.30)'); gl.addColorStop(1, 'rgba(255,225,77,0)'); X.fillStyle = gl; X.fillRect(-100, 1100, 700, 700);
+        HOST.draw(t, 235, 1440, 1.0, st); X.restore(); ARC.podium();
+        if (txt0) HOST.say(t, t0, 1e9, txt0, 690, 1330, { size: 46, maxw: 700, tail: -0.42, f: 'pixel', fg: '#1a0b2e' }); }
       X.restore();
     },
   };

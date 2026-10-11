@@ -44,6 +44,16 @@ window.ready = (async () => {
     ['pop', p(5, 1), 0.7], ['pop', p(5, 3), 0.7], ['pop', p(5, 5), 0.7], ['gasp', p(6, 1), 0.9], ['impact', p(6, 2), 0.6],
     ['castanet', s(7), 0.7], ['pop', s(7) + 0.4, 0.6], ['pop', s(7) + 0.9, 0.6], ['pop', s(7) + 1.4, 0.6], ['stamp', p(7, 2) || s(7) + 2.4, 1], ['fanfare', p(7, 2) + 0.3 || s(7) + 2.7, 0.5],
     ['castanet', s(8), 0.8], ['castanet', END, 0.8]);
+  const PEEKS = [
+  { t: p(1, 3), d: 1.0, side: 'R', y: 1730, s: 0.6, mood: 'happy', say: 'Ready?' },
+  { t: p(2, 5), d: 1.1, side: 'L', y: 1730, s: 0.6, mood: 'o', say: 'Vale. Vale. Vale.' },
+  { t: p(3, 5) + 0.1, d: 1.1, side: 'R', y: 1730, s: 0.6, mood: 'happy', wink: true, say: '¡Tío!' },
+  { t: p(4, 1), d: 1.6, side: 'L', y: 1730, s: 0.6, mood: 'happy', acc: ['shades'], say: 'Guay.' },
+  { t: p(6, 1), d: 1.4, side: 'R', y: 1730, s: 0.6, mood: 'o', wide: true, say: '¡¿QUÉ?!' },
+  { t: p(7, 2) + 0.15, d: 1.3, side: 'L', y: 1730, s: 0.6, mood: 'happy', armsUp: true, say: 'Olé.' },
+  { t: s(8) + 0.3, d: 3, side: 'R', y: 1730, s: 0.6, mood: 'happy', wave: true, say: '¡Venga!' },
+];
+  cues.push(...HOST.cues(PEEKS));
   window.CUES = { dur: DUR, cues, sfx_gain: 0.36 };
   const hits = [p(1, 3) || 2.48, p(3, 4), p(6, 1), p(7, 2) || s(7) + 2.4];
 
@@ -52,7 +62,7 @@ window.ready = (async () => {
       const bg = bgAt(t); X.fillStyle = bg; X.fillRect(0, 0, W, H);
       sun(t, W - 120, 160, 110, bg === RED ? YEL : RED);
       X.fillStyle = 'rgba(255,255,255,0.14)'; for (let i = 0; i < 9; i++) { X.beginPath(); X.arc((i * 170 + t * 30) % 1300 - 100, 1860 + Math.sin(i) * 20, 120, 0, 7); X.fill(); }
-      X.save(); camera(t, hits, [s(2), s(3), s(4), s(5), s(6), s(7), s(8)], 16);
+      X.save(); camera(t, hits, [s(2), s(3), s(4), s(5), s(6), s(7), s(8)], 16); HOST.pp(t, L);
       if (t < s(2)) {
         const k = eo(lin(t, 0, 0.5)); sun(t, W / 2, mix(1400, 900, k), 260, YEL, 22);
         slam(t, 0.1, 'SOUND LIKE', W / 2, 380, font('serif', 400, 120), CREAM, { shadow: true });
@@ -99,6 +109,7 @@ window.ready = (async () => {
         if (t > p(8, 3)) txt('actually speak.', W / 2, 1520, font('serif', 400, 80), RED, { a: eo(lin(t, p(8, 3), p(8, 3) + 0.3)) });
       }
       X.restore();
+      HOST.peeks(t, PEEKS);
     },
   };
 })();
