@@ -131,7 +131,7 @@ function mascot(t, x, y, s, st = {}) {
   X.save(); X.translate(x, y);
   const bob = Math.sin(t * 7) * 6 * (st.calm ? 0.4 : 1), sq = st.squash || 0;
   X.translate(0, bob); X.rotate(st.tilt || 0); X.scale(s * (1 + sq * 0.12), s * (1 - sq * 0.12));
-  X.fillStyle = P.ink; rr(-62, 150, 44, 22, 11); X.fill(); rr(18, 150, 44, 22, 11); X.fill();
+  X.fillStyle = P.ink; { const wf = st.walk != null ? Math.sin(st.walk) : 0; rr(-62, 150 - Math.max(0, wf) * 22, 44, 22, 11); X.fill(); rr(18, 150 - Math.max(0, -wf) * 22, 44, 22, 11); X.fill(); }
   X.fillStyle = 'rgba(0,0,0,0.18)'; rr(-112, -150, 230, 310, 30); X.fill();
   X.fillStyle = P.pass; rr(-118, -160, 230, 310, 30); X.fill();
   X.fillStyle = P.pass2; rr(-118, -160, 26, 310, [30, 0, 0, 30]); X.fill();
@@ -156,12 +156,15 @@ function mascot(t, x, y, s, st = {}) {
     }
     X.restore();
   });
+  if (st.talk > 0.04) { X.fillStyle = '#2a0c12'; X.strokeStyle = P.gold; X.lineWidth = 5; X.beginPath(); X.ellipse(2, -16, 15 + st.talk * 5, 3 + st.talk * 17, 0, 0, 7); X.fill(); X.stroke(); X.fillStyle = '#d9606e'; X.beginPath(); X.ellipse(2, -16 + (3 + st.talk * 17) * 0.45, 9, 3 + st.talk * 5, 0, 0, 7); X.fill(); X.beginPath(); }
+  else {
   X.strokeStyle = P.gold; X.lineWidth = 6; X.lineCap = 'round'; X.beginPath();
   if (st.mood === 'happy') X.arc(2, -22, 20, 0.15 * Math.PI, 0.85 * Math.PI);
   else if (st.mood === 'worried') { X.moveTo(-16, -8); X.quadraticCurveTo(0, -20, 18, -8); }
   else if (st.mood === 'o') X.ellipse(2, -14, 9, 12, 0, 0, 7);
   else { X.moveTo(-14, -14); X.lineTo(18, -14); }
   X.stroke();
+  }
   if (st.sweat) { X.save();
     const sp = (t * 1.4) % 1; X.fillStyle = '#7fc4e8'; X.globalAlpha = 1 - sp * 0.6;
     X.beginPath(); const sx = 92, sy = -130 + sp * 40;

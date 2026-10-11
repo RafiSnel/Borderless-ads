@@ -2,10 +2,12 @@
 window.ready = (async () => {
   await loadFonts();
   await loadImages({ path: 'app/madrid_path_full_s.jpg', les0: 'app/madrid_lesson_0.png', les2: 'app/madrid_lesson_2.png', over: 'app/madrid_overview.png', pass: 'app/madrid_passport.png', words: 'app/madrid_words.png' });
-  const T = { bar: 0, gem1: 0.4, flame1: 1.5, fail: 3.3, laugh: 7.4, card1: 9.5, street: 11.3, stop: 14.0, close: 14.6, tear: 15.0, echo1: 15.5, echo2: 16.4, buzz: 17.8, pov: 18.4, wipe: 19.0, det: 19.6, portal: 20.2, suck: 20.75, land: 21.6,
-    run: 22.6, corner: 23.8, quiz: 24.8, again: 25.35, words: 26.6, leap: 28.2, night: 29.2, stamps: 30.0, boss: 31.0, ring: 32.0, jab1: 32.5, jab2: 32.9, cocky: 33.25, windup: 33.95, oblivious: 34.25, hook: 34.55, floor: 35.25,
-    counts: [35.9, 36.7, 37.5, 38.3, 39.1, 39.9, 40.7], ghostA: 36.2, ghostB: 37.0, ghostC: 37.8, eyes: 39.4, rise: 40.1, vamos: 40.8, lockin: 41.3, combo: 41.65, upper: 42.75, kotxt: 43.1, raise: 43.4,
-    sprint: 44.2, tomorrow: 44.4, cards: 45.6, chips2: 46.5, top: 47.3, final: 48.0, back: 48.7, door: 48.7, flame3: 50.0, win: 51.2, perfect: 56.0, noway: 59.3, what: 61.3, algo: 63.1, flee: 64.1, alone: 65.4, vale: 66.0, end: 68.2 };
+  const T = { bar: 0, gem1: 0.4, flame1: 1.5, fail: 3.3, laugh: 7.4, card1: 9.5, street: 11.3, stop: 14.0, close: 14.6, tear: 15.0, echo1: 15.5, echo2: 16.4, buzz: 17.8, pov: 18.4, notif: 18.7, wipe: 19.7, det: 20.3, cta: 20.6, tap: 21.3, portal: 21.8, suck: 22.4, land: 23.3,
+    run: 24.7, corner: 26.5, quiz: 27.8, again: 28.6, words: 30.6, leap: 32.9, night: 34.3, stamps: 35.6, boss: 37.0, ring: 38.5, jab1: 39.1, jab2: 39.6, cocky: 40.0, windup: 40.9, oblivious: 41.3, hook: 41.7, floor: 42.4,
+    counts: [43.1, 43.95, 44.8, 45.65, 46.5, 47.35, 48.2], ghostA: 43.5, ghostB: 44.4, ghostC: 45.3, eyes: 46.8, rise: 47.5, vamos: 48.3, lockin: 48.9, combo: 49.4, upper: 50.7, kotxt: 51.1, raise: 51.5,
+    sprint: 52.6, tomorrow: 52.8, cards: 54.3, chips2: 55.6, top: 56.9, final: 57.8, back: 58.7, door: 58.7, flame3: 60.0, win: 61.2, perfect: 66.0, noway: 69.3, what: 71.3, algo: 73.1, flee: 74.1, alone: 75.4, vale: 76.0, end: 78.2 };
+  const LIPS = await (await fetch('v/sf/lips.json')).json();
+  const talk = (who, t) => { for (const [t0, v] of (LIPS[who] || [])) { const f = (t - t0) * 30, i = Math.floor(f); if (i >= 0 && i < v.length - 1) return mix(v[i], v[i + 1], f - i); } return 0; };
   window.T = T; const DUR = T.end; window.DURATION = DUR;
   const INK = '#1f1a14', CREAM = '#f6efe2', OR = '#ee8b47';
 
@@ -19,7 +21,7 @@ window.ready = (async () => {
     X.fillStyle = INK;
     if (laugh) { X.beginPath(); X.moveTo(-34, ey + 38); X.quadraticCurveTo(0, ey + 110, 34, ey + 38); X.closePath(); X.fill(); X.fillStyle = '#e8506a'; X.beginPath(); X.ellipse(0, ey + 74, 16, 9, 0, 0, 7); X.fill();
       X.fillStyle = '#7fc4e8'; const k = (m.t * 3) % 1; [-ex - 16, ex + 16].forEach((x) => { X.beginPath(); X.arc(x, ey + 20 + k * 40, 7, 0, 7); X.fill(); }); }
-    else if (shock) { X.beginPath(); X.ellipse(0, ey + 62, 20, 30, 0, 0, 7); X.fill(); }
+    else if (shock || m.talk > 0.05) { const tk = m.talk || 0; X.beginPath(); X.ellipse(0, ey + 58, 18 + tk * 8, shock ? 30 * (1 + tk * 0.4) : 5 + tk * 26, 0, 0, 7); X.fill(); X.fillStyle = '#e8506a'; X.beginPath(); X.ellipse(0, ey + 58 + (shock ? 18 : 3 + tk * 14), 9, 3 + tk * 5, 0, 0, 7); X.fill(); }
     else if (smug) { X.strokeStyle = INK; X.lineWidth = 6; X.beginPath(); X.moveTo(-26, ey + 50); X.quadraticCurveTo(10, ey + 66, 30, ey + 40); X.stroke(); }
     else { X.strokeStyle = INK; X.lineWidth = 6; X.beginPath(); X.moveTo(-20, ey + 52); X.lineTo(22, ey + 52); X.stroke(); }
   }
@@ -240,26 +242,26 @@ window.ready = (async () => {
   SHOTS.forEach(([t0]) => t0 > 0.1 && t0 < T.land && cues.push(['whoosh', t0, 0.22]));
   SHOTS.forEach(([t0]) => t0 >= T.door && cues.push(['whoosh', t0, 0.18]));
   cues.push(['tick', T.fail + 1.2, 0.5], ['tick', T.fail + 2.4, 0.5], ['gasp', T.laugh - 0.2, 0.4], ['boing', T.laugh, 0.5],
-    ['vibrate', T.buzz, 0.6], ['vibrate', T.buzz + 0.45, 0.6], ['swell', T.wipe, 0.4], ['riser', T.portal - 0.4, 0.5],
-    ['boom', T.land, 1.0], ['whoosh', T.run, 0.5], ['boing', T.run + 0.62, 0.5], ['whoosh', T.corner, 0.8], ['whoosh', T.corner + 0.55, 0.6],
-    ['hit', T.quiz + 0.3, 0.9], ['fail', T.quiz + 0.35, 0.7], ['impact', T.again, 0.8], ['hit', T.quiz + 1.1, 0.9], ['correct', T.quiz + 1.15, 0.8], ['coin', T.quiz + 1.35, 0.6],
+    ['ding', T.notif, 0.5], ['pop', T.cta, 0.5], ['click', T.tap, 0.9], ['whoosh', T.tap + 0.1, 0.6], ['vibrate', T.buzz, 0.6], ['vibrate', T.buzz + 0.45, 0.6], ['swell', T.wipe, 0.4], ['riser', T.portal - 0.4, 0.5],
+    ['boom', T.land, 1.0], ['whoosh', T.run, 0.5], ['boing', T.run + 0.35, 0.5], ['whoosh', T.corner, 0.8], ['whoosh', T.corner + 0.55, 0.6],
+    ['hit', T.quiz + 0.5, 0.9], ['fail', T.quiz + 0.55, 0.7], ['impact', T.again, 0.8], ['hit', T.quiz + 1.6, 0.9], ['correct', T.quiz + 1.65, 0.8], ['coin', T.quiz + 1.85, 0.6],
     ['flaplong', T.leap, 0.4], ['type', T.night, 0.5], ['stamp', T.stamps, 1], ['stamp', T.stamps + 0.3, 1], ['stamp', T.stamps + 0.6, 1],
     ['gong', T.boss, 0.8], ['impact', T.boss + 0.3, 0.8], ['bell', T.ring, 1], ['bell', T.ring + 0.18, 1],
     ['hit', T.jab1, 1], ['hit', T.jab2, 1], ['whoosh', T.windup, 0.5], ['whoosh', T.hook - 0.12, 0.9],
     ['heart', T.floor + 0.6, 0.6], ['heart', T.floor + 1.5, 0.6], ['heart', T.floor + 2.4, 0.6], ['heart', T.floor + 3.3, 0.6], ['heart', T.eyes - 0.4, 0.8], ['heart', T.eyes + 0.3, 0.9], ['heart', T.eyes + 0.9, 1],
     ['impact', T.vamos, 0.9], ['boom', T.lockin, 1.0], ['scratch', T.lockin - 0.12, 0.5],
-    ['hit', T.combo, 1], ['hit', T.combo + 0.25, 1], ['hit', T.combo + 0.5, 1], ['hit', T.combo + 0.75, 1], ['impact', T.upper, 1], ['boom', T.upper, 0.8], ['bell', T.kotxt, 1], ['bell', T.kotxt + 0.18, 1], ['bell', T.kotxt + 0.36, 1], ['fanfare', T.raise, 0.6],
-    ['whoosh', T.sprint, 0.7], ['boom', T.tomorrow, 0.9], ['page', T.cards, 0.6], ['page', T.cards + 0.27, 0.6], ['page', T.cards + 0.54, 0.6], ['correct', T.cards + 0.15, 0.5], ['correct', T.cards + 0.42, 0.5], ['correct', T.cards + 0.69, 0.5],
-    ['hit', T.chips2 + 0.15, 0.9], ['hit', T.chips2 + 0.4, 0.9], ['hit', T.chips2 + 0.65, 0.9], ['fanfare', T.top, 0.6], ['stamp', T.final + 0.15, 1],
+    ['hit', T.combo, 1], ['hit', T.combo + 0.3, 1], ['hit', T.combo + 0.6, 1], ['hit', T.combo + 0.9, 1], ['impact', T.upper, 1], ['boom', T.upper, 0.8], ['bell', T.kotxt, 1], ['bell', T.kotxt + 0.18, 1], ['bell', T.kotxt + 0.36, 1], ['fanfare', T.raise, 0.6],
+    ['whoosh', T.sprint, 0.7], ['boom', T.tomorrow, 0.9], ['page', T.cards, 0.6], ['page', T.cards + 0.4, 0.6], ['page', T.cards + 0.8, 0.6], ['correct', T.cards + 0.2, 0.5], ['correct', T.cards + 0.6, 0.5], ['correct', T.cards + 1.0, 0.5],
+    ['hit', T.chips2 + 0.2, 0.9], ['hit', T.chips2 + 0.55, 0.9], ['hit', T.chips2 + 0.9, 0.9], ['fanfare', T.top, 0.6], ['stamp', T.final + 0.15, 1],
     ['whoosh', T.back, 0.8], ['boom', T.door, 1.0],
     ['shutter', T.perfect + 0.9, 0.8], ['glitch', T.perfect + 0.9, 0.6], ['glitch', T.noway + 0.3, 0.6], ['hum', T.what + 0.9, 0.5], ['gasp', T.flee - 0.25, 0.6],
     ['whoosh', T.flee, 0.8], ['ratchet', T.flee + 0.1, 0.7], ['ratchet', T.flee + 0.4, 0.7], ['ding', T.vale + 0.1, 0.5]);
-  [0, 1, 2, 3].forEach((i) => cues.push(['hit', T.words + 0.2 + i * 0.3, 0.9], ['pop', T.words + 0.22 + i * 0.3, 0.6]));
+  [0, 1, 2, 3].forEach((i) => cues.push(['hit', T.words + 0.3 + i * 0.45, 0.9], ['pop', T.words + 0.32 + i * 0.45, 0.6]));
   for (let x = T.leap; x < T.night; x += 0.25) cues.push(['tick', x, 0.35]);
   for (let x = T.sprint; x < T.cards; x += 0.2) cues.push(['tick', x, 0.3]);
   window.CUES = { dur: DUR, cues, sfx_gain: 0.4 };
 
-  const hits = [T.laugh, T.land, T.quiz + 0.3, T.quiz + 1.1, T.jab1, T.jab2, T.hook, T.floor, T.vamos, T.lockin, T.combo, T.combo + 0.25, T.combo + 0.5, T.combo + 0.75, T.upper, T.kotxt, T.tomorrow, T.door, T.flee];
+  const hits = [T.laugh, T.land, T.quiz + 0.5, T.quiz + 1.6, T.jab1, T.jab2, T.hook, T.floor, T.vamos, T.lockin, T.combo, T.combo + 0.3, T.combo + 0.6, T.combo + 0.9, T.upper, T.kotxt, T.tomorrow, T.door, T.flee];
   window.SCENE = {
     frame(t) {
       X.fillStyle = '#000'; X.fillRect(0, 0, W, H);
@@ -269,10 +271,10 @@ window.ready = (async () => {
         X.save(); shot(t); bar(t);
         const laughing = t >= T.laugh && t < T.street;
         const bm = (who) => ({ mood: laughing ? 'laugh' : t > T.fail + 0.8 ? 'smug' : 'neutral', lookX: who === 'f' ? 1 : who === 'g' ? 1 : 0.6, lid: '#000' });
-        flame(t, 230, 1150, 0.78, { ...bm('f'), shades: true, mood: laughing ? 'laugh' : 'smug', noLids: true, point: t > T.card1 });
-        gem(t, 440, 1130, 0.75, bm('g'));
-        card(t, 650, 1140, 0.72, { ...bm('c'), mood: laughing && t < T.card1 ? 'laugh' : t >= T.card1 ? 'smug' : bm('c').mood, lid: '#fffdf6' });
-        hero(t, 880, 1150, 0.8, { mood: t < T.fail ? 'happy' : 'worried', sweat: t > T.fail + 0.6, wide: t > T.laugh, lookX: t > T.laugh ? -1 : -0.5, lookY: t > T.card1 ? 1 : 0, squash: t > T.laugh && t < T.laugh + 0.3 ? 1 : 0, seed: 1 });
+        flame(t, 230, 1150, 0.78, { ...bm('f'), shades: true, mood: laughing ? 'laugh' : 'smug', noLids: true, point: t > T.card1, talk: laughing ? 0 : talk('flame', t) });
+        gem(t, 440, 1130, 0.75, { ...bm('g'), talk: laughing ? 0 : talk('gem', t) });
+        card(t, 650, 1140, 0.72, { ...bm('c'), mood: laughing && t < T.card1 ? 'laugh' : t >= T.card1 ? (talk('card', t) > 0.05 ? 'neutral' : 'smug') : bm('c').mood, lid: '#fffdf6', talk: talk('card', t) });
+        hero(t, 880, 1150, 0.8, { talk: talk('hero', t), mood: t < T.fail ? 'happy' : 'worried', sweat: t > T.fail + 0.6, wide: t > T.laugh, lookX: t > T.laugh ? -1 : -0.5, lookY: t > T.card1 ? 1 : 0, squash: t > T.laugh && t < T.laugh + 0.3 ? 1 : 0, seed: 1 });
         table(t); X.restore();
         let p; p = scr(440, 900); bubble(t, T.gem1, T.flame1, '¿Qué pasa, tío?', p[0], p[1] - 40);
         p = scr(230, 880); bubble(t, T.flame1, T.fail, '¡Esto es fiesta!', p[0] + 120, p[1] - 40);
@@ -294,27 +296,41 @@ window.ready = (async () => {
         if (t > T.buzz) { const k = eo(lin(t, T.buzz, T.buzz + 0.3)); X.fillStyle = `rgba(255,210,120,${0.22 * k * (0.6 + 0.4 * Math.sin(t * 20))})`; X.fillRect(0, 0, W, H); }
         vignette(0.55);
       } else if (t < T.portal) {
-        // ======== POV: his phone's front camera ========
+        // ======== POV: through his phone — the notification, the tap ========
         X.fillStyle = '#0b0f1a'; X.fillRect(0, 0, W, H);
         X.save(); X.beginPath(); X.roundRect(60, 120, W - 120, H - 240, 60); X.clip();
         street(t); blurSoFar(); rain(t, 0.25);
-        const d = t - T.pov; const det = t > T.det;
-        const wipeK = lin(t, T.wipe, T.wipe + 0.45);
+        const det = t > T.det; const wipeK = lin(t, T.wipe, T.wipe + 0.45); const reading = t > T.notif + 0.3 && t < T.tap + 0.3;
         X.save(); X.translate(W / 2, 1180); X.rotate(Math.sin(t * 2) * 0.02); X.translate(-W / 2, -1180);
-        heroX(t, W / 2, 1220, 2.5, { mood: det ? 'neutral' : 'worried', calm: true, lookY: det ? 0 : 0.2, squash: det && t < T.det + 0.2 ? 1 : 0, seed: 9 },
+        heroX(t, W / 2, 1260, 2.4, { mood: t > T.cta + 0.2 ? 'neutral' : det ? 'neutral' : 'worried', calm: true, lookY: reading ? -1 : 0.2, lookX: reading ? Math.sin(t * 3) * 0.4 : 0, wide: t > T.cta && t < T.cta + 0.5, squash: det && t < T.det + 0.2 ? 1 : 0, seed: 9 },
           { brows: det ? 'angry' : 'sad', tear: wipeK < 0.5 ? 1.2 : 0 });
         X.restore();
-        if (wipeK > 0 && wipeK < 1) { const a = mix(-0.6, 0.9, wipeK); X.strokeStyle = '#6e1f2a'; X.lineWidth = 60; X.lineCap = 'round'; X.beginPath(); X.moveTo(W / 2 - 360, 1500); X.lineTo(W / 2 - 160 + a * 260, 1040); X.stroke(); }
+        if (wipeK > 0 && wipeK < 1) { const a = mix(-0.6, 0.9, wipeK); X.strokeStyle = '#6e1f2a'; X.lineWidth = 60; X.lineCap = 'round'; X.beginPath(); X.moveTo(W / 2 - 360, 1560); X.lineTo(W / 2 - 160 + a * 260, 1100); X.stroke(); }
+        // the notification: slides in, stays, then offers the first lesson
+        const ny = 330, open = eo(lin(t, T.cta, T.cta + 0.35)), nh = mix(170, 340, open);
+        if (t > T.notif) { const k = back(lin(t, T.notif, T.notif + 0.35), 2); const pressed = t > T.tap && t < T.tap + 0.25;
+          X.save(); X.translate(W / 2, mix(-100, ny, k)); X.globalAlpha = cl(k * 1.5);
+          X.fillStyle = 'rgba(0,0,0,0.25)'; rr(-436, -78, 880, nh + 12, 40); X.fill();
+          X.fillStyle = 'rgba(246,239,226,0.97)'; rr(-440, -86, 880, nh, 40); X.fill();
+          X.fillStyle = '#6e1f2a'; rr(-404, -56, 96, 96, 22); X.fill(); X.strokeStyle = '#e3b871'; X.lineWidth = 5; X.beginPath(); X.arc(-356, -8, 24, 0, 7); X.stroke(); X.beginPath(); X.ellipse(-356, -8, 10, 24, 0, 0, 7); X.stroke();
+          X.textAlign = 'left'; X.font = font('inter', 800, 40); X.fillStyle = INK; X.fillText('Borderless', -286, -20); X.font = font('inter', 500, 30); X.fillStyle = '#8a8076'; X.fillText('now', 300, -20);
+          X.font = font('inter', 500, 36); X.fillStyle = '#4a4038'; X.fillText('Lesson 1 is ready: ordering at the bar.', -286, 30); X.textAlign = 'center';
+          if (open > 0) { X.globalAlpha = open; X.fillStyle = pressed ? '#a8512b' : '#c4622d'; rr(-404, 86, 808, 118, 30); X.fill(); txt('Start your first lesson  →', 0, 146, font('inter', 800, 46), '#fff');
+            if (t > T.tap) { const r = lin(t, T.tap, T.tap + 0.5); X.strokeStyle = `rgba(255,255,255,${1 - r})`; X.lineWidth = 10; X.beginPath(); X.arc(150, 146, 40 + r * 160, 0, 7); X.stroke(); } }
+          X.restore(); }
+        // his hand reaches up and taps it
+        const reach = t < T.tap ? eio(lin(t, T.tap - 0.45, T.tap)) : 1 - eio(lin(t, T.tap + 0.2, T.tap + 0.5));
+        if (reach > 0) { const fx = mix(W + 80, W / 2 + 150, reach), fy = mix(H + 120, ny + 160, reach);
+          X.strokeStyle = '#6e1f2a'; X.lineWidth = 70; X.lineCap = 'round'; X.beginPath(); X.moveTo(W + 160, H + 200); X.lineTo(fx, fy); X.stroke();
+          X.fillStyle = '#7d2433'; X.beginPath(); X.arc(fx, fy, 40, 0, 7); X.fill(); }
+        // the tap opens the app: the screen swirls open from the button
+        if (t > T.tap + 0.1) { const k = ei(lin(t, T.tap + 0.1, T.portal)); const cx = W / 2 + 150, cy = ny + 146, R = k * 2200;
+          X.save(); X.beginPath(); X.arc(cx, cy, R, 0, 7); X.clip(); X.fillStyle = '#ee8b47'; X.fillRect(0, 0, W, H);
+          for (let i = 0; i < 16; i++) { const a = i / 16 * 6.283 + t * 6; X.fillStyle = i % 2 ? '#f6efe2' : '#c4622d'; X.beginPath(); X.moveTo(cx, cy); X.arc(cx, cy, 2400, a, a + 6.283 / 32); X.closePath(); X.fill(); }
+          X.restore(); }
         X.restore();
-        // phone UI
         X.strokeStyle = '#111'; X.lineWidth = 40; X.beginPath(); X.roundRect(60, 120, W - 120, H - 240, 60); X.stroke();
         X.fillStyle = '#111'; rr(W / 2 - 110, 140, 220, 50, 25); X.fill();
-        X.fillStyle = 'rgba(255,255,255,0.9)'; X.beginPath(); X.arc(W / 2, 1640, 70, 0, 7); X.fill(); X.strokeStyle = '#fff'; X.lineWidth = 8; X.beginPath(); X.arc(W / 2, 1640, 86, 0, 7); X.stroke();
-        if (t > T.pov + 0.25) { const k = back(lin(t, T.pov + 0.25, T.pov + 0.55), 2); X.save(); X.translate(W / 2, mix(120, 300, k)); X.globalAlpha = cl(k);
-          X.fillStyle = 'rgba(246,239,226,0.96)'; rr(-420, -70, 840, 140, 34); X.fill(); X.fillStyle = '#6e1f2a'; rr(-390, -44, 88, 88, 20); X.fill();
-          X.strokeStyle = '#e3b871'; X.lineWidth = 4; X.beginPath(); X.arc(-346, 0, 22, 0, 7); X.stroke();
-          X.textAlign = 'left'; X.font = font('inter', 800, 34); X.fillStyle = INK; X.fillText('Borderless', -280, -12); X.font = font('inter', 500, 32); X.fillStyle = '#5a5048'; X.fillText('Lesson 1 is ready. Ordering at the bar.', -280, 30); X.textAlign = 'center'; X.restore(); }
-        X.fillStyle = 'rgba(0,0,0,0.5)'; rr(110, 1490, 150, 50, 25); X.fill(); X.fillStyle = '#e23b3b'; X.beginPath(); X.arc(140, 1515, 10, 0, 7); X.fill(); txt('0:' + String(Math.floor(d * 1 + 3)).padStart(2, '0'), 205, 1516, font('mono', 700, 28), '#fff');
       } else if (t < T.land) {
         // ======== SUCKED INTO THE PHONE ========
         X.save(); cam(540, 1100, mix(1.0, 1.15, lin(t, T.portal, T.land))); street(t); X.restore(); rain(t, 0.4);
@@ -323,7 +339,7 @@ window.ready = (async () => {
         // pull lines toward the screen
         if (t > T.portal + 0.3) { X.strokeStyle = 'rgba(255,230,190,0.55)'; X.lineWidth = 5; for (let i = 0; i < 40; i++) { const a = hash(i) * 6.283, r0 = 1300 - ((t * 1800 + hash(i * 3) * 1300) % 1300); X.beginPath(); X.moveTo(px + Math.cos(a) * r0, py + Math.sin(a) * r0); X.lineTo(px + Math.cos(a) * (r0 + 160), py + Math.sin(a) * (r0 + 160)); X.stroke(); } }
         const glow = X.createRadialGradient(px, py, 50, px, py, 900); glow.addColorStop(0, `rgba(238,139,71,${0.5 * grow})`); glow.addColorStop(1, 'rgba(238,139,71,0)'); X.fillStyle = glow; X.fillRect(0, 0, W, H);
-        portalScreen(t, px, py, pw, 1 - lin(t, T.portal + 0.2, T.portal + 0.6));
+        portalScreen(t, px, py, pw, 0);
         // the hero: crouch, jump, spin and shrink into the screen
         const j = lin(t, T.suck, T.suck + 0.5); const crouch = t > T.suck - 0.3 && t < T.suck ? 1 : 0;
         if (j < 1) { const hx = mix(540, px, ei(j)), hy = mix(1380, py, ei(j)) - Math.sin(j * Math.PI) * 220; const hs = mix(0.95, 0.04, ei(j));
@@ -348,9 +364,10 @@ window.ready = (async () => {
           X.fillStyle = '#fff'; for (let i = 0; i < 8; i++) { const x = ((i * 260 - off) % 2080 + 2080) % 2080 - 200; X.fillRect(x, 1430, 120, 12); }
           for (let i = 0; i < 3; i++) { const x = 900 + i * 900 - off; X.fillStyle = '#6e1f2a'; X.fillRect(x, 1080, 14, 300); X.fillStyle = '#f6efe2'; rr(x - 90, 1030, 200, 80, 14); X.fill(); txt('LESSON ' + (2 + i), x + 10, 1072, font('anton', 400, 40), '#6e1f2a'); }
           const bx = 1250 - off; X.fillStyle = '#ee8b47'; rr(bx - 80, 1240, 160, 140, 18); X.fill(); txt('¿EL?', bx, 1290, font('anton', 400, 46), '#fff'); txt('¿LA?', bx, 1345, font('anton', 400, 46), '#fff');
-          const jk = lin(t, T.run + 0.5, T.run + 1.0); const jy = Math.sin(jk * Math.PI) * 300;
+          const jk = lin(t, T.run + 0.33, T.run + 0.85); const jy = Math.sin(jk * Math.PI) * 300;
           X.save(); X.translate(360, 1240 - jy); X.rotate(0.14 + jk * 6.283); X.translate(-360, -(1240 - jy));
-          heroX(t, 360, 1240 - jy, 0.8, { mood: 'happy', acc: ['headband'], walk: jk > 0 && jk < 1 ? undefined : t * 26, lookX: 1, sweat: true, seed: 3 }); X.restore();
+          heroX(t, 360, 1240 - jy, 0.9, { mood: jk > 0 && jk < 1 ? 'o' : 'happy', acc: ['headband'], walk: jk > 0 && jk < 1 ? undefined : t * 26, tilt: jk > 0 && jk < 1 ? 0 : Math.sin(t * 13) * 0.05, lookX: 1, sweat: true, seed: 3 }, { brows: 'angry' }); X.restore();
+          for (let i = 0; i < 6; i++) { const k = ((t * 2.2 + i / 6) % 1); if (jk > 0 && jk < 1) continue; X.fillStyle = `rgba(255,255,255,${0.7 * (1 - k)})`; X.beginPath(); X.arc(300 - k * 260, 1370 - k * 40, 16 + k * 34, 0, 7); X.fill(); }
           X.strokeStyle = 'rgba(255,255,255,0.7)'; X.lineWidth = 6; for (let i = 0; i < 12; i++) { const y = 900 + hash(i) * 500, x = ((hash(i * 7) * 1400 - off * 2.2) % 1400 + 1400) % 1400 - 200; X.beginPath(); X.moveTo(x, y); X.lineTo(x + 220, y); X.stroke(); }
         } else if (t < T.quiz) { // corner whip + dive into a lesson card
           const d = t - T.corner;
@@ -362,7 +379,7 @@ window.ready = (async () => {
         } else if (t < T.words) { // quiz: wrong, AGAIN, right
           X.fillStyle = CREAM; X.fillRect(0, 0, W, H);
           txt('LESSON 5 · AT THE BAR', W / 2, 250, font('bebas', 400, 54), '#a8512b', { ls: 4 }); txt('Order a beer.', W / 2, 360, font('serif', 400, 96), INK);
-          const opts = [['Yo cerveza.', 640], ['Una caña, por favor.', 840], ['Cerveza… ¿sí?', 1040]]; const wrongT = T.quiz + 0.3, rightT = T.quiz + 1.1;
+          const opts = [['Yo cerveza.', 640], ['Una caña, por favor.', 840], ['Cerveza… ¿sí?', 1040]]; const wrongT = T.quiz + 0.5, rightT = T.quiz + 1.6;
           opts.forEach(([s, y], i) => { const wrong = i === 0 && t > wrongT, right = i === 1 && t > rightT; const sh = wrong && t < wrongT + 0.35 ? Math.sin(t * 90) * 14 : 0;
             X.fillStyle = wrong ? '#f4c4c0' : right ? '#c8ecd2' : '#fff'; rr(150 + sh, y - 70, 780, 140, 30); X.fill(); X.strokeStyle = wrong ? '#d8322f' : right ? '#3aa35b' : '#d9cdb8'; X.lineWidth = 6; X.stroke();
             txt(s, 540 + sh, y + 4, font('archivo', 400, 50), INK);
@@ -378,7 +395,7 @@ window.ready = (async () => {
           rays(t, '#ee8b47', W / 2, 1150);
           const hx = 540, hy = 1260, hs = 1.15; const W4 = [['la cuenta', -1, '¡PUM!'], ['invito yo', 1, '¡ZAS!'], ['¿me lo repites?', -1, '¡TOMA!'], ['unas bravas', 1, '¡OLÉ!']];
           let gl = {};
-          W4.forEach(([w, side, c], i) => { const tp = T.words + 0.2 + i * 0.3; const ty = 640 + (i % 2) * 140;
+          W4.forEach(([w, side, c], i) => { const tp = T.words + 0.3 + i * 0.45; const ty = 640 + (i % 2) * 140;
             if (t < tp) { const k = lin(t, tp - 0.45, tp); if (k > 0) { const x = mix(side < 0 ? -300 : W + 300, side < 0 ? 300 : 780, k); X.save(); X.translate(x, ty); X.rotate(t * 3 * side); X.font = font('archivo', 400, 54); const ww = X.measureText(w).width + 60; X.fillStyle = '#fff'; rr(-ww / 2, -46, ww, 92, 46); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke(); txt(w, 0, 3, font('archivo', 400, 54), INK); X.restore(); } }
             else if (t < tp + 0.5) { const b = (t - tp) / 0.5; for (let q = 0; q < w.length; q++) { const a = q / w.length * 6.283 + i; X.save(); X.translate((side < 0 ? 300 : 780) + Math.cos(a) * b * 500, ty + Math.sin(a) * b * 400 + b * b * 300); X.rotate(b * 8 * (q % 2 ? 1 : -1)); X.globalAlpha = 1 - b; txt(w[q], 0, 0, font('archivo', 400, 60), '#fff', { stroke: INK, sw: 6 }); X.restore(); } }
             const k = pk(t, tp); if (k > 0) { if (side < 0) gl.l = [-150 - k * 140, -60 - k * 300]; else gl.r = [150 + k * 140, -60 - k * 300]; }
@@ -387,7 +404,7 @@ window.ready = (async () => {
         } else if (t < T.night) { // leap along the path
           const d = t - T.leap; pathBg(3900 - d * 1500); speedLines(t, 0.4);
           const hop = Math.abs(Math.sin(d * Math.PI * 4)); heroX(t, 540, 1250 - hop * 160, 0.85 + hop * 0.1, { mood: 'happy', acc: ['headband'], sweat: true, squash: hop < 0.12 ? 0.8 : 0, seed: 3 });
-          for (let i = 0; i < 4; i++) { const tp = T.leap + 0.12 + i * 0.25; if (t > tp) tick(260 + (i % 2) * 560, 700 + i * 120 + (t - tp) * 1500, back(lin(t, tp, tp + 0.15), 3) * 0.9); }
+          for (let i = 0; i < 4; i++) { const tp = T.leap + 0.15 + i * 0.3; if (t > tp) tick(260 + (i % 2) * 560, 700 + i * 120 + (t - tp) * 1500, back(lin(t, tp, tp + 0.15), 3) * 0.9); }
         } else if (t < T.stamps) { // 02:14 at night
           X.fillStyle = '#0d1020'; X.fillRect(0, 0, W, H); const lamp = X.createRadialGradient(540, 760, 20, 540, 900, 700); lamp.addColorStop(0, 'rgba(255,214,140,0.5)'); lamp.addColorStop(1, 'rgba(255,214,140,0)'); X.fillStyle = lamp; X.fillRect(0, 0, W, H);
           heroX(t, 540, 1050, 1.6, { mood: 'neutral', acc: ['headband', 'phone'], phoneGlow: '#ffe7b0', sweat: true, lookX: -0.8, lookY: 0.5, seed: 6 }, { brows: 'angry' });
@@ -418,7 +435,7 @@ window.ready = (async () => {
           if (fly <= 0) {
             const cocky = t > T.cocky && t < T.windup + 0.2; const jab = (tp) => pk(t, tp, 0.06, 0.2);
             const gl = cocky ? { l: [-170, -150], r: [170, -150] } : { l: [-100, -5], r: [100 + (jab(T.jab1) + jab(T.jab2)) * 340, -5 - (jab(T.jab1) + jab(T.jab2)) * 60] };
-            heroX(t, 360, 1250, 0.9, { mood: t > T.jab1 ? 'happy' : 'neutral', acc: ['headband'], lookX: cocky ? -1 : 1, wink: t > T.oblivious, walk: t * 8, calm: true, seed: 3 }, { gloves: gl, brows: t < T.jab1 ? 'angry' : undefined });
+            heroX(t, 360, 1250, 0.9, { talk: talk('hero', t), mood: t > T.jab1 ? 'happy' : 'neutral', acc: ['headband'], lookX: cocky ? -1 : 1, wink: t > T.oblivious, walk: t * 8, calm: true, seed: 3 }, { gloves: gl, brows: t < T.jab1 ? 'angry' : undefined });
           } else { const hx = mix(360, 90, eo(fly)), hy = 1250 - Math.sin(fly * Math.PI) * 260 + fly * 120;
             X.save(); X.translate(hx, hy); X.rotate(-eo(fly) * 1.6); X.translate(-hx, -hy);
             heroX(t, hx, hy, 0.9, { mood: 'o', acc: ['headband'], wide: true, seed: 3 }, { ko: fly > 0.3, gloves: { l: [-210, -60], r: [190, 20] } }); X.restore();
@@ -440,7 +457,7 @@ window.ready = (async () => {
           referee(t, 690, 1170, 0.75, { count: n, tilt: -0.25 });
           const hx = mix(470, 540, up), hy = mix(1390, 1180, up);
           X.save(); X.translate(hx, hy); X.rotate(mix(-Math.PI / 2, 0, up)); X.translate(-hx, -hy);
-          heroX(t, hx, hy, 1.0, { mood: awake ? 'neutral' : 'o', acc: ['headband'], calm: true, wide: awake, lookX: awake ? 0.6 : 0, sweat: true, squash: t > T.vamos && t < T.vamos + 0.25 ? 1 : 0, seed: 3 },
+          heroX(t, hx, hy, 1.0, { talk: talk('hero', t), mood: awake ? 'neutral' : 'o', acc: ['headband'], calm: true, wide: awake, lookX: awake ? 0.6 : 0, sweat: true, squash: t > T.vamos && t < T.vamos + 0.25 ? 1 : 0, seed: 3 },
             { ko: !awake, brows: awake ? 'angry' : undefined, gloves: up > 0.5 ? { l: [-80, -60], r: [80, -60] } : { l: [-200, 60], r: [200, 60] } });
           X.restore(); X.restore();
           desat(mix(0.9, 0, lin(t, T.eyes + 0.5, T.lockin))); vignette(mix(0.85, 0.4, lin(t, T.eyes, T.lockin)));
@@ -453,16 +470,16 @@ window.ready = (async () => {
             slam(t, T.lockin, 'LOCK IN.', W / 2, 330, font('anton', 400, 210), '#fff', { stroke: INK, sw: 16, rot: -0.06 });
           } else {
             X.save(); keyCam(t, [[T.combo - 0.05, 600, 1080, 1.5], [T.upper, 620, 900, 1.05], [T.raise, 540, 1060, 1.15]]); ringSet(t);
-            const uk = lin(t, T.upper, T.upper + 0.6); const comboRec = [0, 1, 2, 3].reduce((a, i) => a + pk(t, T.combo + i * 0.25, 0.05, 0.25), 0);
+            const uk = lin(t, T.upper, T.upper + 0.6); const comboRec = [0, 1, 2, 3].reduce((a, i) => a + pk(t, T.combo + i * 0.3, 0.05, 0.25), 0);
             if (uk < 1) enye(t, 760 + comboRec * 50 + uk * 200, 1160 - eo(uk) * 1500, 0.75, { mood: 'hurt', tilt: comboRec * 0.2 + uk * 3, noTilde: t > T.upper, gloves: { l: [-230, -120], r: [230, -120] } });
             if (t > T.upper) { const tk = lin(t, T.upper, T.upper + 1.6); tilde(mix(760, 470, tk), mix(880, 1240, eo(tk)) - Math.sin(tk * Math.PI) * 500, 0.7, tk * 12 * (1 - tk * 0.6)); }
-            const ci = Math.floor((t - T.combo) / 0.25); const jab = [0, 1, 2, 3].map((i) => pk(t, T.combo + i * 0.25, 0.06, 0.18));
+            const ci = Math.floor((t - T.combo) / 0.25); const jab = [0, 1, 2, 3].map((i) => pk(t, T.combo + i * 0.3, 0.06, 0.2));
             const up = pk(t, T.upper, 0.08, 0.5);
             const gl = t > T.raise ? { l: [-90, -80], r: [170, -330] } : { l: [-60 + (jab[1] + jab[3]) * 420, -70 - jab[3] * 60], r: [60 + (jab[0] + jab[2]) * 420 + up * 200, -70 - up * 340] };
             heroX(t, t > T.raise ? 470 : 380, 1250, 0.9, { mood: t > T.kotxt ? 'happy' : 'neutral', acc: ['headband'], walk: t * 10, calm: true, lookX: 1, seed: 3 }, { brows: t < T.kotxt ? 'angry' : undefined, gloves: gl });
             if (t > T.raise) referee(t, 760, 1100, 0.85, { raiseL: true });
             X.restore();
-            ['¡PUM!', '¡PAM!', '¡ZAS!', '¡TOMA!'].forEach((c, i) => comic(t, T.combo + i * 0.25, c, [760, 640, 820, 700][i], [820, 720, 900, 780][i], '#ffd23d', 80));
+            ['¡PUM!', '¡PAM!', '¡ZAS!', '¡TOMA!'].forEach((c, i) => comic(t, T.combo + i * 0.3, c, [760, 640, 820, 700][i], [820, 720, 900, 780][i], '#ffd23d', 80));
             comic(t, T.upper, '¡BOOM!', 640, 560, '#e23b3b', 110);
             if (t > T.kotxt) { slam(t, T.kotxt, 'K.O.', W / 2, 420, font('bungee', 400, 260), '#ffd23d', { stroke: INK, sw: 18 }); confetti(t, T.raise, W / 2, 600, 70, [OR, '#fff', '#ffd23d', '#6e1f2a'], 1.4); }
           }
@@ -472,12 +489,12 @@ window.ready = (async () => {
           if (t >= T.tomorrow) { const k = back(lin(t, T.tomorrow, T.tomorrow + 0.25), 2.4); X.save(); X.translate(W / 2, 640); X.rotate(-0.08); X.scale(k, k); txt('THERE IS', 0, -90, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); txt('NO TOMORROW!', 0, 80, font('anton', 400, 150), '#fff', { stroke: '#e23b3b', sw: 16 }); X.restore(); }
         } else if (t < T.chips2) { // lesson cards flying past, each one done
           X.fillStyle = CREAM; X.fillRect(0, 0, W, H); speedLines(t, 0.0);
-          [IMG.les0, IMG.les2, IMG.les0].forEach((im, i) => { const t0 = T.cards + i * 0.27; const k = lin(t, t0, t0 + 0.45); if (k <= 0 || k >= 1) return;
+          [IMG.les0, IMG.les2, IMG.les0].forEach((im, i) => { const t0 = T.cards + i * 0.4; const k = lin(t, t0, t0 + 0.45); if (k <= 0 || k >= 1) return;
             lessonPhone(im, mix(1500, -500, ei(k)), 960, 640, mix(0.3, -0.3, k), 1150 - i * 200); if (k > 0.25) tick(mix(1500, -500, ei(k)) + 220, 600, 1.1); });
           heroX(t, 540, 1550, 0.75, { mood: 'happy', acc: ['headband'], walk: t * 26, seed: 3 });
         } else if (t < T.top) { // quick word smashes
           rays(t, '#ee8b47', W / 2, 1150); let gl = {};
-          [['¿cuánto es?', -1], ['la carta', 1], ['vale', -1]].forEach(([w, side], i) => { const tp = T.chips2 + 0.15 + i * 0.25; const ty = 700 + (i % 2) * 140;
+          [['¿cuánto es?', -1], ['la carta', 1], ['vale', -1]].forEach(([w, side], i) => { const tp = T.chips2 + 0.2 + i * 0.35; const ty = 700 + (i % 2) * 140;
             if (t < tp) { const k = lin(t, tp - 0.3, tp); if (k > 0) { X.save(); X.translate(mix(side < 0 ? -300 : W + 300, side < 0 ? 300 : 780, k), ty); X.font = font('archivo', 400, 54); const ww = X.measureText(w).width + 60; X.fillStyle = '#fff'; rr(-ww / 2, -46, ww, 92, 46); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke(); txt(w, 0, 3, font('archivo', 400, 54), INK); X.restore(); } }
             const k = pk(t, tp); if (k > 0) { if (side < 0) gl.l = [-150 - k * 140, -60 - k * 300]; else gl.r = [150 + k * 140, -60 - k * 300]; }
             comic(t, tp, ['¡PUM!', '¡ZAS!', '¡OLÉ!'][i], side < 0 ? 330 : 750, ty - 150, '#ffd23d', 70); });
@@ -500,14 +517,14 @@ window.ready = (async () => {
         if (runK(0.16) < 1) {
           const fx = mix(230, -500, runK(0)), gx = mix(440, -500, runK(0.08)), cx = mix(650, -500, runK(0.16));
           const shadesDown = shF ? eo(lin(t, T.what + 0.2, T.what + 0.6)) : 0;
-          flame(t, fx, 1150 + jump(0), 0.78, { mood: shF ? 'shock' : 'smug', shades: t < T.what + 0.35, noLids: true, out: T.what + 0.95 });
+          flame(t, fx, 1150 + jump(0), 0.78, { talk: talk('flame', t), mood: shF ? 'shock' : talk('flame', t) > 0.05 ? 'neutral' : 'smug', shades: t < T.what + 0.35, noLids: true, out: T.what + 0.95 });
           if (shF && shadesDown < 1) { X.save(); X.translate(fx, 1150 + shadesDown * 400); X.scale(0.78, 0.78); X.restore(); }
-          gem(t, gx, 1130 + jump(0.08), 0.75, { mood: shG ? 'shock' : 'smug', crack: T.noway + 0.3 });
-          card(t, cx, 1140 + jump(0.16), 0.72, { mood: shC ? 'shock' : 'smug', crack: T.perfect + 0.9, lid: '#fffdf6' });
+          gem(t, gx, 1130 + jump(0.08), 0.75, { talk: talk('gem', t), mood: shG ? 'shock' : 'smug', crack: T.noway + 0.3 });
+          card(t, cx, 1140 + jump(0.16), 0.72, { talk: talk('card', t), mood: shC ? 'shock' : 'smug', crack: T.perfect + 0.9, lid: '#fffdf6' });
           if (gone) for (let i = 0; i < 8; i++) { const k = ((t - T.flee) * 1.5 + i * 0.1) % 1; X.fillStyle = `rgba(230,200,170,${0.7 * (1 - k)})`; X.beginPath(); X.arc(300 - k * 300 + i * 40, 1300 - k * 80, 30 + k * 60, 0, 7); X.fill(); }
         }
         const inK = eo(lin(t, T.door, T.door + 1.0));
-        hero(t, mix(1250, 880, inK), 1150, 0.8, { mood: t > T.vale ? 'happy' : 'neutral', acc: ['shades', 'headband'], walk: inK < 1 ? t * 6 : undefined, wink: t > T.vale, point: t > T.win && t < T.win + 1.2, lookX: t > T.algo && t < T.flee ? -1 : 0, seed: 7 });
+        hero(t, mix(1250, 880, inK), 1150, 0.8, { talk: talk('hero', t), mood: t > T.vale ? 'happy' : 'neutral', acc: ['shades', 'headband'], walk: inK < 1 ? t * 6 : undefined, wink: t > T.vale, point: t > T.win && t < T.win + 1.2, lookX: t > T.algo && t < T.flee ? -1 : 0, seed: 7 });
         table(t); X.restore();
         whiteFlash(t, T.door - 0.2, T.door + 0.6);
         let p = scr(230, 880); bubble(t, T.flame3, T.win, 'Back for more?', p[0] + 140, p[1] - 40);
