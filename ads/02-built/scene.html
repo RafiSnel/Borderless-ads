@@ -3,10 +3,11 @@
 <style>html,body{margin:0;background:#000}canvas{display:block}</style>
 </head><body>
 <canvas id="c" width="1080" height="1920"></canvas>
+<script src="depth.js"></script>
 <script>
 // Borderless ad "Lying" — every frame is a pure function of t (seconds). 1080x1920.
 const W = 1080, H = 1920;
-const C = document.getElementById('c'), X = C.getContext('2d');
+const C = document.getElementById('c'); let X = C.getContext('2d');
 const P = {
   bg: '#f4eee2', bg2: '#eae2d3', paper: '#fbf7ec', ink: '#1f1a14', ink2: '#5b5044', ink3: '#9a8f7e',
   acc: '#a8512b', acc2: '#8e4322', amber: '#ee8b47', sun: '#f0c04e', pass: '#6e1f2a', pass2: '#571722', gold: '#e3b871',
@@ -22,6 +23,7 @@ const back = (p, s = 1.9) => { p = cl(p); return 1 + (s + 1) * Math.pow(p - 1, 3
 const elastic = (p) => { p = cl(p); if (p === 0 || p === 1) return p; return Math.pow(2, -10 * p) * Math.sin((p * 10 - .75) * (2 * Math.PI / 3)) + 1; };
 const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 const mix = (a, b, p) => a + (b - a) * p;
+const ei = (p) => Math.pow(cl(p), 3);
 // ---------- assets ----------
 const IMG = {};
 const SRC = {
@@ -265,11 +267,13 @@ function pin(x, y, s) {
   X.fillStyle = P.acc; X.beginPath(); X.moveTo(0, 0); X.bezierCurveTo(-30, -60, -80, -100, -80, -160); X.arc(0, -160, 80, Math.PI, 0); X.bezierCurveTo(80, -100, 30, -60, 0, 0); X.fill();
   X.fillStyle = P.paper; X.beginPath(); X.arc(0, -160, 34, 0, 7); X.fill(); X.restore();
 }
-function spainBlob(x, y, s, a) {
-  // simple abstract Iberia-ish blob with Madrid dot; not a map, just a shape
-  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s); X.fillStyle = P.bg2;
-  X.beginPath(); X.moveTo(-300, -170); X.bezierCurveTo(-100, -250, 150, -230, 290, -160); X.bezierCurveTo(330, -40, 250, 80, 180, 170);
-  X.bezierCurveTo(60, 230, -120, 230, -230, 170); X.bezierCurveTo(-300, 120, -340, 0, -300, -170); X.fill(); X.restore();
+function spainBlob(x, y, s, a, tilt = 0) {
+  // simple abstract Iberia-ish blob; tilt 0..1 lays it down on the table in perspective, as a thick piece of card
+  const shape = () => { X.beginPath(); X.moveTo(-300, -170); X.bezierCurveTo(-100, -250, 150, -230, 290, -160); X.bezierCurveTo(330, -40, 250, 80, 180, 170);
+    X.bezierCurveTo(60, 230, -120, 230, -230, 170); X.bezierCurveTo(-300, 120, -340, 0, -300, -170); };
+  X.save(); X.globalAlpha = a; X.translate(x, y); X.scale(s, s * mix(1, 0.5, tilt));
+  if (tilt > 0) { for (let i = 36; i > 0; i -= 3) { X.save(); X.translate(0, i * tilt); shape(); X.fillStyle = i === 36 ? 'rgba(31,26,20,0.18)' : '#d8ccb6'; X.fill(); X.restore(); } }
+  shape(); X.fillStyle = P.bg2; X.fill(); X.restore();
 }
 // ---------- scenes ----------
 function s1(t) { // I couldn't speak Spanish.
@@ -308,9 +312,11 @@ function s4(t) { // Colours. Animals. The cat drinks milk.
 }
 function s5(t) { // I needed Spanish for an internship in Madrid.
   const k = t - T.l5;
-  spainBlob(W / 2, 1050, 1.35, eo(k * 4 + 0.5));
+  const tilt = eio(lin(k, 0, 0.45)); spainBlob(W / 2, 1050, 1.35, eo(k * 4 + 0.5), tilt);
   const drop = lin(t, T.l5 + 0.25, T.l5 + 0.5);
-  if (drop > 0) pin(W / 2 + 40, mix(500, 1080, eio(drop)), 1.1);
+  if (drop > 0) { const y = mix(500, 1060, ei(drop)) - Math.abs(Math.sin(lin(t, T.l5 + 0.5, T.l5 + 0.8) * Math.PI)) * 60 * (1 - lin(t, T.l5 + 0.5, T.l5 + 0.8));
+    X.fillStyle = `rgba(31,26,20,${0.12 + 0.2 * drop})`; X.beginPath(); X.ellipse(W / 2 + 40, 1072, 30 + 40 * drop, 9 + 10 * drop, 0, 0, 7); X.fill();
+    pin(W / 2 + 40, y, 1.1); }
   pill('INTERNSHIP', W / 2, 360, 54, P.white, P.acc, cl(k * 6 + 0.5), back(lin(k, -0.08, .14)));
   slam(t, T.madrid - 0.3, 'MADRID', W / 2, 520, 180, P.ink);
   const words = [['la comanda', 'the order'], ['la sartén', 'the frying pan'], ['¿me lo repites?', 'can you repeat that?'], ['el turno', 'the shift']];
@@ -324,7 +330,7 @@ function s6(t) { // So Borderless asks why you're learning,
   const k = t - T.l6;
   if (k < 0.75) {
     const s = back(lin(k, 0, 0.3));
-    X.save(); X.translate(W / 2, 820); X.scale(s, s); X.beginPath(); X.arc(0, 0, 170, 0, 7); X.clip(); X.drawImage(IMG.logo, -170, -170, 340, 340); X.restore();
+    coin3d(W / 2, 820, 170 * s, spin3d(k, 2));
     slam(t, T.l6 + 0.1, 'Borderless', W / 2, 1150, 150, P.ink, { from: 1.3 });
   } else {
     mascot(t, W / 2, 1120, 1.2, { mood: 'o', wide: true, lookY: -1, seed: 2, squash: Math.max(0, 1 - (k - .75) * 5) });
@@ -381,8 +387,11 @@ function s10(t) { // Seventy-four languages.
 }
 function s11(t) { // One course, built around you.
   const p = back(lin(t, T.l11, T.l11 + 0.3));
-  phone(IMG.mpass, W / 2 - 230, 1150, 460, { zoom: 1.7, focus: [585, 1910], rot: -0.07, scale: p });
-  phone(IMG.tpass, W / 2 + 230, 1150, 460, { zoom: 1.7, focus: [585, 1910], rot: 0.07, scale: back(lin(t, T.l11 + 0.12, T.l11 + 0.42)) });
+  [[IMG.mpass, -1, T.l11], [IMG.tpass, 1, T.l11 + 0.12]].forEach(([img, sd, t0]) => { if (t < t0) return; const q = eo(lin(t, t0, t0 + 0.5));
+    X.save(); X.translate(W / 2 + sd * 230, mix(1350, 1150, q)); X.rotate(sd * 0.07);
+    flipPlane(0, 0, 520, 1040, sd * (1 - q) * Math.PI * 0.95, () => { X.translate(260, 520); phone(img, 0, 0, 460, { zoom: 1.7, focus: [585, 1910] }); },
+      () => { X.translate(260, 520); phone(null, 0, 0, 460, {}); }, { key: 'pp' + sd, persp: 2000, shadow: false });
+    X.restore(); });
   slam(t, T.l11, 'ONE COURSE.', W / 2, 300, 140, P.ink);
   slam(t, T.around, 'BUILT AROUND YOU.', W / 2, 440, 96, P.acc, { from: 1.4 });
 }
@@ -404,7 +413,7 @@ function s13(t) { // It was the course. -> end card
     for (let x = 0; x < W; x += 60) { X.beginPath(); X.moveTo(x, 0); X.lineTo(x, H); X.stroke(); }
     for (let y = 0; y < H; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); }
     const e = t - T.end, s = back(lin(e, 0, 0.35));
-    X.save(); X.translate(W / 2, 640); X.scale(s, s); X.beginPath(); X.arc(0, 0, 150, 0, 7); X.clip(); X.drawImage(IMG.logo, -150, -150, 300, 300); X.restore();
+    coin3d(W / 2, 640, 165 * s, spin3d(e, 3));
     slam(t, T.end + 0.1, 'Borderless', W / 2, 900, 150, P.white, { from: 1.25, shadow: false });
     label('A course built around you.', W / 2, 1030, 56, 'rgba(255,255,255,0.9)', 600, 'center', eo(lin(e, 0.35, 0.6)));
     label('€9,99 per course  ·  borderlesslearn.com', W / 2, 1150, 38, 'rgba(255,255,255,0.75)', 600, 'center', eo(lin(e, 0.6, 0.85)));

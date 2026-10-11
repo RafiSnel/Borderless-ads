@@ -80,7 +80,7 @@ window.ready = (async () => {
       if (gr > 0 && t < s(8)) slam(t, e(7), 'HERO.', W / 2, 700, font('anton', 400, 200), GRN, { stroke: '#fff', sw: 16, rot: -0.06 });
       if (t >= s(8)) {
         X.fillStyle = '#1f1a14'; X.fillRect(0, 0, W, H);
-        X.save(); X.translate(W / 2, 700); const sc = Math.max(0.5, back(lin(t, s(8) - 0.05, s(8) + 0.3))); X.scale(sc, sc); logo(0, 0, 140); X.restore();
+        coinIn(t, s(8) - 0.05, W / 2, 700, 140);
         slam(t, s(8), 'Lessons for the', W / 2, 980, font('serif', 400, 84), '#fff', {});
         slam(t, p(8, 1), 'conversations', W / 2, 1090, font('serif', 400, 96), '#ee8b47', {});
         slam(t, p(8, 2) + 0.2, 'you’re actually', W / 2, 1200, font('serif', 400, 84), '#fff', {});

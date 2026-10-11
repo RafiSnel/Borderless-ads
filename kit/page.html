@@ -22,11 +22,15 @@
 <style>html,body{margin:0;background:#000}canvas{display:block}</style>
 </head><body>
 <canvas id="c" width="1080" height="1920"></canvas>
+<script type="importmap">{"imports":{"three":"./three/three.module.js"}}</script>
+<script>if (new URLSearchParams(location.search).get('3d') === '1') { window.__g3 = new Promise((r) => { window.__g3res = r; }); const m = document.createElement('script'); m.type = 'module'; m.src = 'g3d.js'; document.head.appendChild(m); }</script>
 <script src="node_modules/topojson-client/dist/topojson-client.min.js"></script>
 <script src="kit.js"></script>
 <script src="host.js"></script>
 <script src="chat.js"></script>
 <script src="flap.js"></script>
+<script src="depth.js"></script>
+<script src="kit3d.js"></script>
 <script>
   const v = new URLSearchParams(location.search).get('v');
   const s = document.createElement('script'); s.src = `v/${v}/scene.js`; document.body.appendChild(s);

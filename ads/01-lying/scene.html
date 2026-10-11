@@ -25,8 +25,9 @@ const mix = (a, b, p) => a + (b - a) * p;
 // ---------- timeline (from the measured voiceover) ----------
 const T = {
   l1: 0.15, lying: 1.12, l2: 2.229, three: 2.5, l3: 3.854, coffee: 4.85, l4: 5.489, same: 7.25, l5: 8.297, s5b: 9.277, s5c: 10.157,
-  l6: 11.374, l7: 12.966, l8: 14.324, l9: 15.4, tokyo: 16.9, l10: 18.733, fifty: 19.45, around: 20.35,
-  l11: 21.458, world: 22.418, passport: 23.318, l12: 24.425, l13: 26.343, course: 27.0, end: 27.75, out: 30.0,
+  l6: 11.374, l7: 12.966, l8: 14.324, f1: 15.42, just: 17.12, f2: 17.75, next: 18.43, how: 19.31,
+  l9: 20.551, tokyo: 22.051, l10: 23.884, fifty: 24.35, written: 24.964, go: 25.824,
+  l11: 26.538, world: 27.498, passport: 28.398, l12: 29.505, l13: 31.423, course: 32.08, end: 32.83, out: 35.1,
 };
 // ---------- assets ----------
 const IMG = {};
@@ -211,6 +212,82 @@ function cup(x, y, s) {
   for (let i = 0; i < 3; i++) { X.beginPath(); X.moveTo(-50 + i * 50, -90); X.bezierCurveTo(-30 + i * 50, -130, -70 + i * 50, -160, -50 + i * 50, -200); X.stroke(); }
   X.restore();
 }
+// The Borderless coin: spins around its vertical axis like a real coin. Always upright, never tilted.
+function coin(x, y, r, ang, a = 1) {
+  const c = Math.cos(ang), sx = Math.max(0.02, Math.abs(c)), side = Math.sin(ang), d = r * 0.16;
+  X.save(); X.globalAlpha = a; X.translate(x, y);
+  X.fillStyle = 'rgba(31,26,20,0.18)'; X.beginPath(); X.ellipse(0, r * 1.18, r * 0.9, r * 0.12, 0, 0, 7); X.fill();
+  // the rim: a stack of gold ellipses between the back face and the front face
+  const steps = 14;
+  for (let i = steps; i >= 0; i--) { const o = (i / steps - 0.5) * d * side; X.fillStyle = i % 2 ? '#c9953f' : '#b88332'; X.beginPath(); X.ellipse(o, 0, r * sx, r, 0, 0, 7); X.fill(); }
+  const fx = -0.5 * d * side; X.translate(fx, 0);
+  // face: gold ring + logo, squeezed horizontally by the turn
+  const g = X.createLinearGradient(-r, -r, r, r); g.addColorStop(0, '#f6d58a'); g.addColorStop(0.5, '#e3b871'); g.addColorStop(1, '#b88332');
+  X.fillStyle = g; X.beginPath(); X.ellipse(0, 0, r * sx, r, 0, 0, 7); X.fill();
+  X.save(); X.scale(sx, 1); X.beginPath(); X.arc(0, 0, r * 0.88, 0, 7); X.clip(); X.drawImage(IMG.logo, -r * 0.88, -r * 0.88, r * 1.76, r * 1.76);
+  // a shine that slides over the face as it turns
+  const sh = side * r * 1.6; const sg = X.createLinearGradient(sh - r * 0.5, -r, sh + r * 0.5, r);
+  sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(0.5, 'rgba(255,255,255,0.28)'); sg.addColorStop(1, 'rgba(255,255,255,0)'); X.fillStyle = sg; X.fillRect(-r, -r, 2 * r, 2 * r);
+  X.restore(); X.restore();
+}
+// spin angle: several fast turns that ease out into a gentle sway (around the vertical axis only)
+const spin = (e, turns = 3) => (1 - eo(lin(e, 0, 1.1))) * Math.PI * 2 * turns + Math.sin(e * 1.6) * 0.35 * eo(lin(e, 0.6, 1.2));
+// A lesson that is being written: title types in, lines appear, cursor blinks. ghost = not written yet.
+function lessonDoc(t, x, y, s, o = {}) {
+  const w = 520, h = 660;
+  X.save(); X.translate(x, y); X.scale(s, s); X.globalAlpha = o.a ?? 1;
+  if (o.ghost) {
+    X.setLineDash([22, 16]); X.strokeStyle = P.ink3; X.lineWidth = 6; rr(-w / 2, -h / 2, w, h, 44); X.stroke(); X.setLineDash([]);
+    label(String(o.n), 0, -60, 120, P.grey2, 900); label('not written yet', 0, 70, 36, P.ink3, 700);
+    X.restore(); return;
+  }
+  X.fillStyle = 'rgba(31,26,20,0.14)'; rr(-w / 2 + 8, -h / 2 + 16, w, h, 44); X.fill();
+  X.fillStyle = P.white; rr(-w / 2, -h / 2, w, h, 44); X.fill();
+  X.fillStyle = P.acc; rr(-w / 2, -h / 2, w, 26, [44, 44, 0, 0]); X.fill();
+  label('LESSON ' + o.n + ' OF 50', -w / 2 + 44, -h / 2 + 84, 30, P.ink3, 800, 'left');
+  const ty = o.typed ?? 1, title = o.title, nch = Math.floor(title.length * cl(ty / 0.45));
+  const shown = title.slice(0, nch).split('\n');
+  shown.forEach((l, i) => label(l, -w / 2 + 44, -h / 2 + 160 + i * 66, 58, P.ink, 900, 'left'));
+  const bars = [0.9, 0.75, 0.85, 0.6, 0.8];
+  bars.forEach((bw, i) => { const p = lin(ty, 0.45 + i * 0.1, 0.55 + i * 0.1); if (p <= 0) return; X.fillStyle = i === 0 ? P.grey2 : P.grey; rr(-w / 2 + 44, -h / 2 + 330 + i * 52, (w - 88) * bw * p, 24, 12); X.fill(); });
+  if (ty < 1 && Math.floor(t * 4) % 2 === 0) { // cursor
+    const li = shown.length - 1; X.font = F(900, 58); const cx = -w / 2 + 48 + X.measureText(shown[li] || '').width, cy = -h / 2 + 160 + li * 66;
+    X.fillStyle = P.acc; ty < 0.45 ? X.fillRect(cx, cy - 30, 8, 60) : X.fillRect(-w / 2 + 44, -h / 2 + 600, 30, 8);
+  }
+  if (o.check) { const c = back(lin(o.check, 0, 0.2)); X.save(); X.translate(w / 2 - 70, -h / 2 + 70); X.scale(c, c);
+    X.fillStyle = P.green; X.beginPath(); X.arc(0, 0, 78, 0, 7); X.fill(); X.strokeStyle = P.white; X.lineWidth = 18; X.lineCap = 'round'; X.lineJoin = 'round';
+    X.beginPath(); X.moveTo(-32, 2); X.lineTo(-8, 28); X.lineTo(36, -24); X.stroke(); X.restore(); }
+  X.restore();
+}
+function sceneFirst(t) {
+  // line 9: it writes your first lesson — just one. line 10: finish it, the next one is built on how you did.
+  const Y = 1150;
+  const shrink = eo(lin(t, T.just, T.just + 0.3)), push = eo(lin(t, T.next, T.next + 0.35));
+  // lesson 1
+  const x1 = mix(mix(W / 2, 300, shrink), -260, push), s1 = mix(1, 0.55, shrink);
+  const in1 = back(lin(t, T.f1 + 0.05, T.f1 + 0.3));
+  lessonDoc(t, x1, Y, s1 * in1, { n: 1, title: 'First day in\nthe kitchen', typed: lin(t, T.f1 + 0.15, T.f1 + 1.45), check: t > T.f2 + 0.05 ? t - T.f2 - 0.05 : 0 });
+  // the ones that don't exist yet
+  for (let i = 1; i <= 4; i++) {
+    const a = eo(lin(t, T.just + 0.1 + i * 0.08, T.just + 0.3 + i * 0.08)); if (a <= 0) continue;
+    const gx = 300 + i * 300;
+    if (i === 1 && t > T.next) { // lesson 2 gets written, on how you did
+      lessonDoc(t, mix(gx, W / 2, push), Y, mix(0.55, 0.92, push), { n: 2, title: 'Taking\nan order', typed: lin(t, T.next + 0.2, T.next + 0.95) });
+      continue;
+    }
+    lessonDoc(t, gx + push * 700, Y, 0.55, { ghost: true, n: i + 1, a: a * (1 - push) });
+  }
+  if (t > T.f1 + 1.0 && t < T.just) pill('For: kitchen job · A2', W / 2, 1600, 44, P.white, P.ink, 1, back(lin(t, T.f1 + 1.0, T.f1 + 1.2)));
+  if (t > T.f2 + 0.25 && t < T.next + 0.2) mascot(t, 860, 1640, 0.6, { mood: 'happy', armsUp: true, seed: 5, squash: Math.max(0, 1 - (t - T.f2 - 0.25) * 6) });
+  if (t > T.how + 0.2) pill('Built on lesson 1', W / 2, 1620, 44, P.white, P.ink, 1, back(lin(t, T.how + 0.2, T.how + 0.4)));
+  if (t > T.how + 0.6) pill('Level A2  →  A2+', W / 2, 1745, 44, P.white, P.acc, 1, back(lin(t, T.how + 0.6, T.how + 0.8)));
+  // key words
+  if (t < T.f2) { slam(t, T.f1, 'YOUR FIRST\nLESSON.', W / 2, 360, 128, P.ink, { from: 1.4, fadeAt: T.just - 0.05 }); slam(t, T.just, 'JUST ONE.', W / 2, 380, 170, P.acc, { rot: -0.12 }); }
+  else if (t < T.next) slam(t, T.f2, 'FINISH IT.', W / 2, 380, 170, P.ink, { from: 1.5 });
+  else if (t < T.how) slam(t, T.next, 'THE NEXT ONE…', W / 2, 380, 120, P.ink, { from: 1.4 });
+  else slam(t, T.how, 'BUILT ON\nHOW YOU DID.', W / 2, 380, 118, P.acc, { rot: -0.1 });
+  if (t > T.f2 && t < T.f2 + 1.4) confetti(t, T.f2 + 0.05, 760, 860, 30);
+}
 // ---------- scenes ----------
 function sceneHook(t) {
   // generic app card with fake praise, then LYING.
@@ -291,9 +368,7 @@ function sceneOpposite(t) {
     }
   }
   const fl = 1 - lin(k, 0, 0.18); if (fl > 0) { X.fillStyle = `rgba(255,255,255,${fl})`; X.fillRect(0, 0, W, H); }
-  const s = back(lin(k, 0.05, 0.4));
-  X.save(); X.translate(W / 2, 760); X.scale(s, s); X.rotate((1 - eo(lin(k, 0, .5))) * -0.4);
-  X.beginPath(); X.arc(0, 0, 190, 0, 7); X.clip(); X.drawImage(IMG.logo, -190, -190, 380, 380); X.restore();
+  coin(W / 2, 760, 190 * back(lin(k, 0.05, 0.4)), spin(k - 0.05, 2));
   slam(t, T.l6 + 0.12, 'Borderless', W / 2, 1110, 150, P.ink, { from: 1.3, w: 900 });
   slam(t, T.l6 + 0.75, 'does the opposite.', W / 2, 1270, 74, P.acc, { from: 1.2, w: 800, shadow: false });
 }
@@ -349,14 +424,15 @@ function sceneCities(t) {
 }
 function sceneFifty(t) {
   const k = t - T.l10;
-  if (t < T.around) {
+  if (t < T.written) {
     const n = Math.max(1, Math.round(50 * eo(lin(t, T.l10 + 0.05, T.fifty + 0.1))));
     slam(t, T.l10, String(n), W / 2, 900, 520, P.acc, { from: 1.2 });
     slam(t, T.fifty, 'LESSONS', W / 2, 1260, 150, P.ink, { from: 1.6 });
   } else {
-    const p = eo(lin(t, T.around, T.around + 0.3));
-    phone(IMG.mpath, W / 2, mix(2200, 1120, p), 640, { scrollY: 4300 - (t - T.around) * 2000, rot: mix(0.2, -0.02, p) });
-    slam(t, T.around, 'AROUND\nYOUR LIFE.', W / 2, 300, 120, P.ink, { from: 1.4 });
+    const p = eo(lin(t, T.written, T.written + 0.3));
+    phone(IMG.mpath, W / 2, mix(2200, 1180, p), 620, { scrollY: 4300 - (t - T.written) * 1400, rot: mix(0.2, -0.02, p) });
+    if (t < T.go) slam(t, T.written, 'WRITTEN\nFOR YOU,', W / 2, 330, 130, P.ink, { from: 1.4 });
+    else slam(t, T.go, 'AS YOU GO.', W / 2, 330, 150, P.acc, { from: 1.5, rot: -0.1 });
   }
 }
 function sceneYours(t) {
@@ -413,7 +489,7 @@ function sceneCourse(t) {
     for (let y = 0; y < H; y += 60) { X.beginPath(); X.moveTo(0, y); X.lineTo(W, y); X.stroke(); }
     const e = t - T.end;
     const s = back(lin(e, 0, 0.35));
-    X.save(); X.translate(W / 2, 640); X.scale(s, s); X.beginPath(); X.arc(0, 0, 150, 0, 7); X.clip(); X.drawImage(IMG.logo, -150, -150, 300, 300); X.restore();
+    coin(W / 2, 640, 165 * s, spin(e, 3));
     slam(t, T.end + 0.1, 'Borderless', W / 2, 900, 150, P.white, { from: 1.25, shadow: false });
     label('A course built around you.', W / 2, 1030, 56, 'rgba(255,255,255,0.9)', 600, 'center', eo(lin(e, 0.35, 0.6)));
     label('€9,99 per course  ·  borderlesslearn.com', W / 2, 1150, 38, 'rgba(255,255,255,0.75)', 600, 'center', eo(lin(e, 0.6, 0.85)));
@@ -421,13 +497,13 @@ function sceneCourse(t) {
   }
 }
 // camera shake on the big hits
-const HITS = [T.lying, T.same, T.l5 + 0.02, T.s5b, T.s5c, T.l6, T.passport, T.course];
+const HITS = [T.lying, T.same, T.l5 + 0.02, T.s5b, T.s5c, T.l6, T.just, T.f2, T.how, T.passport, T.course];
 function shake(t) {
   let a = 0; for (const h of HITS) { const d = t - h; if (d >= 0 && d < 0.25) a = Math.max(a, (1 - d / 0.25) * 22); }
   return [Math.sin(t * 91) * a, Math.cos(t * 77) * a];
 }
 // scene switch punch: a short zoom at every scene start
-const STARTS = [0, T.l2, T.l3, T.l4, T.l6, T.l7, T.l8, T.l9, T.l10, T.l11, T.l12, T.l13];
+const STARTS = [0, T.l2, T.l3, T.l4, T.l6, T.l7, T.l8, T.f1, T.next, T.l9, T.l10, T.written, T.l11, T.l12, T.l13];
 function punch(t) { let s = 1; for (const st of STARTS) { const d = t - st; if (d >= 0 && d < 0.18) s = 1 + (1 - d / 0.18) * 0.06; } return s; }
 function frame(t) {
   bg(t);
@@ -441,7 +517,8 @@ function frame(t) {
   else if (t < T.l6) sceneSame(t, 'stamps');
   else if (t < T.l7) sceneOpposite(t);
   else if (t < T.l8) sceneWhy(t);
-  else if (t < T.l9) sceneLevel(t);
+  else if (t < T.f1) sceneLevel(t);
+  else if (t < T.l9) sceneFirst(t);
   else if (t < T.l10) sceneCities(t);
   else if (t < T.l11) sceneFifty(t);
   else if (t < T.l12) sceneYours(t);

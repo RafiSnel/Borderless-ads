@@ -85,7 +85,7 @@ window.ready = (async () => {
       if (t > END) {
         const e = t - END; const k = eo(e / 0.35);
         X.fillStyle = `rgba(31,26,20,${0.85 * k})`; X.fillRect(0, 0, W, H);
-        X.save(); X.translate(W / 2, 820); const sc = back(lin(e, 0, .35)); X.scale(sc, sc); logo(0, 0, 150); X.restore();
+        coinIn(t, t - e, W / 2, 820, 150);
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.45, 'Tell it the truth.', W / 2, 1230, font('inter', 700, 64), '#ee8b47', { from: 1.3 });
       }

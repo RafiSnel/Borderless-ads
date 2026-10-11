@@ -15,15 +15,18 @@ window.ready = (async () => {
     [his5, 'tp', { scroll: [1250, 1550], zoom: 1.4 }], [his6, 'tpp', { focus: [585, 1950], zoom: 1.45 }]];
   const at = (arr, t) => { let i = 0; arr.forEach((a, j) => { if (t >= a[0]) i = j; }); return [arr[i], i]; };
   function side(t, arr, cx, col, tag) {
-    const [st, i] = at(arr, t); const flip = i > 0 ? lin(t, st[0], st[0] + 0.28) : 1;
+    const [st, i] = at(arr, t); const flip = i > 0 ? eio(lin(t, st[0], st[0] + 0.34)) : 1;
     const sx = flip < 0.5 && i > 0 ? Math.abs(Math.cos(flip * Math.PI)) : Math.abs(Math.cos(flip * Math.PI)) || 0.02;
     const cur = flip < 0.5 && i > 0 ? arr[i - 1] : st;
     const intro = eo(lin(t, -0.25, 0.4)); const yy = mix(H + 700, 1060, intro);
     const sp = t > s(7) ? eio(lin(t, s(7), s(7) + 0.5)) : 0;
-    X.save(); X.translate(cx + (cx < W / 2 ? -1 : 1) * sp * 60, yy); X.rotate((cx < W / 2 ? -1 : 1) * sp * 0.08); X.scale(Math.max(0.02, sx), 1);
-    const o = cur[2]; const img = IMG[cur[1]];
-    if (o.scroll) { const u = lin(t, cur[0], cur[0] + 3.2); phone(img, 0, 0, 430, { scrollY: mix(o.scroll[0], o.scroll[1], u), zoom: o.zoom, frame: col }); }
-    else phone(img, 0, 0, 430, { focus: o.focus, zoom: o.zoom, frame: col });
+    X.save(); X.translate(cx + (cx < W / 2 ? -1 : 1) * sp * 60, yy); X.rotate((cx < W / 2 ? -1 : 1) * sp * 0.08);
+    const drawState = (stt) => () => { X.translate(250, 500); const o = stt[2], img = IMG[stt[1]];
+      if (o.scroll) { const u = lin(t, stt[0], stt[0] + 3.2); phone(img, 0, 0, 430, { scrollY: mix(o.scroll[0], o.scroll[1], u), zoom: o.zoom, frame: col }); }
+      else phone(img, 0, 0, 430, { focus: o.focus, zoom: o.zoom, frame: col }); };
+    // the phone turns over in 3D to show the next screen
+    const turning = i > 0 && flip < 1, prev = i > 0 ? arr[i - 1] : st;
+    flipPlane(0, 0, 500, 1000, turning ? flip * Math.PI * (cx < W / 2 ? 1 : -1) : 0, drawState(turning ? prev : st), drawState(st), { key: 'ph' + tag, persp: 2000, shadow: false });
     X.restore();
     txt(tag, cx, 300, font('serif', 400, 76), col, { a: intro });
   }
@@ -76,7 +79,7 @@ window.ready = (async () => {
           slam(t, (p(7, 1) || s(7) + 0.7) + 0.15, 'NOT ONE LESSON', W / 2, 1470, font('archivo', 400, 84), INK, {});
           slam(t, (p(7, 1) || s(7) + 0.7) + 0.4, 'IN COMMON.', W / 2, 1580, font('archivo', 400, 84), TERRA, {}); }
       } else {
-        const k = back(lin(t, s(8), s(8) + 0.35)); X.save(); X.translate(W / 2, 820); X.scale(k, k); logo(0, 0, 150); X.restore();
+        coinIn(t, s(8), W / 2, 820, 150);
         slam(t, s(8) + 0.15, "That's", W / 2, 1060, font('serif', 400, 110), INK, {});
         slam(t, s(8) + 0.35, 'Borderless.', W / 2, 1200, font('inter', 900, 140), INK, {});
         X.fillStyle = TERRA; X.fillRect(W / 2 - 240, 1300, 230, 10); X.fillStyle = BORD; X.fillRect(W / 2 + 10, 1300, 230, 10);

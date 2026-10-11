@@ -15,15 +15,20 @@ window.ready = (async () => {
   }
   // flashcard: flips in around Y axis
   function card(t, t0, word, sub, col) {
-    const k = lin(t, t0, t0 + 0.35); const ang = mix(Math.PI / 2, 0, back(k, 1.6)); const sx = Math.max(0.02, Math.cos(ang));
+    // the flashcard turns over in 3D: back first, then the word
+    const k = lin(t, t0, t0 + 0.55); const ang = Math.PI * (1 - back(k, 1.3));
     const wob = Math.sin((t - t0) * 3) * 0.02;
-    X.save(); X.translate(W / 2, 640); X.rotate(-0.03 + wob); X.scale(sx, 1);
-    X.fillStyle = 'rgba(0,0,0,0.22)'; rr(-410, -260, 840, 540, 40); X.fill();
-    X.fillStyle = CREAM; rr(-420, -280, 840, 540, 40); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke();
-    X.strokeStyle = 'rgba(230,59,46,0.25)'; X.lineWidth = 3; for (let i = 0; i < 6; i++) { X.beginPath(); X.moveTo(-380, -150 + i * 70); X.lineTo(380, -150 + i * 70); X.stroke(); }
-    X.font = font('serif', 400, 200); const w = X.measureText(word).width; const sz = Math.min(200, 200 * 720 / w);
-    txt(word, 0, -10, font('serif', 400, sz), col || RED);
-    if (sub) txt(sub, 0, 175, font('caveat', 700, 64), INK);
+    X.save(); X.translate(W / 2, 640); X.rotate(-0.03 + wob);
+    flipPlane(0, 0, 880, 580, ang, () => { X.translate(440, 290);
+      X.fillStyle = CREAM; rr(-420, -280, 840, 540, 40); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke();
+      X.strokeStyle = 'rgba(230,59,46,0.25)'; X.lineWidth = 3; for (let i = 0; i < 6; i++) { X.beginPath(); X.moveTo(-380, -150 + i * 70); X.lineTo(380, -150 + i * 70); X.stroke(); }
+      X.font = font('serif', 400, 200); const w = X.measureText(word).width; const sz = Math.min(200, 200 * 720 / w);
+      txt(word, 0, -10, font('serif', 400, sz), col || RED);
+      if (sub) txt(sub, 0, 175, font('caveat', 700, 64), INK);
+    }, () => { X.translate(440, 290);
+      X.fillStyle = ORG; rr(-420, -280, 840, 540, 40); X.fill(); X.strokeStyle = INK; X.lineWidth = 6; X.stroke();
+      sun(0, 0, 0, 90, YEL, 16); txt('?', 0, 8, font('serif', 400, 150), INK);
+    }, { key: 'card13', persp: 1700 });
     X.restore();
   }
   function chip(t, t0, text, x, y, bg, fg = INK, rot = 0, size = 64) {
@@ -103,7 +108,7 @@ window.ready = (async () => {
         if (t > tb + 0.3) txt('(basically)', W / 2, 1560, font('caveat', 700, 80), CREAM, { a: eo(lin(t, tb + 0.3, tb + 0.6)) });
       } else {
         sun(t, W / 2, 820, 230, RED, 22);
-        const k = back(lin(t, s(8), s(8) + 0.35)); X.save(); X.translate(W / 2, 820); X.scale(k, k); logo(0, 0, 150); X.restore();
+        coinIn(t, s(8), W / 2, 820, 150);
         slam(t, s(8) + 0.1, 'Borderless', W / 2, 1260, font('inter', 900, 130), INK, {});
         if (t > p(8, 1)) txt('The Spanish people', W / 2, 1420, font('serif', 400, 80), RED, { a: eo(lin(t, p(8, 1), p(8, 1) + 0.3)) });
         if (t > p(8, 3)) txt('actually speak.', W / 2, 1520, font('serif', 400, 80), RED, { a: eo(lin(t, p(8, 3), p(8, 3) + 0.3)) });

@@ -110,7 +110,7 @@ window.ready = (async () => {
         wall(t, s(3) - 0.45, (i) => [LANGS[i][0].padEnd(13) + ' ' + String(i + 1).padStart(2, '0')]);
         X.restore();
         const g = X.createRadialGradient(W / 2, 900, 50, W / 2, 900, 620); g.addColorStop(0, 'rgba(4,9,21,0.92)'); g.addColorStop(1, 'rgba(4,9,21,0)'); X.fillStyle = g; X.fillRect(0, 200, W, 1400);
-        slam(t, s(3) + 0.1, '74', W / 2, 860, font('anton', 400, 480), YEL, { glow: YEL, from: 2.2 });
+        extrudeSlam(t, s(3) + 0.1, '74', W / 2, 860, font('anton', 400, 480), YEL, '#a8761a', 34, { from: 2.2 });
         slam(t, s(3) + 0.45, 'LANGUAGES', W / 2, 1150, font('anton', 400, 120), '#fff', {});
         slam(t, p(3, 1), 'ONE BOARD.', W / 2, 1290, font('anton', 400, 120), '#fff', { stroke: '#000', sw: 10 });
       } else if (t < s(7)) {
@@ -148,7 +148,7 @@ window.ready = (async () => {
         else { slam(t, s(8), 'NOBODY GETS', W / 2, 870, font('anton', 400, 120), '#fff', {}); slam(t, s(8) + 0.5, 'THE SAME COURSE.', W / 2, 1030, font('anton', 400, 110), YEL, {}); }
       } else {
         X.fillStyle = 'rgba(0,0,0,0.75)'; X.fillRect(0, 0, W, H);
-        X.save(); const sc = back(lin(t, s(9) + 0.1, s(9) + 0.45)); X.translate(W / 2, 560); X.scale(sc, sc); logo(0, 0, 140); X.restore();
+        coinIn(t, s(9) + 0.1, W / 2, 560, 140, { glow: 'rgba(255,212,59,0.6)' });
         panel(60, 800, 960, 420, null);
         flapRow(t, s(9), 'BORDERLESS', 90, 850, 84, 140, { settle: 0.35, stagger: 0.03, seed: 9, gap: 6 });
         flapRow(t, p(9, 1), 'DEPARTURES OPEN', 90, 1040, 54, 92, { settle: 0.3, stagger: 0.02, seed: 4, gap: 4, fg: GRN });

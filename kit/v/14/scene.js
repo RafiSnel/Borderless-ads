@@ -22,12 +22,16 @@ window.ready = (async () => {
   }
   function meter(t, val, label) {
     const cx = 815, cy = 1500, r = 145;
+    // a physical gauge: thick housing with a lit face
+    const plate = () => { X.beginPath(); X.arc(cx, cy + 10, r + 40, Math.PI, Math.PI * 2); X.lineTo(cx + r + 40, cy + 60); X.lineTo(cx - r - 40, cy + 60); X.closePath(); };
+    for (let i = 22; i > 0; i -= 2) { X.save(); X.translate(i * 0.4, i); plate(); X.fillStyle = i === 22 ? '#000' : '#16191a'; X.fill(); X.restore(); }
+    plate(); const pg = X.createLinearGradient(0, cy - r - 40, 0, cy + 60); pg.addColorStop(0, '#2a2f31'); pg.addColorStop(1, '#0e1011'); X.fillStyle = pg; X.fill(); X.strokeStyle = '#3c4446'; X.lineWidth = 4; X.stroke();
     X.lineWidth = 16; X.lineCap = 'round';
     X.strokeStyle = RED; X.beginPath(); X.arc(cx, cy, r, Math.PI, Math.PI * 1.5); X.stroke();
     X.strokeStyle = GRN; X.beginPath(); X.arc(cx, cy, r, Math.PI * 1.5, Math.PI * 2); X.stroke();
     txt('FAIL', cx - r, cy + 40, font('mono', 700, 30), RED); txt('PASS', cx + r, cy + 40, font('mono', 700, 30), GRN);
     const a = Math.PI + Math.PI * cl(val); X.strokeStyle = '#fff'; X.lineWidth = 8; X.shadowColor = '#fff'; X.shadowBlur = 20;
-    X.beginPath(); X.moveTo(cx, cy); X.lineTo(cx + Math.cos(a) * (r - 30), cy + Math.sin(a) * (r - 30)); X.stroke(); X.shadowBlur = 0;
+    X.save(); X.shadowBlur = 0; X.strokeStyle = 'rgba(0,0,0,0.6)'; X.beginPath(); X.moveTo(cx + 6, cy + 10); X.lineTo(cx + 6 + Math.cos(a) * (r - 30), cy + 10 + Math.sin(a) * (r - 30)); X.stroke(); X.restore(); X.beginPath(); X.moveTo(cx, cy); X.lineTo(cx + Math.cos(a) * (r - 30), cy + Math.sin(a) * (r - 30)); X.stroke(); X.shadowBlur = 0;
     X.fillStyle = '#fff'; X.beginPath(); X.arc(cx, cy, 14, 0, 7); X.fill();
     if (label) txt(label, cx, cy - 80, font('mono', 700, 30), '#888');
   }
@@ -97,7 +101,7 @@ window.ready = (async () => {
         neon('TURN.', W / 2, 630, font('anton', 400, 230), b ? GRN : YEL);
         if (t > p(14, 1)) neon('WHICH ONE BROKE YOU?', W / 2, 880, font('anton', 400, 84), MAG);
         meter(t, 0.0, 'CONFIDENCE');
-        if (t > END - 0.2) { const k = back(lin(t, END - 0.2, END + 0.15)); X.save(); X.translate(W / 2, 1010); X.scale(k, k); logo(-240, 0, 60); neon('Borderless', 50, 0, font('inter', 900, 90), GRN); X.restore(); }
+        if (t > END - 0.2) { const k = back(lin(t, END - 0.2, END + 0.15)); X.save(); X.translate(W / 2, 1010); X.scale(k, k); coin3d(-240, 0, 60, spin3d(t - END + 0.2), 1, { shadow: false, glow: GRN, gb: 30 }); neon('Borderless', 50, 0, font('inter', 900, 90), GRN); X.restore(); }
       }
       // the host: judge with scorecards
       { const st = HOST.state(t, beats); const ein = HOST.enter(t, 0.1, 0.4); X.save(); X.translate(mix(-400, 0, ein), 0); const gl = X.createRadialGradient(250, 1470, 20, 250, 1470, 330); gl.addColorStop(0, 'rgba(232,255,58,0.28)'); gl.addColorStop(1, 'rgba(232,255,58,0)'); X.fillStyle = gl; X.fillRect(-100, 1100, 700, 700);

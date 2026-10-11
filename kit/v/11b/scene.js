@@ -1,7 +1,7 @@
 // 11b · "Guess the language — LISTEN" — ARCADE GAMESHOW (audio round)
 window.ready = (async () => {
   await new Promise((r) => { const sc = document.createElement('script'); sc.src = 'arcade.js'; sc.onload = r; document.head.appendChild(sc); });
-  await loadFonts(); await loadWorld();
+  await loadFonts(); await loadWorld(); await loadImages({ logo: 'app/logo512.png' });
   const L = await loadTimeline('11b');
   const s = (n) => L[n].start, e = (n) => L[n].end, p = (n, i) => L[n].phrases[i] ?? L[n].start;
   const END = e(15) + 0.2, DUR = END + 1.4; window.DURATION = DUR;
@@ -76,6 +76,12 @@ window.ready = (async () => {
         HOST.draw(t, 235, 1440, 1.0, st); X.restore(); ARC.podium();
         if (txt0) HOST.say(t, t0, 1e9, txt0, 690, 1330, { size: 46, maxw: 700, tail: -0.42, f: 'pixel', fg: '#1a0b2e' }); }
       X.restore();
+      if (t > END) { // the Borderless coin drops in: insert coin
+        const k = eo(lin(t, END, END + 0.25)); X.fillStyle = `rgba(26,11,46,${0.93 * k})`; X.fillRect(0, 0, W, H);
+        coinIn(t, END, W / 2, 820, 150, { glow: ARC.YEL, gb: 40, shadowCol: 'rgba(0,0,0,0.4)' });
+        txt('BORDERLESS', W / 2, 1090, ARC.px(64), ARC.YEL, { stroke: '#000', sw: 10, a: eo(lin(t, END + 0.2, END + 0.4)) });
+        txt('INSERT COIN', W / 2, 1210, ARC.px(30), ARC.MAG, { a: t > END + 0.4 ? (Math.floor(t * 3) % 2 ? 1 : 0.3) : 0 });
+      }
     },
   };
 })();

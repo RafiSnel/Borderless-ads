@@ -1,6 +1,6 @@
 // 09 · "Borderless in 20 seconds" — BLACK & WHITE TYPE · hard and rhythmic
 window.ready = (async () => {
-  await loadFonts();
+  await loadFonts(); await loadImages({ logo: 'app/logo512.png' });
   const LANGS = await (await fetch('v/06/langs.json')).json();
   const L = await loadTimeline('09');
   const s = (n) => L[n].start, e = (n) => L[n].end, p = (n, i) => L[n].phrases[i] ?? L[n].start;
@@ -52,16 +52,18 @@ window.ready = (async () => {
             txt(str, -off, y, font('anton', 400, 56), FG, { align: 'left' }); txt(str, -off + w, y, font('anton', 400, 56), FG, { align: 'left' }); }
           X.restore();
           X.fillStyle = BG; X.fillRect(0, 620, W, 760);
-          txt('74', W / 2, 900, font('anton', 400, 620 * mix(1.3, 1, k)), FG);
+          extrude('74', W / 2, 900, font('anton', 400, 620 * mix(1.3, 1, k)), FG, inv ? '#8a8a8a' : '#5a5a5a', 34, { turn: (1 - eo(lin(age, 0, 0.9))) * 0.8 + Math.sin(age * 1.3) * 0.06, shadow: false });
           if (age > 0.4) txt('LANGUAGES.', W / 2, 1260, font('anton', 400, 190), FG);
         } else if (kind === 'end') {
+          coinIn(t, b[0], W / 2, H / 2 - 330, 130, { shadowCol: inv ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.12)' });
           txt('Borderless', W / 2, H / 2 - 40, font('inter', 900, 190), FG);
           txt("THAT'S THE APP.", W / 2, H / 2 + 140, font('anton', 400, 80), FG, { a: eo(lin(age, 0.3, 0.6)), ls: 6 });
         } else {
           const sz = fitFont(lines, size, kind === 'fifty' ? W * 1.25 : W * 1.04) * mix(1.35, 1, k);
           const lh = sz * 0.92; const y0 = H / 2 - ((lines.length - 1) * lh) / 2 + (kind === 'bar' ? -150 : 0);
           X.save(); X.translate(W / 2, H / 2); X.transform(1, 0, mix(-0.25, 0, k), 1, 0, 0); X.translate(-W / 2, -H / 2);
-          lines.forEach((l, i) => txt(l, W / 2, y0 + i * lh + sz * 0.04, font('anton', 400, sz), FG));
+          if (kind === 'fifty') extrude(lines[0], W / 2, y0 + sz * 0.04, font('anton', 400, sz), FG, inv ? '#8a8a8a' : '#5a5a5a', 40, { turn: (1 - eo(lin(age, 0, 0.9))) * -0.8 + Math.sin(age * 1.3) * 0.06, shadow: false });
+          else lines.forEach((l, i) => txt(l, W / 2, y0 + i * lh + sz * 0.04, font('anton', 400, sz), FG));
           X.restore();
           if (kind === 'bar') { const bk = eio(lin(age, 0.2, 1.1)); X.strokeStyle = FG; X.lineWidth = 10; X.strokeRect(120, 1300, 840, 90); X.fillStyle = FG; X.fillRect(135, 1315, 810 * bk, 60);
             if (bk >= 1) txt('LEVEL FOUND.', W / 2, 1480, font('anton', 400, 90), FG); }

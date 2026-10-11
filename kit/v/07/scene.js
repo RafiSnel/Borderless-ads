@@ -37,9 +37,11 @@ window.ready = (async () => {
   function map(t, alpha = 1) {
     const m = mapState(t); const hi = {}; m.ids.forEach((id) => (hi[id] = m.col));
     X.save(); X.beginPath(); X.rect(0, 0, W, 1150); X.clip(); X.translate(0, -230);
-    drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, fill: '#11142a', stroke: 'rgba(41,230,255,0.35)', lw: 1.5, hi, glow: 40, alpha });
+    // a turning globe instead of a flat map: it rolls from country to country
+    const R = Math.max(380, m.zoom * 57.3), lon = m.lon + Math.sin(t * 0.4) * 1.5;
+    X.save(); X.globalAlpha *= alpha; globe(W / 2, H / 2, R, lon, m.lat, { ocean: '#060716', ocean2: '#141a3a', land: '#161a36', edge: 'rgba(41,230,255,0.35)', hi, glow: 40, rim: 'rgba(41,230,255,0.35)', grid: 'rgba(155,92,255,0.14)' }); X.restore();
     // Hong Kong dot (too small in 110m data)
-    if (t >= s(6) && t < s(8)) { const x = W / 2 + (114.17 - m.lon) * m.zoom, y = H / 2 - (22.3 - m.lat) * m.zoom * 1.15; const r = 18 + 6 * Math.sin(t * 10);
+    if (t >= s(6) && t < s(8)) { const [x, y] = globePt(W / 2, H / 2, R, lon, m.lat, 114.17, 22.3); const r = 18 + 6 * Math.sin(t * 10);
       X.fillStyle = VIO; X.shadowColor = VIO; X.shadowBlur = 40; X.beginPath(); X.arc(x, y, r, 0, 7); X.fill(); X.shadowBlur = 0; txt('HONG KONG', x, y + 60, font('bebas', 400, 54), '#fff', { glow: VIO }); }
     X.restore();
     const g = X.createLinearGradient(0, 900, 0, 1150); g.addColorStop(0, 'rgba(5,4,11,0)'); g.addColorStop(1, BG); X.fillStyle = g; X.fillRect(0, 900, W, 260); X.fillStyle = BG; X.fillRect(0, 1150, W, 150);
@@ -161,7 +163,7 @@ window.ready = (async () => {
       } else {
         neon('ALL FIVE', W / 2, 1240, 150, CYAN, t, s(13) + 0.05);
         neon('ARE ON', W / 2, 1400, 110, '#fff', t, s(13) + 0.25);
-        const kk = back(lin(t, s(13) + 0.4, s(13) + 0.75)); X.save(); X.translate(W / 2, 1620); X.scale(kk, kk); X.shadowColor = PINK; X.shadowBlur = 60; logo(-310, 0, 70); X.shadowBlur = 0; X.restore();
+        const kk = back(lin(t, s(13) + 0.4, s(13) + 0.75)); X.save(); X.translate(W / 2, 1620); X.scale(kk, kk); coin3d(-310, 0, 70, spin3d(t - s(13) - 0.4), 1, { glow: PINK, shadow: false }); X.restore();
         neon('Borderless', W / 2 + 50, 1620, 130, PINK, t, s(13) + 0.45, { f: 'inter' });
       }
       X.restore();

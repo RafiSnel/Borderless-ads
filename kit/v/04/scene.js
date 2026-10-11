@@ -141,7 +141,7 @@ window.ready = (async () => {
           WORDS.forEach(([, w, l], i) => { const y = 420 + i * 170; highlight(t, s(8) + i * 0.05, 170, y - 50, Math.min(640, w.length * (w.length > 14 ? 26 : 44)), 90, HL[i]); txt(w, 180, y, font('marker', 400, w.length > 14 ? 46 : 80), INK, { align: 'left' }); txt(l, 920, y, font('caveat', 700, 56), RED, { align: 'right' }); });
           write(t, s(8) + 0.1, 0.4, 'which one are you?', 540, 1560, font('caveat', 700, 96), INK, { align: 'center' });
           const ci = 2; doodle(t, s(8) + 0.4, 0.45, circle(400, 420 + ci * 170, 280, 50, 0.08, 11).map(([x, y]) => [x, (y - (420 + ci * 170)) * 0.4 + 420 + ci * 170]), RED, 8);
-          if (t > END) { logo(900, 1760, 60, eo(lin(t, END, END + .3))); txt('Borderless', 820, 1760, font('caveat', 700, 60), INK, { align: 'right', a: eo(lin(t, END, END + .3)) }); }
+          if (t > END) { coin3d(900, 1760, 60, spin3d(t - END), eo(lin(t, END, END + .3)), { shadow: false }); txt('Borderless', 820, 1760, font('caveat', 700, 60), INK, { align: 'right', a: eo(lin(t, END, END + .3)) }); }
         } else wordPage(t, pageIdx);
       }
       X.restore();

@@ -18,8 +18,16 @@ window.ready = (async () => {
     rows.forEach(([t0, str, col], i) => flapRow(t, t0, str, 100, y0 + 70 + i * 140, 62, 110, { fg: col || YEL, seed: i + 1 }));
   }
   function boardingPass(t, t0) {
-    const k = eo(lin(t, t0, t0 + 0.3)); X.save(); X.translate(W / 2, mix(H + 500, 1080, k)); X.rotate(mix(0.3, -0.04, k));
-    X.fillStyle = 'rgba(0,0,0,0.2)'; rr(-430, -290, 880, 600, 40); X.fill();
+    // the pass flies up showing its back, then flips around to its front (3D turn)
+    const k = eo(lin(t, t0, t0 + 0.3)), turn = Math.PI * (1 - eio(lin(t, t0 + 0.1, t0 + 0.55)));
+    flipPlane(W / 2, mix(H + 500, 1080, k), 900, 620, turn, () => { X.translate(450, 310); passFront(t, t0); }, () => { X.translate(450, 310); passBack(); }, { key: 'bp', shadow: true, persp: 1800 });
+  }
+  function passBack() {
+    X.fillStyle = '#a8512b'; rr(-440, -300, 880, 600, 40); X.fill();
+    X.strokeStyle = 'rgba(255,255,255,0.12)'; X.lineWidth = 3; for (let i = -12; i < 12; i++) { X.beginPath(); X.moveTo(i * 80, -300); X.lineTo(i * 80 + 300, 300); X.stroke(); }
+    txt('BORDERLESS AIR', 0, -20, font('bebas', 400, 110), '#fff', { ls: 8 }); txt('PASSENGER COPY', 0, 80, font('bebas', 400, 50), 'rgba(255,255,255,0.7)', { ls: 6 });
+  }
+  function passFront(t, t0) {
     X.fillStyle = CREAM; rr(-440, -300, 880, 600, 40); X.fill();
     X.fillStyle = '#a8512b'; rr(-440, -300, 880, 110, [40, 40, 0, 0]); X.fill();
     txt('BOARDING PASS', -400, -245, font('bebas', 400, 64), '#fff', { align: 'left', ls: 3 }); logo(370, -245, 40);
@@ -27,7 +35,6 @@ window.ready = (async () => {
     F.forEach(([lab, val, x, y], i) => { if (t > t0 + 0.2 + i * 0.12) { txt(lab, x, y, font('inter', 700, 30), '#8a7f70', { align: 'left' }); slam(t, t0 + 0.2 + i * 0.12, val, x, y + 62, font('bebas', 400, 92), INK, { align: 'left', from: 1.3 }); } });
     X.setLineDash([14, 12]); X.strokeStyle = '#d9cdb5'; X.lineWidth = 4; X.beginPath(); X.moveTo(-440, 150); X.lineTo(440, 150); X.stroke(); X.setLineDash([]);
     for (let i = 0; i < 46; i++) { X.fillStyle = INK; X.fillRect(-400 + i * 17, 185, hash(i) > 0.5 ? 8 : 4, 80); }
-    X.restore();
   }
   function route(t, t0, t1) {
     const pts = []; for (let i = 0; i <= 60; i++) { const u = i / 60; pts.push([140 + u * 800, 1100 - Math.sin(u * Math.PI) * 380 + u * 120]); }
@@ -37,6 +44,14 @@ window.ready = (async () => {
     planeIcon(x, y, 1.5, Math.atan2(y2 - y, x2 - x), INK);
     txt('LESSON', 140, 1300, font('bebas', 400, 60), '#fff', { align: 'left' }); txt(String(Math.max(1, Math.round(u * 50))) + ' / 50', 140, 1370, font('bebas', 400, 110), '#fff', { align: 'left' });
   }
+  function cover(t, t0) { // the passport cover swings open on its hinge
+    const a = Math.PI * eio(lin(t, t0, t0 + 0.5)); if (a >= Math.PI - 0.01) return;
+    hingePlane(W / 2 - 410, 1060, 820, 1060, a, () => { X.fillStyle = '#6e1f2a'; rr(0, 0, 820, 1060, 30); X.fill(); X.fillStyle = '#571722'; rr(0, 0, 40, 1060, [30, 0, 0, 30]); X.fill();
+      X.strokeStyle = '#e3b871'; X.lineWidth = 8; X.beginPath(); X.arc(410, 560, 120, 0, 7); X.stroke(); X.beginPath(); X.ellipse(410, 560, 50, 120, 0, 0, 7); X.stroke(); X.beginPath(); X.moveTo(290, 560); X.lineTo(530, 560); X.stroke();
+      txt('PASAPORTE', 410, 300, font('bebas', 400, 96), '#e3b871', { ls: 10 }); txt('BORDERLESS', 410, 820, font('bebas', 400, 60), '#e3b871', { ls: 8 }); },
+      () => { X.fillStyle = '#efe5cf'; rr(0, 0, 820, 1060, 30); X.fill(); X.strokeStyle = 'rgba(110,31,42,0.12)'; X.lineWidth = 2; for (let i = 0; i < 20; i++) { X.beginPath(); X.arc(410, 530, 40 + i * 24, 0, 7); X.stroke(); } },
+      { key: 'pcover', persp: 1900 });
+  }
   function passportPage(t, stamps) {
     X.save(); X.translate(W / 2, 1060); X.rotate(-0.03);
     X.fillStyle = 'rgba(0,0,0,0.2)'; rr(-400, -520, 820, 1060, 30); X.fill();
@@ -45,7 +60,9 @@ window.ready = (async () => {
     txt('VISAS · STAMPS', -360, -470, font('bebas', 400, 50), '#6e1f2a', { align: 'left', ls: 4 });
     X.restore();
     stamps.forEach(([t0, a, b, x, y, col, rot, round]) => {
-      if (t < t0) return; const pr = (t - t0) / 0.14, sc = mix(2.4, 1, eo(pr));
+      if (t < t0 - 0.25) return;
+      if (t < t0) { const q = lin(t, t0 - 0.25, t0); X.save(); X.globalAlpha = 0.25 * q; X.fillStyle = '#000'; X.beginPath(); X.ellipse(x + 30 * (1 - q), y + 40 * (1 - q), 190 * (1.6 - 0.6 * q), 130 * (1.6 - 0.6 * q), rot, 0, 7); X.fill(); X.restore(); return; }
+      const pr = (t - t0) / 0.14, sc = mix(2.4, 1, eo(pr));
       X.save(); X.translate(x, y); X.rotate(rot); X.scale(sc, sc); X.globalAlpha = cl(pr * 2) * 0.92; X.strokeStyle = col; X.fillStyle = col; X.lineWidth = 10;
       if (round) { X.beginPath(); X.arc(0, 0, 150, 0, 7); X.stroke(); X.lineWidth = 4; X.beginPath(); X.arc(0, 0, 128, 0, 7); X.stroke(); }
       else { rr(-190, -110, 380, 220, 20); X.stroke(); }
@@ -87,6 +104,7 @@ window.ready = (async () => {
         slam(t, p(3, 1), 'TAKES YOU FURTHER.', W / 2, 520, font('anton', 400, 96), '#fff', { stroke: INK, sw: 12 });
       } else if (t < s(5)) {
         passportPage(t, [[p(4, 1) + 0.05, '50', 'WORDS', W / 2 - 150, 850, '#a8512b', -0.2, true], [st4b + 0.35, '200', 'WORDS', W / 2 + 140, 1260, '#2f7fd0', 0.15, false]]);
+        cover(t, s(4) - 0.05);
         slam(t, s(4), 'STAMP.', W / 2, 330, font('anton', 400, 170), '#fff', { stroke: INK, sw: 16, fade: st4b + 0.2 });
         slam(t, st4b + 0.3, 'STAMP.', W / 2, 330, font('anton', 400, 170), INK, { rot: 0.1 });
       } else if (t < s(6)) {
@@ -119,7 +137,7 @@ window.ready = (async () => {
       X.restore();
       if (t > END) {
         const k = eo(lin(t, END, END + 0.3)); X.fillStyle = `rgba(31,26,20,${0.97 * k})`; X.fillRect(0, 0, W, H);
-        X.save(); X.translate(W / 2, 820); const sc = back(lin(t, END, END + .35)); X.scale(sc, sc); logo(0, 0, 150); X.restore();
+        coinIn(t, END, W / 2, 820, 150);
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.45, 'Now boarding.', W / 2, 1230, font('bebas', 400, 90), YEL, { from: 1.3, ls: 4 });
       }

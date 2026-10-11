@@ -42,9 +42,14 @@ window.ready = (async () => {
     if (m.id) {
       const pk = back(lin(t, m.t0 + 0.35, m.t0 + 0.6), 2.2); const cx = W / 2, cy = H / 2;
       X.save(); X.translate(cx, cy); X.scale(pk, pk); X.translate(-cx, -cy);
-      X.save(); X.translate(12, 14); drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, hi: { [m.id]: INK }, only: true }); X.restore();
+      // the country lifts out of the paper map as a thick 3D piece
+      const lift = 46 * eo(lin(t, m.t0 + 0.35, m.t0 + 0.75)) + 6 * Math.sin((t - m.t0) * 3) * eo(lin(t, m.t0 + 0.75, m.t0 + 1.2)), dep = 26;
+      X.save(); X.globalAlpha *= 0.22; X.translate(lift * 0.45, lift * 0.55 + 10); drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, hi: { [m.id]: INK }, only: true }); X.restore();
+      for (let i = dep; i > 0; i -= 2) { X.save(); X.translate(0, -lift + i); drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, hi: { [m.id]: i === dep ? INK : '#3a2c22' }, only: true, stroke: i === dep ? INK : null, lw: 10 }); X.restore(); }
+      X.save(); X.translate(0, -lift);
       drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, hi: { [m.id]: WH }, only: true, stroke: WH, lw: 22 });
       drawWorld({ lon: m.lon, lat: m.lat, zoom: m.zoom, hi: { [m.id]: m.col }, only: true, stroke: INK, lw: 5 });
+      X.restore();
       X.restore();
     }
     X.restore(); X.lineWidth = 8; X.strokeStyle = INK; rr(50, 130, 980, 880, 50); X.stroke();
@@ -145,7 +150,7 @@ window.ready = (async () => {
         txt('?', 14, 18, font('archivo', 400, 620), INK); txt('?', 0, 0, font('archivo', 400, 620), PINK, OUT(20)); X.restore();
         sticker(t, s(10) + 0.3, "WHAT'S YOUR", W / 2, 1180, 100, WH, INK, -0.04);
         sticker(t, p(10, 2) || s(10) + 1.0, 'EXCUSE?', W / 2, 1360, 130, TQ, INK, 0.04);
-        if (t > END - 0.1) { const kk = back(lin(t, END - 0.1, END + 0.2)); X.save(); X.translate(W / 2, 1620); X.scale(kk, kk); logo(-260, 0, 70); txt('Borderless', 60, 0, font('inter', 900, 100), INK); X.restore(); }
+        if (t > END - 0.1) { const kk = back(lin(t, END - 0.1, END + 0.2)); X.save(); X.translate(W / 2, 1620); X.scale(kk, kk); coin3d(-260, 0, 70, spin3d(t - END + 0.1), 1, { shadow: false }); txt('Borderless', 60, 0, font('inter', 900, 100), INK); X.restore(); }
       }
       X.restore();
       txt('Based on US Foreign Service Institute estimates', W / 2, 1890, font('inter', 600, 28), 'rgba(0,0,0,0.55)');

@@ -66,11 +66,11 @@ window.ready = (async () => {
       X.restore();
       if (dark) { const k = t < later ? eo(lin(t, quiet, quiet + 0.3)) : 1 - eo(lin(t, later + 0.5, later + 0.9)); X.fillStyle = `rgba(5,3,10,${0.96 * k})`; X.fillRect(0, 0, W, H);
         if (t < later) { txt('last seen 2 weeks ago', W / 2, 760, font('inter', 700, 64), '#9a8fb8', { a: eo(lin(t, quiet + 0.2, quiet + 0.5)) }); if (t < (p(5, 1) || quiet + 1.0)) { const kq = back(lin(t, quiet + 0.1, quiet + 0.4), 2); X.save(); X.translate(W / 2, 1080); X.scale(kq, kq); txt('🔕', 0, 0, font('inter', 400, 220), '#fff'); X.restore(); }
-          const ts = p(5, 1) || quiet + 1.0; if (t > ts) { const kk = back(lin(t, ts, ts + 0.3), 2); X.save(); X.translate(W / 2, 1100); X.scale(kk, kk); X.fillStyle = '#f6efe2'; rr(-170, -170, 340, 340, 70); X.fill(); logo(0, 0, 120); X.restore();
+          const ts = p(5, 1) || quiet + 1.0; if (t > ts) { const kk = back(lin(t, ts, ts + 0.3), 2); X.save(); X.translate(W / 2, 1100); X.scale(kk, kk); flipPlane(0, 0, 360, 360, Math.PI * (1 - eio(lin(t, ts + 0.15, ts + 0.65))), () => { X.fillStyle = '#f6efe2'; rr(10, 10, 340, 340, 70); X.fill(); logo(180, 180, 120); }, () => { X.fillStyle = '#3a3550'; rr(10, 10, 340, 340, 70); X.fill(); txt('?', 180, 190, font('inter', 900, 180), 'rgba(255,255,255,0.5)'); }, { key: 'icon17', persp: 1400 }); X.restore();
             txt('*switches apps*', W / 2, 1340, font('caveat', 700, 70), '#fff', { a: eo(lin(t, ts + 0.2, ts + 0.5)) }); } }
         else { slam(t, later, '2 WEEKS LATER', W / 2, H / 2, font('anton', 400, 150), '#ffd24d', {}); } }
       if (t >= s(9)) {
-        const k = back(lin(t, s(9) + 0.2, s(9) + 0.5), 2.2); X.save(); X.translate(W / 2, 860); X.scale(k, k); logo(0, 0, 160); X.restore();
+        coinIn(t, s(9) + 0.2, W / 2, 860, 160);
         slam(t, s(9) + 0.3, 'Borderless', W / 2, 1140, font('inter', 900, 150), '#fff', {});
         slam(t, s(9) + 0.6, 'POV: the comeback.', W / 2, 1290, font('inter', 700, 56), '#ffd24d', { from: 1.3 });
       }

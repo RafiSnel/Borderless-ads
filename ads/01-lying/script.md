@@ -30,3 +30,10 @@ Brief (from Rafi's answers, 10 Oct 2026)
 | 11 | Your words. Your world. Your passport. | Word chips → APP: world → APP: passport, mascot stamps |
 | 12 | Everyone else gets a lesson. | Small grey identical cards |
 | 13 | You get a course. | One card glows terracotta and fills the screen → end card: Borderless · "A course built around you." · €9,99 per course · borderlesslearn.com, mascot winks |
+
+## Versie 3 (11 okt 2026)
+Na "It checks your level" twee nieuwe zinnen, en regel 10 aangepast:
+| 9 | Then it writes your first lesson. Just one. | Les 1 "First day in the kitchen" schrijft zichzelf; ernaast lege lessen "not written yet". JUST ONE. |
+| 10 | Finish it, and the next one is built on how you did. | Groen vinkje op les 1, Pasito juicht; les 2 "Taking an order" wordt geschreven: "Built on lesson 1", "Level A2 → A2+". |
+| 12 | Fifty lessons, written for you, as you go. | 1 → 50, daarna het echte lespad: WRITTEN FOR YOU, / AS YOU GO. |
+Het logo is een munt die rechtop om zijn verticale as draait (bij "does the opposite" en op de eindkaart).

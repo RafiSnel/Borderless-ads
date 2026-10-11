@@ -80,7 +80,7 @@ window.ready = (async () => {
       }
       if (t > END) {
         const k = eo(lin(t, END, END + 0.3)); X.fillStyle = `rgba(15,17,21,${0.92 * k})`; X.fillRect(0, 0, W, H);
-        X.save(); X.translate(W / 2, 820); const sc = back(lin(t, END, END + 0.35)); X.scale(sc, sc); logo(0, 0, 150); X.restore();
+        coinIn(t, END, W / 2, 820, 150);
         slam(t, END + 0.15, 'Borderless', W / 2, 1080, font('inter', 900, 140), '#fff', {});
         slam(t, END + 0.4, 'jajaja · mdr · www · ㅋㅋ · 555 · kkk', W / 2, 1220, font('inter', 800, 46), '#ffd65c', { from: 1.3 });
       }

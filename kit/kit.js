@@ -1,6 +1,6 @@
 // Borderless video kit — shared engine. Every frame is a pure function of t. 1080x1920.
 const W = 1080, H = 1920;
-const C = document.getElementById('c'), X = C.getContext('2d');
+const C = document.getElementById('c'); let X = C.getContext('2d');
 // ---------- math ----------
 const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const lin = (t, a, b) => cl((t - a) / (b - a));
