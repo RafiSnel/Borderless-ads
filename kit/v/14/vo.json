@@ -1,0 +1,87 @@
+{
+ "lines": [
+  {
+   "text": "Seven tongue twisters. Seven languages. One British guy. Let's go.",
+   "url": "file:///home/claude/v4/a/14_intro.mp3"
+  },
+  {
+   "text": "Spanish.",
+   "url": "file:///home/claude/v4/a14old/x02.mp3"
+  },
+  {
+   "text": "Tres tristes tigres tragaban trigo en un trigal.",
+   "url": "file:///home/claude/v4/a14old/x03.mp3"
+  },
+  {
+   "text": "German.",
+   "url": "file:///home/claude/v4/a14old/x04.mp3"
+  },
+  {
+   "text": "Fischers Fritz fischt frische Fische.",
+   "url": "file:///home/claude/v4/a14old/x05.mp3"
+  },
+  {
+   "text": "French.",
+   "url": "file:///home/claude/v4/a14old/x06.mp3"
+  },
+  {
+   "text": "Les chaussettes de l'archi... duchesse... sont-elles sèches? Non.",
+   "url": "file:///home/claude/v4/a/14_french.mp3"
+  },
+  {
+   "text": "Japanese.",
+   "url": "file:///home/claude/v4/a14old/x08.mp3"
+  },
+  {
+   "text": "Namamugi... nama... gomago? No.",
+   "url": "file:///home/claude/v4/a/14_japanese.mp3"
+  },
+  {
+   "text": "Italian.",
+   "url": "file:///home/claude/v4/a14old/x10.mp3"
+  },
+  {
+   "text": "Trentatré trentini entrarono a Trento.",
+   "url": "file:///home/claude/v4/a14old/x11.mp3"
+  },
+  {
+   "text": "Dutch.",
+   "url": "file:///home/claude/v4/a14old/x12.mp3"
+  },
+  {
+   "text": "De krat... kat... krapt de krullen... van de trap? De trap krabt de kat!",
+   "url": "file:///home/claude/v4/a/14_dutch.mp3"
+  },
+  {
+   "text": "English.",
+   "url": "file:///home/claude/v4/a/14_englishlabel.mp3"
+  },
+  {
+   "text": "She sells seashells... she shells... sea... sure. Sorry.",
+   "url": "file:///home/claude/v4/a/14_english.mp3"
+  },
+  {
+   "text": "Seven languages. My own was the worst. Which one broke you?",
+   "url": "file:///home/claude/v4/a/14_outro.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.7,
+  "3": 0.2,
+  "4": 1.15,
+  "5": 0.2,
+  "6": 1.15,
+  "7": 0.2,
+  "8": 1.15,
+  "9": 0.2,
+  "10": 1.15,
+  "11": 0.2,
+  "12": 1.15,
+  "13": 0.2,
+  "14": 1.15,
+  "15": 0.2,
+  "16": 1.3
+ },
+ "tempo": 1.1,
+ "maxpause": 0.2
+}

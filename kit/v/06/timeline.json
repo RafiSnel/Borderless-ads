@@ -10,95 +10,94 @@
  },
  {
   "n": 2,
-  "text": "Japanese. Korean. Swahili. Greek. Hindi. Dutch.",
+  "text": "\u65e5\u672c\u8a9e. \ud55c\uad6d\uc5b4. Kiswahili. \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac. \u0939\u093f\u0928\u094d\u0926\u0940. Nederlands.",
   "start": 1.119,
-  "end": 4.71,
+  "end": 5.312,
   "phrases": [
-   1.139,
-   1.919,
-   2.559,
-   3.259,
-   3.599,
-   3.779,
-   4.259,
-   4.539
+   1.119,
+   1.859,
+   2.479,
+   3.319,
+   4.059,
+   4.539,
+   5.119
   ]
  },
  {
   "n": 3,
   "text": "Seventy-four languages, on one board.",
-  "start": 4.81,
-  "end": 7.252,
+  "start": 5.412,
+  "end": 7.853,
   "phrases": [
-   4.83,
-   6.35
+   5.432,
+   6.952
   ]
  },
  {
   "n": 4,
   "text": "Pick one. Tell it why.",
-  "start": 7.352,
-  "end": 8.545,
+  "start": 7.953,
+  "end": 9.146,
   "phrases": [
-   7.372,
-   7.892
+   7.973,
+   8.493
   ]
  },
  {
   "n": 5,
   "text": "A short test finds your level.",
-  "start": 8.645,
-  "end": 10.346,
+  "start": 9.246,
+  "end": 10.947,
   "phrases": [
-   8.665,
-   9.545
+   9.266,
+   10.146
   ]
  },
  {
   "n": 6,
   "text": "Fifty lessons, built for that trip.",
-  "start": 10.446,
-  "end": 12.657,
+  "start": 11.047,
+  "end": 13.258,
   "phrases": [
-   10.506,
-   11.286,
-   11.486,
-   12.306
+   11.107,
+   11.887,
+   12.087,
+   12.907
   ]
  },
  {
   "n": 7,
   "text": "Same airport. Seventy-four different flights.",
-  "start": 12.757,
-  "end": 15.631,
+  "start": 13.358,
+  "end": 16.232,
   "phrases": [
-   12.777,
-   13.397,
-   13.617,
-   13.777,
-   14.777,
-   15.137,
-   15.497
+   13.378,
+   13.998,
+   14.218,
+   14.378,
+   15.378,
+   15.738,
+   16.098
   ]
  },
  {
   "n": 8,
   "text": "Nobody gets the same course.",
-  "start": 15.731,
-  "end": 17.471,
+  "start": 16.332,
+  "end": 18.072,
   "phrases": [
-   15.731
+   16.332
   ]
  },
  {
   "n": 9,
   "text": "Borderless. Departures are open.",
-  "start": 17.571,
-  "end": 19.591,
+  "start": 18.172,
+  "end": 20.192,
   "phrases": [
-   17.571,
-   18.351,
-   19.391
+   18.172,
+   18.952,
+   19.992
   ]
  }
 ]

@@ -1,0 +1,138 @@
+[
+ {
+  "n": 1,
+  "text": "Your first week. New boss. And he only speaks Italian.",
+  "start": 0.12,
+  "end": 3.958,
+  "phrases": [
+   0.12,
+   1.32,
+   2.32,
+   2.62
+  ]
+ },
+ {
+  "n": 2,
+  "text": "Senti... stasera chiudi tu?",
+  "start": 4.458,
+  "end": 6.678,
+  "phrases": [
+   4.498,
+   4.838,
+   5.358,
+   6.118
+  ]
+ },
+ {
+  "n": 3,
+  "text": "You understood... nothing.",
+  "start": 7.178,
+  "end": 9.122,
+  "phrases": [
+   7.198,
+   8.458,
+   8.818
+  ]
+ },
+ {
+  "n": 4,
+  "text": "Ehm... scusi... il bagno?",
+  "start": 9.522,
+  "end": 12.002,
+  "phrases": [
+   9.562,
+   10.342,
+   10.602,
+   11.282
+  ]
+ },
+ {
+  "n": 5,
+  "text": "Classic.",
+  "start": 12.302,
+  "end": 12.923,
+  "phrases": [
+   12.322
+  ]
+ },
+ {
+  "n": 6,
+  "text": "But your course is built around this job. So today's lesson...",
+  "start": 14.223,
+  "end": 17.891,
+  "phrases": [
+   14.243,
+   15.303,
+   16.703,
+   17.163
+  ]
+ },
+ {
+  "n": 7,
+  "text": "...is literally closing up for the night.",
+  "start": 17.991,
+  "end": 20.203,
+  "phrases": [
+   17.991,
+   18.931,
+   19.571,
+   20.111
+  ]
+ },
+ {
+  "n": 8,
+  "text": "Chiudere: to close. Stasera: tonight.",
+  "start": 20.703,
+  "end": 23.693,
+  "phrases": [
+   20.723,
+   21.483,
+   22.043,
+   22.363,
+   23.203,
+   23.603
+  ]
+ },
+ {
+  "n": 9,
+  "text": "Certo! Stasera chiudo il ristorante.",
+  "start": 24.993,
+  "end": 27.714,
+  "phrases": [
+   25.033,
+   25.393,
+   25.833,
+   26.493,
+   27.573
+  ]
+ },
+ {
+  "n": 10,
+  "text": "Bravo!",
+  "start": 28.064,
+  "end": 28.883,
+  "phrases": [
+   28.124
+  ]
+ },
+ {
+  "n": 11,
+  "text": "Lessons for the conversations you're actually about to have.",
+  "start": 29.683,
+  "end": 32.866,
+  "phrases": [
+   29.703,
+   31.523,
+   31.743
+  ]
+ },
+ {
+  "n": 12,
+  "text": "Borderless.",
+  "start": 33.166,
+  "end": 33.968,
+  "phrases": [
+   33.166
+  ]
+ }
+]

@@ -1,0 +1,57 @@
+{
+ "lines": [
+  {
+   "text": "Borderless, in thirty seconds.",
+   "url": "file:///home/claude/v4/a/09_01.mp3"
+  },
+  {
+   "text": "Step one: tell it why you're learning.",
+   "url": "file:///home/claude/v4/a/09_02.mp3"
+  },
+  {
+   "text": "A new job. A partner's family. A move abroad. An exam.",
+   "url": "file:///home/claude/v4/a/09_03.mp3"
+  },
+  {
+   "text": "Step two: a short test finds your level.",
+   "url": "file:///home/claude/v4/a/09_04.mp3"
+  },
+  {
+   "text": "Step three: it writes your first lesson. Just one.",
+   "url": "file:///home/claude/v4/a/09_05.mp3"
+  },
+  {
+   "text": "Finish it, and the next one is built on how you did.",
+   "url": "file:///home/claude/v4/a/09_06.mp3"
+  },
+  {
+   "text": "Fifty lessons, about your reason, at your level.",
+   "url": "file:///home/claude/v4/a/09_07.mp3"
+  },
+  {
+   "text": "Seventy-four languages.",
+   "url": "file:///home/claude/v4/a/09_08.mp3"
+  },
+  {
+   "text": "One course. Yours.",
+   "url": "file:///home/claude/v4/a/09_09.mp3"
+  },
+  {
+   "text": "That's the app.",
+   "url": "file:///home/claude/v4/a/09_10.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.35,
+  "3": 0.2,
+  "4": 0.35,
+  "5": 0.3,
+  "6": 0.3,
+  "7": 0.3,
+  "8": 0.35,
+  "9": 0.3,
+  "10": 0.3
+ },
+ "tempo": 1.04,
+ "maxpause": 0.2
+}

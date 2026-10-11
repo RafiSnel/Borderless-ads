@@ -1,0 +1,67 @@
+{
+ "lines": [
+  {
+   "text": "Two people. Same app.",
+   "url": "file:///home/claude/v4/a/12_01.mp3"
+  },
+  {
+   "text": "One of them is starting a kitchen job in Spain.",
+   "url": "file:///home/claude/v4/a/12_02.mp3"
+  },
+  {
+   "text": "Her first lesson: explaining the menu.",
+   "url": "file:///home/claude/v4/a/12_03.mp3"
+  },
+  {
+   "text": "Her words: la comanda, la sartén, marchando.",
+   "url": "file:///home/claude/v4/a/12_04.mp3"
+  },
+  {
+   "text": "Her passport: Hispanidad.",
+   "url": "file:///home/claude/v4/a/12_05.mp3"
+  },
+  {
+   "text": "Ten thousand kilometres east...",
+   "url": "file:///home/claude/v4/a/12_06.mp3"
+  },
+  {
+   "text": "he's starting his first office job in Tokyo.",
+   "url": "file:///home/claude/v4/a/12_07.mp3"
+  },
+  {
+   "text": "His first lesson: making a request.",
+   "url": "file:///home/claude/v4/a/12_08.mp3"
+  },
+  {
+   "text": "His words: onegaishimasu, kaigi, shiryō.",
+   "url": "file:///home/claude/v4/a/12_09.mp3"
+  },
+  {
+   "text": "His passport: Nihon.",
+   "url": "file:///home/claude/v4/a/12_10.mp3"
+  },
+  {
+   "text": "Same app. Not one lesson in common.",
+   "url": "file:///home/claude/v4/a/12_11.mp3"
+  },
+  {
+   "text": "That's Borderless.",
+   "url": "file:///home/claude/v4/a/12_12.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 1.2,
+  "3": 0.5,
+  "4": 0.3,
+  "5": 0.3,
+  "6": 0.9,
+  "7": 0.15,
+  "8": 0.9,
+  "9": 0.3,
+  "10": 0.3,
+  "11": 0.9,
+  "12": 0.4
+ },
+ "tempo": 1.04,
+ "maxpause": 0.18
+}

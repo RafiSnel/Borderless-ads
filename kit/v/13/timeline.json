@@ -3,109 +3,139 @@
   "n": 1,
   "text": "Want to sound like you actually live in Spain? Five words.",
   "start": 0.12,
-  "end": 3.184,
+  "end": 3.663,
   "phrases": [
    0.14,
-   1.04,
-   1.24,
-   2.48,
-   3.04
+   1.16,
+   2.26,
+   2.86,
+   3.52
   ]
  },
  {
   "n": 2,
-  "text": "Vale. Okay, sure, deal. You'll say it fifty times a day.",
-  "start": 3.384,
-  "end": 6.8,
+  "text": "Vale. It means okay. Sure. Deal.",
+  "start": 4.363,
+  "end": 7.537,
   "phrases": [
-   3.384,
-   3.844,
-   4.384,
-   4.824,
-   5.204,
-   5.784,
-   5.984
+   4.383,
+   5.083,
+   5.743,
+   6.503,
+   7.183
   ]
  },
  {
   "n": 3,
-  "text": "T\u00edo. T\u00eda. Literally, uncle and aunt. Actually? Mate.",
-  "start": 7.0,
-  "end": 10.776,
+  "text": "You'll say it fifty times a day.",
+  "start": 7.887,
+  "end": 9.716,
   "phrases": [
-   7.02,
-   7.46,
-   7.88,
-   8.52,
-   9.02,
-   9.52,
-   9.66,
-   10.16,
-   10.44,
-   10.7
+   7.907,
+   8.467
   ]
  },
  {
   "n": 4,
-  "text": "Guay. Cool. Say it like g-why.",
-  "start": 10.976,
-  "end": 13.489,
+  "text": "T\u00edo. T\u00eda. Literally: uncle. Aunt.",
+  "start": 10.516,
+  "end": 13.844,
   "phrases": [
-   10.976,
-   11.516,
-   12.016,
+   10.536,
+   11.196,
+   11.836,
    12.676,
-   13.036
+   13.436,
+   13.756
   ]
  },
  {
   "n": 5,
-  "text": "Venga. Come on, let's go, and somehow also: bye.",
-  "start": 13.689,
-  "end": 16.902,
+  "text": "But really? Mate.",
+  "start": 14.194,
+  "end": 15.682,
   "phrases": [
-   13.709,
-   14.249,
-   14.669,
-   15.329,
-   15.609,
-   16.609
+   14.214,
+   14.454,
+   15.174,
+   15.614
   ]
  },
  {
   "n": 6,
-  "text": "Qu\u00e9 fuerte. No way. That's crazy.",
-  "start": 17.102,
-  "end": 19.771,
+  "text": "Guay. Cool. Say it like... g-why.",
+  "start": 16.482,
+  "end": 19.539,
   "phrases": [
-   17.122,
-   17.402,
-   18.062,
-   18.882
+   16.482,
+   17.242,
+   17.962,
+   18.962
   ]
  },
  {
   "n": 7,
-  "text": "Use all five in one sentence, and you're basically from Madrid.",
-  "start": 19.971,
-  "end": 23.659,
+  "text": "Venga. Come on.",
+  "start": 20.339,
+  "end": 21.457,
   "phrases": [
-   19.991,
-   22.131,
-   22.471
+   20.339,
+   21.099
   ]
  },
  {
   "n": 8,
-  "text": "Borderless. The Spanish people actually speak.",
-  "start": 23.959,
-  "end": 26.613,
+  "text": "Let's go.",
+  "start": 21.807,
+  "end": 22.443,
   "phrases": [
-   23.979,
-   24.679,
-   25.619,
-   25.819,
-   26.519
+   21.827
+  ]
+ },
+ {
+  "n": 9,
+  "text": "And somehow... also bye.",
+  "start": 22.793,
+  "end": 24.827,
+  "phrases": [
+   22.793,
+   23.913
+  ]
+ },
+ {
+  "n": 10,
+  "text": "Qu\u00e9 fuerte. No way. That's crazy.",
+  "start": 25.627,
+  "end": 28.835,
+  "phrases": [
+   25.627,
+   26.807,
+   27.907
+  ]
+ },
+ {
+  "n": 11,
+  "text": "Use all five in one sentence, and you're basically a local.",
+  "start": 29.635,
+  "end": 33.288,
+  "phrases": [
+   29.635,
+   31.835
+  ]
+ },
+ {
+  "n": 12,
+  "text": "Borderless. The Spanish people actually speak.",
+  "start": 33.788,
+  "end": 36.802,
+  "phrases": [
+   33.808,
+   34.728,
+   35.328,
+   35.528,
+   35.748,
+   36.428,
+   36.708
   ]
  }
 ]

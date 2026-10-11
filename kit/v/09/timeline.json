@@ -1,88 +1,113 @@
 [
  {
   "n": 1,
-  "text": "Borderless. In twenty seconds.",
+  "text": "Borderless, in thirty seconds.",
   "start": 0.12,
-  "end": 2.045,
+  "end": 2.166,
   "phrases": [
    0.12,
-   0.92,
-   1.92
+   1.02,
+   1.24,
+   2.02
   ]
  },
  {
   "n": 2,
-  "text": "One. Tell it why.",
-  "start": 2.145,
-  "end": 3.393,
+  "text": "Step one: tell it why you're learning.",
+  "start": 2.516,
+  "end": 4.688,
   "phrases": [
-   2.165,
-   2.645
+   2.536,
+   3.396
   ]
  },
  {
   "n": 3,
-  "text": "Work. Love. A move. An exam.",
-  "start": 3.493,
-  "end": 5.93,
+  "text": "A new job. A partner's family. A move abroad. An exam.",
+  "start": 4.888,
+  "end": 8.797,
   "phrases": [
-   3.493,
-   4.053,
-   4.473,
-   4.653,
-   5.293
+   4.888,
+   5.848,
+   7.068,
+   7.868,
+   8.108
   ]
  },
  {
   "n": 4,
-  "text": "Two. A short test finds your level.",
-  "start": 6.03,
-  "end": 8.25,
+  "text": "Step two: a short test finds your level.",
+  "start": 9.147,
+  "end": 11.867,
   "phrases": [
-   6.05,
-   6.51,
-   6.95,
-   7.47
+   9.167,
+   9.527,
+   10.067,
+   10.527,
+   11.027
   ]
  },
  {
   "n": 5,
-  "text": "Three. Fifty lessons. For that reason. At that level.",
-  "start": 8.35,
-  "end": 11.681,
+  "text": "Step three: it writes your first lesson. Just one.",
+  "start": 12.167,
+  "end": 15.388,
   "phrases": [
-   8.41,
-   8.95,
-   10.01,
-   10.85
+   12.187,
+   13.167,
+   14.847
   ]
  },
  {
   "n": 6,
-  "text": "Seventy-four languages.",
-  "start": 11.781,
-  "end": 13.357,
+  "text": "Finish it, and the next one is built on how you did.",
+  "start": 15.688,
+  "end": 18.488,
   "phrases": [
-   11.801
+   15.748,
+   16.468,
+   17.368
   ]
  },
  {
   "n": 7,
-  "text": "One course. Yours.",
-  "start": 13.457,
-  "end": 14.924,
+  "text": "Fifty lessons, about your reason, at your level.",
+  "start": 18.788,
+  "end": 22.146,
   "phrases": [
-   13.457,
-   14.377
+   18.888,
+   19.708,
+   20.008,
+   21.248
   ]
  },
  {
   "n": 8,
-  "text": "That's the app.",
-  "start": 15.024,
-  "end": 15.784,
+  "text": "Seventy-four languages.",
+  "start": 22.496,
+  "end": 24.06,
   "phrases": [
-   15.044
+   22.516
+  ]
+ },
+ {
+  "n": 9,
+  "text": "One course. Yours.",
+  "start": 24.36,
+  "end": 25.96,
+  "phrases": [
+   24.36,
+   25.04,
+   25.38
+  ]
+ },
+ {
+  "n": 10,
+  "text": "That's the app.",
+  "start": 26.26,
+  "end": 27.049,
+  "phrases": [
+   26.28
   ]
  }
 ]

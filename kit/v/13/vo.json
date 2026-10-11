@@ -1,0 +1,67 @@
+{
+ "lines": [
+  {
+   "text": "Want to sound like you actually live in Spain? Five words.",
+   "url": "file:///home/claude/v4/a/13_01.mp3"
+  },
+  {
+   "text": "Vale. It means okay. Sure. Deal.",
+   "url": "file:///home/claude/v4/a/13_02.mp3"
+  },
+  {
+   "text": "You'll say it fifty times a day.",
+   "url": "file:///home/claude/v4/a/13_03.mp3"
+  },
+  {
+   "text": "Tío. Tía. Literally: uncle. Aunt.",
+   "url": "file:///home/claude/v4/a/13_04.mp3"
+  },
+  {
+   "text": "But really? Mate.",
+   "url": "file:///home/claude/v4/a/13_05.mp3"
+  },
+  {
+   "text": "Guay. Cool. Say it like... g-why.",
+   "url": "file:///home/claude/v4/a/13_06.mp3"
+  },
+  {
+   "text": "Venga. Come on.",
+   "url": "file:///home/claude/v4/a/13_07.mp3"
+  },
+  {
+   "text": "Let's go.",
+   "url": "file:///home/claude/v4/a/13_08.mp3"
+  },
+  {
+   "text": "And somehow... also bye.",
+   "url": "file:///home/claude/v4/a/13_09.mp3"
+  },
+  {
+   "text": "Qué fuerte. No way. That's crazy.",
+   "url": "file:///home/claude/v4/a/13_10.mp3"
+  },
+  {
+   "text": "Use all five in one sentence, and you're basically a local.",
+   "url": "file:///home/claude/v4/a/13_11.mp3"
+  },
+  {
+   "text": "Borderless. The Spanish people actually speak.",
+   "url": "file:///home/claude/v4/a/13_12.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.7,
+  "3": 0.35,
+  "4": 0.8,
+  "5": 0.35,
+  "6": 0.8,
+  "7": 0.8,
+  "8": 0.35,
+  "9": 0.35,
+  "10": 0.8,
+  "11": 0.8,
+  "12": 0.5
+ },
+ "tempo": 1.0,
+ "maxpause": 0.3
+}

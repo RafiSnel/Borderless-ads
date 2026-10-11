@@ -1,0 +1,85 @@
+{
+ "lines": [
+  {
+   "text": "In a world... where streaks mean everything...",
+   "url": "file:///home/claude/v4/a/17_n1.mp3",
+   "who": "n"
+  },
+  {
+   "text": "one passport had four hundred days.",
+   "url": "file:///home/claude/v4/a/17_n2.mp3",
+   "who": "n"
+  },
+  {
+   "text": "And one simple mission.",
+   "url": "file:///home/claude/v4/a/17_n3.mp3",
+   "who": "n"
+  },
+  {
+   "text": "¿Qué te pongo?",
+   "url": "file:///home/claude/v4/a/17_b1.mp3",
+   "who": "b"
+  },
+  {
+   "text": "Un... coffee... por favor?",
+   "url": "file:///home/claude/v4/a/17_p1.mp3",
+   "who": "p"
+  },
+  {
+   "text": "Four hundred days. For that.",
+   "url": "file:///home/claude/v4/a/17_n4.mp3",
+   "who": "n"
+  },
+  {
+   "text": "This autumn...",
+   "url": "file:///home/claude/v4/a/17_n5.mp3",
+   "who": "n"
+  },
+  {
+   "text": "he switched apps.",
+   "url": "file:///home/claude/v4/a/17_n6.mp3",
+   "who": "n"
+  },
+  {
+   "text": "Fifty lessons. Written for him. One at a time.",
+   "url": "file:///home/claude/v4/a/17_n7.mp3",
+   "who": "n"
+  },
+  {
+   "text": "Two weeks later.",
+   "url": "file:///home/claude/v4/a/17_n8.mp3",
+   "who": "n"
+  },
+  {
+   "text": "Dos cafés con leche, por favor. Y para mí, uno solo.",
+   "url": "file:///home/claude/v4/a/17_p2.mp3",
+   "who": "p"
+  },
+  {
+   "text": "¡Marchando!",
+   "url": "file:///home/claude/v4/a/17_b2.mp3",
+   "who": "b"
+  },
+  {
+   "text": "Borderless. The comeback.",
+   "url": "file:///home/claude/v4/a/17_n9.mp3",
+   "who": "n"
+  }
+ ],
+ "gaps": {
+  "2": 0.25,
+  "3": 0.6,
+  "4": 1.0,
+  "5": 0.5,
+  "6": 0.9,
+  "7": 1.2,
+  "8": 0.3,
+  "9": 0.7,
+  "10": 0.9,
+  "11": 1.1,
+  "12": 0.4,
+  "13": 1.0
+ },
+ "tempo": 1.0,
+ "maxpause": 0.35
+}

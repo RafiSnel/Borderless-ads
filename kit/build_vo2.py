@@ -22,7 +22,7 @@ def tighten(x, path):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', tmp, '-af',
                     'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.02,'
                     'areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,'
-                    'silenceremove=stop_periods=-1:stop_duration=0.12:stop_threshold=-42dB,'
+                    f'silenceremove=stop_periods=-1:stop_duration={cfg.get("maxpause", 0.12)}:stop_threshold=-42dB,'
                     f'atempo={TEMPO}', '-ac', '1', '-ar', str(SR), path], check=True)
     with wave.open(path) as w: return np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(float) / 32768
 

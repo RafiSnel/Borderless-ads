@@ -10,7 +10,7 @@ window.ready = (async () => {
   // hero words (line 2), spread by syllable weight over the spoken line
   const HERO = [['JAPANESE', '日本語', 3.2], ['KOREAN', '한국어', 3.2], ['SWAHILI', 'Kiswahili', 3.2], ['GREEK', 'Ελληνικά', 1.8], ['HINDI', 'हिन्दी', 2.4], ['DUTCH', 'Nederlands', 1.8]];
   const wsum = HERO.reduce((a, h) => a + h[2], 0); let acc = 0;
-  const heroT = HERO.map((h) => { const v = s(2) + (acc / wsum) * (e(2) - s(2)) - 0.05; acc += h[2]; return v; });
+  const heroT = HERO.map((h, i) => { const v = (L[2].phrases.length >= 6 ? L[2].phrases[i] : s(2) + (acc / wsum) * (e(2) - s(2))) - 0.05; acc += h[2]; return v; });
   const PURP = ['WORK', 'LOVE', 'MOVE', 'TRIP', 'STUDY', 'ROOTS', 'FUN', 'EXAM', 'FOOD', 'MUSIC'];
   const LVL = ['A1', 'A2', 'B1', 'B2', 'C1'];
   const tPurp = p(4, 1) - 0.05;
@@ -78,11 +78,12 @@ window.ready = (async () => {
 
   const cues = [['hum', 0, 0.8], ['boom', 0.12, 0.9], ['whoosh', s(2) - 0.1, 0.5],
     ['flaplong', s(2), 0.45], ['flaplong', s(2) + 1.3, 0.6], ['flaplong', s(2) + 2.6, 0.8],
-    ['whoosh', s(3), 0.8], ['impact', s(3) + 0.1, 1], ['flaplong', s(3), 1], ['flaplong', s(3) + 0.9, 1], ['flaplong', s(3) + 1.6, 0.9],
-    ['hit', s(4), 1], ['whoosh', tPurp, 0.6], ['flap', tPurp + 0.15, 0.8], ['flap', tPurp + 0.38, 0.8], ['flap', tPurp + 0.6, 0.9],
-    ['flap', s(5) + 0.35, 0.9], ['click', s(5) + 0.4, 0.6], ['click', s(5) + 0.5, 0.6], ['flap', s(6) + 0.1, 0.9], ['gong', p(6, 2) - 0.1, 0.9],
-    ['whoosh', s(7), 0.7], ['flaplong', s(7), 0.9], ['flaplong', s(7) + 1.0, 0.8], ['swell', s(8), 0.7],
-    ['boom', s(9), 1], ['flap', s(9), 1], ['flap', p(9, 1), 0.9], ['dingdong', END, 0.8]];
+    // the flap rattle belongs to the first board only; after that the board is silent
+    ['whoosh', s(3), 0.8], ['impact', s(3) + 0.1, 1],
+    ['hit', s(4), 1], ['whoosh', tPurp, 0.6], ['pop', tPurp + 0.15, 0.5], ['pop', tPurp + 0.38, 0.5], ['pop', tPurp + 0.6, 0.5],
+    ['click', s(5) + 0.4, 0.6], ['click', s(5) + 0.5, 0.6], ['pop', s(6) + 0.1, 0.6], ['gong', p(6, 2) - 0.1, 0.9],
+    ['whoosh', s(7), 0.7], ['swell', s(8), 0.7],
+    ['boom', s(9), 1], ['dingdong', END, 0.8]];
   HERO.forEach((h, i) => cues.push(['flap', heroT[i], 0.9]));
   for (let k = 0; k < 10; k++) cues.push(['tick', s(8) + 0.1 + k * (e(8) - s(8) - 0.2) / 10, 0.5]);
   const PEEKS = [
