@@ -1,0 +1,31 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "t1", "who": "teen", "text": "¡Es él! ¡El pasaporte! ¡Invito yo!", "at": 2.0, "sub": "It's him! The passport! \"On me!\""},
+  {"id": "p1", "who": "hero", "text": "I… don't have a signature.", "gap": 1.6},
+  {"id": "r1", "who": "racha", "text": "Two point three million. We have zero point zero. Today, WE go viral.", "gap": 2.0},
+  {"id": "f1", "who": "ficha", "text": "\"Cerveza.\" \"Three.\" \"Friends.\" \"Pay.\" \"Me.\"", "gap": 1.6},
+  {"id": "c1", "who": "carmen", "text": "…¿Tres aguas, entonces?", "gap": 0.4, "sub": "…Three waters, then?"},
+  {"id": "g1", "who": "gema", "text": "And… cut. That's… not viral.", "gap": 1.4},
+  {"id": "r2", "who": "racha", "text": "Of course.", "gap": 6.2},
+  {"id": "c2", "who": "carmen", "text": "La casa invita.", "gap": 1.4, "sub": "On the house."},
+  {"id": "p2", "who": "hero", "text": "Gracias, señora.", "gap": 0.3, "sub": "Thank you, ma'am."},
+  {"id": "c3", "who": "carmen", "text": "Tú… te pareces a alguien.", "gap": 1.4, "sub": "You… look like someone."},
+  {"id": "p3", "who": "hero", "text": "Who?", "gap": 0.4},
+  {"id": "c4", "who": "carmen", "text": "Nada. Nada. Bebe.", "gap": 0.4, "sub": "Nothing. Nothing. Drink."},
+  {"id": "p4", "who": "hero", "text": "Me? A face?", "gap": 3.4}
+ ],
+ "marks": {
+  "selfies": ["t1", 0.3, "end"], "hq": ["r1", -0.9], "bar": ["f1", -1.2], "views": ["g1", 0.4, "end"], "door": ["r2", -3.6], "toog": ["c2", -1.1],
+  "dm": ["p4", -2.6], "looks": ["p4", 0.6, "end"], "stamp": ["mark:looks", 3.2], "photo": ["mark:stamp", 2.4]
+ },
+ "tail": 10.8,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -5, 0.0, 0.6, 2.6],
+  ["bar.wav", 1.6, 2.0, -16, 0.5, 0.6, "hq"],
+  ["office.mp3", "hq", 40.0, -15, 0.3, 0.6, "bar"],
+  ["bar.wav", "bar", 12.0, -18, 0.4, 0.8, "dm"],
+  ["warm.mp3", "dm", 20.0, -19, 1.0, 1.0, "stamp"],
+  ["tension.mp3", "photo", 0.0, -16, 1.0, 1.2, "end"]
+ ]
+}

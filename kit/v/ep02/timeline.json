@@ -1,0 +1,129 @@
+{
+"lines": {
+"r0": {
+"t": 4.6,
+"d": 2.845,
+"who": "racha",
+"text": "Day 1205. Let's go!",
+"sub": null
+},
+"g1": {
+"t": 8.845,
+"d": 3.545,
+"who": "gema",
+"text": "Badge for you! And for you! Badge for the chair!",
+"sub": null
+},
+"f1": {
+"t": 12.891,
+"d": 2.323,
+"who": "ficha",
+"text": "Three hundred cats today.",
+"sub": null
+},
+"r1": {
+"t": 16.313,
+"d": 2.184,
+"who": "racha",
+"text": "Today's notifications. Gema?",
+"sub": null
+},
+"g2": {
+"t": 18.898,
+"d": 1.695,
+"who": "gema",
+"text": "\"Your streak misses you.\"",
+"sub": null
+},
+"r2": {
+"t": 20.893,
+"d": 0.774,
+"who": "racha",
+"text": "Weak.",
+"sub": null
+},
+"f2": {
+"t": 22.067,
+"d": 2.457,
+"who": "ficha",
+"text": "\"We noticed you're gone. Again.\"",
+"sub": null
+},
+"r3": {
+"t": 24.824,
+"d": 2.565,
+"who": "racha",
+"text": "Better. More guilt.",
+"sub": null
+},
+"r4": {
+"t": 28.889,
+"d": 1.168,
+"who": "racha",
+"text": "Invito yo…",
+"sub": "\"On me…\""
+},
+"g3": {
+"t": 30.857,
+"d": 1.63,
+"who": "gema",
+"text": "Is he… okay?",
+"sub": null
+},
+"f3": {
+"t": 32.786,
+"d": 2.872,
+"who": "ficha",
+"text": "He lost. He doesn't know how to do that.",
+"sub": null
+},
+"p1": {
+"t": 37.258,
+"d": 6.479,
+"who": "hero",
+"text": "Morning, Planta. Big day. I'm going to say \"buenos días\" to the baker. Out loud.",
+"sub": null
+},
+"p2": {
+"t": 45.537,
+"d": 1.269,
+"who": "hero",
+"text": "Buenos días.",
+"sub": "Good morning."
+},
+"b1": {
+"t": 47.007,
+"d": 4.879,
+"who": "baker",
+"text": "¡Buenos días! ¿Lo de siempre, cariño? Te pongo tres barras…",
+"sub": "Morning! The usual, love? I'll give you three loaves, fresh out…"
+},
+"p3": {
+"t": 52.385,
+"d": 0.849,
+"who": "hero",
+"text": "…sí.",
+"sub": "…yes."
+},
+"r5": {
+"t": 68.734,
+"d": 0.776,
+"who": "racha",
+"text": "…no.",
+"sub": null
+}
+},
+"marks": {
+"office": 8.145,
+"meeting": 15.713,
+"window": 28.189,
+"apt": 36.258,
+"bakery": 44.337,
+"montage": 53.934,
+"evening": 59.934,
+"night": 65.534,
+"phone": 66.334,
+"stamp": 70.21
+},
+"dur": 72.71
+}

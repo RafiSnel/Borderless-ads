@@ -1,0 +1,137 @@
+{
+"lines": {
+"c1": {
+"t": 2.7,
+"d": 1.68,
+"who": "carmen",
+"text": "Aquí nadie os busca.",
+"sub": "Nobody looks for you here."
+},
+"g1": {
+"t": 5.28,
+"d": 3.21,
+"who": "gema",
+"text": "She needs water. And maybe a badge.",
+"sub": null
+},
+"f1": {
+"t": 11.09,
+"d": 1.998,
+"who": "ficha",
+"text": "I came alone.",
+"sub": null
+},
+"f2": {
+"t": 14.487,
+"d": 3.114,
+"who": "ficha",
+"text": "Lo siento. De verdad.",
+"sub": "I'm sorry. Really."
+},
+"p1": {
+"t": 19.402,
+"d": 3.936,
+"who": "hero",
+"text": "Sit. You're dripping on Carmen's floor.",
+"sub": null
+},
+"g2": {
+"t": 25.338,
+"d": 2.049,
+"who": "gema",
+"text": "DON'T talk to the hostage!",
+"sub": null
+},
+"lp": {
+"t": 27.437,
+"d": 3.76,
+"who": "hero",
+"text": "",
+"sub": null
+},
+"lf": {
+"t": 27.987,
+"d": 3.0,
+"who": "ficha",
+"text": "That's exactly him.",
+"sub": null
+},
+"g3": {
+"t": 31.797,
+"d": 1.849,
+"who": "gema",
+"text": "\"Content!\"",
+"sub": null
+},
+"f3": {
+"t": 35.446,
+"d": 3.072,
+"who": "ficha",
+"text": "Your first page. What happened?",
+"sub": null
+},
+"p2": {
+"t": 39.119,
+"d": 5.874,
+"who": "hero",
+"text": "I don't know. It was gone when I… when I got here. My first memory is that door.",
+"sub": null
+},
+"c2": {
+"t": 46.993,
+"d": 3.58,
+"who": "carmen",
+"text": "Esta mesa. Verano de 2006.",
+"sub": "This table. Summer, 2006."
+},
+"p3": {
+"t": 53.773,
+"d": 0.878,
+"who": "hero",
+"text": "…That's me.",
+"sub": null
+},
+"c3": {
+"t": 55.651,
+"d": 8.348,
+"who": "carmen",
+"text": "Tus padres. Cada verano. Su último sello fue aquí. Luego se fueron de viaje… y no volvieron.",
+"sub": "Your parents. Every summer. Their last stamp was here. Then they went traveling… and never came back."
+},
+"c4": {
+"t": 65.2,
+"d": 2.524,
+"who": "carmen",
+"text": "Lo dejaron aquí. Para ti.",
+"sub": "They left it here. For you."
+},
+"g4": {
+"t": 71.324,
+"d": 1.53,
+"who": "gema",
+"text": "You've got people now.",
+"sub": null
+},
+"r1": {
+"t": 78.254,
+"d": 1.149,
+"who": "racha",
+"text": "…I need help.",
+"sub": null
+}
+},
+"marks": {
+"knock": 9.49,
+"montage": 24.138,
+"badge": 31.597,
+"turn": 34.846,
+"machine": 45.793,
+"photo": 50.873,
+"page": 65.2,
+"fit": 68.224,
+"stamp": 73.154,
+"knock2": 76.054,
+"door2": 77.054
+},
+"dur": 82.0
+}

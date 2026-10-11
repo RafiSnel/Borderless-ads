@@ -1,0 +1,125 @@
+{
+"lines": {
+"r1": {
+"t": 1.9,
+"d": 6.106,
+"who": "racha",
+"text": "Rule one: nobody misses their streak. Rule two: nobody touches water.",
+"sub": null
+},
+"g1": {
+"t": 9.806,
+"d": 0.688,
+"who": "gema",
+"text": "Is that…",
+"sub": null
+},
+"r2": {
+"t": 10.795,
+"d": 1.255,
+"who": "racha",
+"text": "Ignore him.",
+"sub": null
+},
+"f1": {
+"t": 15.649,
+"d": 1.295,
+"who": "ficha",
+"text": "My cats!",
+"sub": null
+},
+"l1": {
+"t": 18.145,
+"d": 2.464,
+"who": "lifeguard",
+"text": "¡Bandera roja! ¡Nadie al agua!",
+"sub": "Red flag! Nobody in the water!"
+},
+"p1": {
+"t": 21.609,
+"d": 3.127,
+"who": "hero",
+"text": "Red flag. He says nobody in the water.",
+"sub": null
+},
+"r3": {
+"t": 25.137,
+"d": 2.342,
+"who": "racha",
+"text": "I don't take advice from a document.",
+"sub": null
+},
+"r4": {
+"t": 28.878,
+"d": 3.573,
+"who": "racha",
+"text": "Content! Day 1210, beach edition!",
+"sub": null
+},
+"r5": {
+"t": 34.452,
+"d": 1.79,
+"who": "racha",
+"text": "Help… help?",
+"sub": null
+},
+"g2": {
+"t": 36.842,
+"d": 1.151,
+"who": "gema",
+"text": "I'm a rock!",
+"sub": null
+},
+"f2": {
+"t": 38.193,
+"d": 1.334,
+"who": "ficha",
+"text": "I'm paper!",
+"sub": null
+},
+"p2": {
+"t": 40.226,
+"d": 2.648,
+"who": "hero",
+"text": "Waterproof. Finally useful.",
+"sub": null
+},
+"p3": {
+"t": 45.474,
+"d": 2.426,
+"who": "hero",
+"text": "Stay small. Breathe.",
+"sub": null
+},
+"r6": {
+"t": 53.1,
+"d": 3.037,
+"who": "racha",
+"text": "*cough* …I had it under control.",
+"sub": null
+},
+"g3": {
+"t": 59.738,
+"d": 0.946,
+"who": "gema",
+"text": "Don't tell him.",
+"sub": null
+}
+},
+"marks": {
+"beach": 8.206,
+"gags": 12.45,
+"flag": 17.645,
+"edge": 28.178,
+"wave": 32.651,
+"panic": 36.542,
+"dive": 43.174,
+"rescue": 44.074,
+"shore": 50.5,
+"blink": 56.437,
+"gift": 58.538,
+"stamp": 61.584,
+"hq": 63.984
+},
+"dur": 70.18
+}

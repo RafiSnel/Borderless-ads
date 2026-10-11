@@ -1,0 +1,157 @@
+{
+"lines": {
+"f1": {
+"t": 2.6,
+"d": 1.069,
+"who": "ficha",
+"text": "He bagged you.",
+"sub": null
+},
+"g1": {
+"t": 3.969,
+"d": 1.702,
+"who": "gema",
+"text": "He bagged PLANTA.",
+"sub": null
+},
+"r1": {
+"t": 10.071,
+"d": 6.098,
+"who": "racha",
+"text": "Twelve hundred days. Every single one. And now I'm… zero.",
+"sub": null
+},
+"p1": {
+"t": 17.369,
+"d": 2.797,
+"who": "hero",
+"text": "Come on. One night. No counting.",
+"sub": null
+},
+"g2": {
+"t": 20.467,
+"d": 1.042,
+"who": "gema",
+"text": "Pasito—",
+"sub": null
+},
+"p2": {
+"t": 21.808,
+"d": 4.622,
+"who": "hero",
+"text": "He's not dangerous. He's lost. I know what that looks like.",
+"sub": null
+},
+"r2": {
+"t": 29.03,
+"d": 3.737,
+"who": "racha",
+"text": "Dos churros, por favor… no, ¿cuatro? No—",
+"sub": "Two churros, please… no, four? No—"
+},
+"p3": {
+"t": 33.168,
+"d": 1.491,
+"who": "hero",
+"text": "No pasa nada.",
+"sub": "It's fine."
+},
+"r3": {
+"t": 43.659,
+"d": 2.307,
+"who": "racha",
+"text": "Who am I… without a number?",
+"sub": null
+},
+"p4": {
+"t": 46.566,
+"d": 1.144,
+"who": "hero",
+"text": "Let's find out.",
+"sub": null
+},
+"p5": {
+"t": 49.711,
+"d": 4.771,
+"who": "hero",
+"text": "♪ Corazón de Madrid, la la la… ♪",
+"sub": "♪ Heart of Madrid… ♪"
+},
+"r4": {
+"t": 54.782,
+"d": 2.6,
+"who": "racha",
+"text": "♪ Corazón de… coliflor? ♪",
+"sub": "♪ Heart of… cauliflower? ♪"
+},
+"lp": {
+"t": 57.482,
+"d": 3.76,
+"who": "hero",
+"text": "",
+"sub": null
+},
+"r5": {
+"t": 64.242,
+"d": 8.749,
+"who": "racha",
+"text": "When I was lit, the Directie said: keep burning, or you're nothing. So I counted. Every day.",
+"sub": null
+},
+"p6": {
+"t": 73.691,
+"d": 1.576,
+"who": "hero",
+"text": "Count something else.",
+"sub": null
+},
+"r6": {
+"t": 75.667,
+"d": 0.737,
+"who": "racha",
+"text": "Like what?",
+"sub": null
+},
+"p7": {
+"t": 76.904,
+"d": 0.734,
+"who": "hero",
+"text": "People.",
+"sub": null
+},
+"r7": {
+"t": 79.239,
+"d": 2.522,
+"who": "racha",
+"text": "Día uno.",
+"sub": "Day one."
+},
+"r8": {
+"t": 83.26,
+"d": 1.476,
+"who": "racha",
+"text": "Don't make it weird.",
+"sub": null
+},
+"d1": {
+"t": 90.137,
+"d": 2.767,
+"who": "directie",
+"text": "Twenty-four hours.",
+"sub": null
+}
+},
+"marks": {
+"clock": 6.271,
+"zero": 8.071,
+"churro": 27.43,
+"flamenco": 35.459,
+"metro": 42.659,
+"busk": 48.711,
+"roof": 62.042,
+"day1": 78.739,
+"stamp": 85.036,
+"hook": 88.536
+},
+"dur": 95.3
+}

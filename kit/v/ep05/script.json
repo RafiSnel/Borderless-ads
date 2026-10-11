@@ -1,0 +1,36 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "f1", "who": "ficha", "text": "\"Dinner.\" \"Friday.\" \"Yes.\" Three words. Easy.", "at": 2.4},
+  {"id": "f2", "who": "ficha", "text": "…sentences.", "gap": 1.2},
+  {"id": "f3", "who": "ficha", "text": "Nobody can know about this. Teach me to talk to a girl. In Spanish. Tonight.", "gap": 2.6},
+  {"id": "p1", "who": "hero", "text": "…You called me \"a document\".", "gap": 0.8},
+  {"id": "f4", "who": "ficha", "text": "That was Racha. I called you \"a pamphlet\".", "gap": 0.3},
+  {"id": "p2", "who": "hero", "text": "…Fine.", "gap": 0.6},
+  {"id": "p3", "who": "hero", "text": "Estás muy guapa esta noche.", "gap": 3.6, "sub": "You look very pretty tonight.", "fx": "radio", "gain": 0.8},
+  {"id": "f5", "who": "ficha", "text": "Estás muy guapa esta noche.", "gap": 0.2, "sub": "You look very pretty tonight."},
+  {"id": "m1", "who": "marisol", "text": "Gracias.", "gap": 0.3, "sub": "Thank you."},
+  {"id": "p4", "who": "hero", "text": "Achoo — sorry, ignore that.", "gap": 1.2, "fx": "radio", "gain": 0.8},
+  {"id": "f6", "who": "ficha", "text": "Achoo. Sorry, ignore that.", "gap": 0.2},
+  {"id": "p5", "who": "hero", "text": "No, not \"gato\"! …Oh no.", "gap": 1.0, "fx": "radio", "gain": 0.8},
+  {"id": "f7", "who": "ficha", "text": "No, not gato! …Oh no.", "gap": 0.2},
+  {"id": "f8", "who": "ficha", "text": "Yo… no hablo bien. Pero… me gustas. Mucho.", "gap": 3.6, "sub": "I… don't speak well. But… I like you. A lot."},
+  {"id": "m2", "who": "marisol", "text": "Eso ha sido lo mejor de la noche.", "gap": 0.8, "sub": "That was the best part of the night."},
+  {"id": "g1", "who": "gema", "text": "…Ficha?", "gap": 4.2},
+  {"id": "g2", "who": "gema", "text": "Ficha is friends with him.", "gap": 4.4},
+  {"id": "r1", "who": "racha", "text": "Is he now.", "gap": 0.6}
+ ],
+ "marks": {
+  "dread": ["f2", -0.4], "alley": ["f3", -1.8], "rest": ["p3", -2.8], "glitch": ["p5", -0.3], "drop": ["f7", 0.3, "end"], "thumb": ["m2", 0.3, "end"],
+  "window": ["g1", -1.0], "stamp": ["g1", 0.6, "end"], "bar": ["g2", -1.2], "end1": ["r1", 0.5, "end"]
+ },
+ "tail": 2.6,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -5, 0.0, 0.6, 2.6],
+  ["office.mp3", 1.6, 60.0, -18, 0.4, 0.6, "alley"],
+  ["night.mp3", "alley", 0.0, -20, 0.6, 0.6, "rest"],
+  ["romance.mp3", "rest", 0.0, -16, 0.8, 0.2, "drop"],
+  ["romance.mp3", "thumb", 40.0, -16, 0.4, 0.8, "bar"],
+  ["tension.mp3", "bar", 20.0, -16, 0.4, 0.8, "end"]
+ ]
+}

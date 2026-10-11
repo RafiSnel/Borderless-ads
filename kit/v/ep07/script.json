@@ -1,0 +1,31 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "r1", "who": "racha", "text": "In. Bag. Out. Nobody talks. Nobody glitters.", "at": 2.2},
+  {"id": "g1", "who": "gema", "text": "I can't control the glitter.", "gap": 0.4},
+  {"id": "f1", "who": "ficha", "text": "That's… a plant.", "gap": 5.4},
+  {"id": "r2", "who": "racha", "text": "…It's leverage.", "gap": 0.4},
+  {"id": "g2", "who": "gema", "text": "Hello, little plant.", "gap": 0.4},
+  {"id": "p1", "who": "hero", "text": "…Hello?", "gap": 2.6},
+  {"id": "f2", "who": "ficha", "text": "\"Nosotros.\" \"Pizza.\"", "gap": 0.5, "sub": "\"Us.\" \"Pizza.\""},
+  {"id": "p2", "who": "hero", "text": "I didn't order pizza.", "gap": 0.3},
+  {"id": "r3", "who": "racha", "text": "Sorry. Not sorry.", "gap": 0.4},
+  {"id": "p3", "who": "hero", "text": "Is Planta here?", "gap": 2.4, "fx": "radio", "gain": 0.9},
+  {"id": "g3", "who": "gema", "text": "She's fine!", "gap": 0.3},
+  {"id": "r4", "who": "racha", "text": "DON'T talk to the hostage.", "gap": 0.3},
+  {"id": "r5", "who": "racha", "text": "Fifty lessons. Sixteen days. What's the trick?", "gap": 3.4},
+  {"id": "p4", "who": "hero", "text": "No trick. I practiced. Every day. Even the days I didn't want to.", "gap": 0.7},
+  {"id": "r6", "who": "racha", "text": "Every day? That's MY thing. Every day is MY thing.", "gap": 0.7},
+  {"id": "p5", "who": "hero", "text": "Then why do you need me?", "gap": 0.4},
+  {"id": "g4", "who": "gema", "text": "Sorry.", "gap": 1.4},
+  {"id": "d1", "who": "directie", "text": "Is that him? So… small. Erase his stamps. All of them. Then he's nobody again.", "gap": 1.8, "fx": "echo", "gain": 1.4},
+  {"id": "p6", "who": "hero", "text": "No—", "gap": 0.8}
+ ],
+ "marks": {"apt": ["g1", 0.4, "end"], "van2": ["f1", -0.5], "apt2": ["g2", 0.8, "end"], "ride": ["p3", -0.8], "cellar": ["r5", -1.8], "wall": ["d1", -1.2], "machine": ["d1", 0.2, "end"], "button": ["p6", 0.4, "end"], "planta": ["p6", 3.0, "end"]},
+ "tail": 4.6,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["tension.mp3", 1.6, 100.0, -17, 0.4, 0.6, "cellar"],
+  ["tension.mp3", "cellar", 0.0, -14, 0.6, 0.6, "planta"]
+ ]
+}

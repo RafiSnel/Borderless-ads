@@ -1,0 +1,31 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "c1", "who": "carmen", "text": "Aquí nadie os busca.", "sub": "Nobody looks for you here.", "at": 2.7},
+  {"id": "g1", "who": "gema", "text": "She needs water. And maybe a badge.", "gap": 0.9},
+  {"id": "f1", "who": "ficha", "text": "I came alone.", "gap": 2.6},
+  {"id": "f2", "who": "ficha", "text": "Lo siento. De verdad.", "sub": "I'm sorry. Really.", "gap": 1.4},
+  {"id": "p1", "who": "hero", "text": "Sit. You're dripping on Carmen's floor.", "gap": 1.8},
+  {"id": "g2", "who": "gema", "text": "DON'T talk to the hostage!", "gap": 2.0},
+  {"id": "lp", "who": "hero", "text": "", "after": "g2", "gap": 0.05, "gain": 0.8},
+  {"id": "lf", "who": "ficha", "text": "That's exactly him.", "after": "g2", "gap": 0.6, "gain": 0.8},
+  {"id": "g3", "who": "gema", "text": "\"Content!\"", "gap": 0.6},
+  {"id": "f3", "who": "ficha", "text": "Your first page. What happened?", "gap": 1.8},
+  {"id": "p2", "who": "hero", "text": "I don't know. It was gone when I… when I got here. My first memory is that door.", "gap": 0.6},
+  {"id": "c2", "who": "carmen", "text": "Esta mesa. Verano de 2006.", "sub": "This table. Summer, 2006.", "gap": 2.0},
+  {"id": "p3", "who": "hero", "text": "…That's me.", "gap": 3.2},
+  {"id": "c3", "who": "carmen", "text": "Tus padres. Cada verano. Su último sello fue aquí. Luego se fueron de viaje… y no volvieron.", "sub": "Your parents. Every summer. Their last stamp was here. Then they went traveling… and never came back.", "gap": 1.0},
+  {"id": "c4", "who": "carmen", "text": "Lo dejaron aquí. Para ti.", "sub": "They left it here. For you.", "gap": 1.2},
+  {"id": "g4", "who": "gema", "text": "You've got people now.", "gap": 3.6},
+  {"id": "r1", "who": "racha", "text": "…I need help.", "gap": 5.4}
+ ],
+ "marks": {"knock": ["f1", -1.6], "montage": ["g2", -1.2], "badge": ["g3", -0.2], "turn": ["f3", -0.6], "machine": ["c2", -1.2], "photo": ["c2", 0.3, "end"], "page": ["c4", 0.0], "fit": ["c4", 0.5, "end"], "stamp": ["g4", 0.3, "end"], "knock2": ["r1", -2.2], "door2": ["r1", -1.2]},
+ "tail": 2.6,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["night.mp3", 1.6, 0.0, -24, 1.0, 1.0, "knock"],
+  ["warm.mp3", "montage", 0.0, -15, 0.8, 2.0, "turn"],
+  ["sad.wav", "machine", 0.0, -14, 1.5, 1.5, "fit"],
+  ["warm.mp3", "fit", 20.0, -14, 1.0, 1.0, "knock2"]
+ ]
+}

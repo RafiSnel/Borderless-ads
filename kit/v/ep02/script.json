@@ -1,0 +1,33 @@
+{
+ "start": 4.4,
+ "lines": [
+  {"id": "r0", "who": "racha", "text": "Day 1205. Let's go!", "at": 4.6},
+  {"id": "g1", "who": "gema", "text": "Badge for you! And for you! Badge for the chair!", "gap": 1.4},
+  {"id": "f1", "who": "ficha", "text": "Three hundred cats today.", "gap": 0.5},
+  {"id": "r1", "who": "racha", "text": "Today's notifications. Gema?", "gap": 1.1},
+  {"id": "g2", "who": "gema", "text": "\"Your streak misses you.\"", "gap": 0.4},
+  {"id": "r2", "who": "racha", "text": "Weak.", "gap": 0.3},
+  {"id": "f2", "who": "ficha", "text": "\"We noticed you're gone. Again.\"", "gap": 0.4},
+  {"id": "r3", "who": "racha", "text": "Better. More guilt.", "gap": 0.3},
+  {"id": "r4", "who": "racha", "text": "Invito yo…", "gap": 1.5, "sub": "\"On me…\""},
+  {"id": "g3", "who": "gema", "text": "Is he… okay?", "gap": 0.8},
+  {"id": "f3", "who": "ficha", "text": "He lost. He doesn't know how to do that.", "gap": 0.3},
+  {"id": "p1", "who": "hero", "text": "Morning, Planta. Big day. I'm going to say \"buenos días\" to the baker. Out loud.", "gap": 1.6},
+  {"id": "p2", "who": "hero", "text": "Buenos días.", "gap": 1.8, "sub": "Good morning."},
+  {"id": "b1", "who": "baker", "text": "¡Buenos días! ¿Lo de siempre, cariño? Te pongo tres barras…", "gap": 0.2, "sub": "Morning! The usual, love? I'll give you three loaves, fresh out…"},
+  {"id": "p3", "who": "hero", "text": "…sí.", "gap": 0.5, "sub": "…yes."},
+  {"id": "r5", "who": "racha", "text": "…no.", "gap": 15.5}
+ ],
+ "marks": {
+  "office": ["r0", 0.7, "end"], "meeting": ["r1", -0.6], "window": ["r4", -0.7], "apt": ["p1", -1.0], "bakery": ["p2", -1.2],
+  "montage": ["p3", 0.7, "end"], "evening": ["mark:montage", 6.0], "night": ["mark:evening", 5.6], "phone": ["r5", -2.4], "stamp": ["r5", 0.7, "end"]
+ },
+ "tail": 3.2,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -5, 0.0, 0.6, 2.6],
+  ["office.mp3", 3.6, 8.0, -15, 0.6, 0.8, "apt"],
+  ["office.mp3", "montage", 30.0, -14, 0.3, 0.8, "evening"],
+  ["warm.mp3", "evening", 0.0, -16, 0.8, 0.8, "night"],
+  ["tension.mp3", "night", 4.0, -15, 0.6, 0.0, "stamp"]
+ ]
+}

@@ -1,0 +1,143 @@
+{
+"lines": {
+"f1": {
+"t": 2.4,
+"d": 4.676,
+"who": "ficha",
+"text": "\"Dinner.\" \"Friday.\" \"Yes.\" Three words. Easy.",
+"sub": null
+},
+"f2": {
+"t": 8.276,
+"d": 1.289,
+"who": "ficha",
+"text": "…sentences.",
+"sub": null
+},
+"f3": {
+"t": 12.166,
+"d": 5.066,
+"who": "ficha",
+"text": "Nobody can know about this. Teach me to talk to a girl. In Spanish. Tonight.",
+"sub": null
+},
+"p1": {
+"t": 18.032,
+"d": 2.19,
+"who": "hero",
+"text": "…You called me \"a document\".",
+"sub": null
+},
+"f4": {
+"t": 20.522,
+"d": 3.73,
+"who": "ficha",
+"text": "That was Racha. I called you \"a pamphlet\".",
+"sub": null
+},
+"p2": {
+"t": 24.852,
+"d": 1.838,
+"who": "hero",
+"text": "…Fine.",
+"sub": null
+},
+"p3": {
+"t": 30.29,
+"d": 1.978,
+"who": "hero",
+"text": "Estás muy guapa esta noche.",
+"sub": "You look very pretty tonight."
+},
+"f5": {
+"t": 32.468,
+"d": 2.666,
+"who": "ficha",
+"text": "Estás muy guapa esta noche.",
+"sub": "You look very pretty tonight."
+},
+"m1": {
+"t": 35.434,
+"d": 1.005,
+"who": "marisol",
+"text": "Gracias.",
+"sub": "Thank you."
+},
+"p4": {
+"t": 37.639,
+"d": 3.597,
+"who": "hero",
+"text": "Achoo — sorry, ignore that.",
+"sub": null
+},
+"f6": {
+"t": 41.437,
+"d": 2.817,
+"who": "ficha",
+"text": "Achoo. Sorry, ignore that.",
+"sub": null
+},
+"p5": {
+"t": 45.253,
+"d": 3.15,
+"who": "hero",
+"text": "No, not \"gato\"! …Oh no.",
+"sub": null
+},
+"f7": {
+"t": 48.604,
+"d": 3.524,
+"who": "ficha",
+"text": "No, not gato! …Oh no.",
+"sub": null
+},
+"f8": {
+"t": 55.728,
+"d": 5.782,
+"who": "ficha",
+"text": "Yo… no hablo bien. Pero… me gustas. Mucho.",
+"sub": "I… don't speak well. But… I like you. A lot."
+},
+"m2": {
+"t": 62.31,
+"d": 3.311,
+"who": "marisol",
+"text": "Eso ha sido lo mejor de la noche.",
+"sub": "That was the best part of the night."
+},
+"g1": {
+"t": 69.821,
+"d": 1.041,
+"who": "gema",
+"text": "…Ficha?",
+"sub": null
+},
+"g2": {
+"t": 75.261,
+"d": 1.824,
+"who": "gema",
+"text": "Ficha is friends with him.",
+"sub": null
+},
+"r1": {
+"t": 77.685,
+"d": 1.262,
+"who": "racha",
+"text": "Is he now.",
+"sub": null
+}
+},
+"marks": {
+"dread": 7.876,
+"alley": 10.366,
+"rest": 27.49,
+"glitch": 44.953,
+"drop": 52.428,
+"thumb": 65.921,
+"window": 68.821,
+"stamp": 71.462,
+"bar": 74.061,
+"end1": 79.447
+},
+"dur": 81.55
+}

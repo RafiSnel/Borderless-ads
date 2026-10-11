@@ -1,0 +1,108 @@
+{
+"lines": {
+"t1": {
+"t": 2.0,
+"d": 3.329,
+"who": "teen",
+"text": "¡Es él! ¡El pasaporte! ¡Invito yo!",
+"sub": "It's him! The passport! \"On me!\""
+},
+"p1": {
+"t": 6.929,
+"d": 2.547,
+"who": "hero",
+"text": "I… don't have a signature.",
+"sub": null
+},
+"r1": {
+"t": 11.476,
+"d": 5.522,
+"who": "racha",
+"text": "Two point three million. We have zero point zero. Today, WE go viral.",
+"sub": null
+},
+"f1": {
+"t": 18.598,
+"d": 5.895,
+"who": "ficha",
+"text": "\"Cerveza.\" \"Three.\" \"Friends.\" \"Pay.\" \"Me.\"",
+"sub": null
+},
+"c1": {
+"t": 24.893,
+"d": 1.825,
+"who": "carmen",
+"text": "…¿Tres aguas, entonces?",
+"sub": "…Three waters, then?"
+},
+"g1": {
+"t": 28.118,
+"d": 3.717,
+"who": "gema",
+"text": "And… cut. That's… not viral.",
+"sub": null
+},
+"r2": {
+"t": 38.034,
+"d": 1.119,
+"who": "racha",
+"text": "Of course.",
+"sub": null
+},
+"c2": {
+"t": 40.553,
+"d": 1.38,
+"who": "carmen",
+"text": "La casa invita.",
+"sub": "On the house."
+},
+"p2": {
+"t": 42.234,
+"d": 1.483,
+"who": "hero",
+"text": "Gracias, señora.",
+"sub": "Thank you, ma'am."
+},
+"c3": {
+"t": 45.116,
+"d": 2.413,
+"who": "carmen",
+"text": "Tú… te pareces a alguien.",
+"sub": "You… look like someone."
+},
+"p3": {
+"t": 47.93,
+"d": 0.457,
+"who": "hero",
+"text": "Who?",
+"sub": null
+},
+"c4": {
+"t": 48.787,
+"d": 2.707,
+"who": "carmen",
+"text": "Nada. Nada. Bebe.",
+"sub": "Nothing. Nothing. Drink."
+},
+"p4": {
+"t": 54.893,
+"d": 1.837,
+"who": "hero",
+"text": "Me? A face?",
+"sub": null
+}
+},
+"marks": {
+"selfies": 5.629,
+"hq": 10.576,
+"bar": 17.398,
+"views": 32.235,
+"door": 34.434,
+"toog": 39.453,
+"dm": 52.293,
+"looks": 57.33,
+"stamp": 60.53,
+"photo": 62.93
+},
+"dur": 67.53
+}

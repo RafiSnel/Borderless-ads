@@ -1,0 +1,114 @@
+{
+"lines": {
+"s1": {
+"t": 4.6,
+"d": 3.099,
+"who": "stagiair",
+"text": "They're leaving! Everyone! They're all going to—",
+"sub": null
+},
+"n1": {
+"t": 7.899,
+"d": 5.897,
+"who": "news",
+"text": "…the app everyone's switching to. And its face? A passport nobody had heard of a month ago.",
+"sub": null
+},
+"g1": {
+"t": 14.496,
+"d": 0.723,
+"who": "gema",
+"text": "That's…",
+"sub": null
+},
+"f1": {
+"t": 15.519,
+"d": 1.508,
+"who": "ficha",
+"text": "…our pamphlet.",
+"sub": null
+},
+"r1": {
+"t": 17.927,
+"d": 2.978,
+"who": "racha",
+"text": "He took our users. He took our BAR.",
+"sub": null
+},
+"s2": {
+"t": 22.705,
+"d": 1.603,
+"who": "stagiair",
+"text": "You've been summoned.",
+"sub": null
+},
+"d1": {
+"t": 28.508,
+"d": 9.377,
+"who": "directie",
+"text": "Seventy… one… million. Yesterday, ninety-eight. You were there. In the bar. You KNOW him.",
+"sub": null
+},
+"r2": {
+"t": 38.685,
+"d": 1.121,
+"who": "racha",
+"text": "We'll handle it.",
+"sub": null
+},
+"d2": {
+"t": 40.206,
+"d": 2.578,
+"who": "directie",
+"text": "Bring me… the passport.",
+"sub": null
+},
+"g2": {
+"t": 43.584,
+"d": 3.692,
+"who": "gema",
+"text": "Bring him like… invite him? For coffee?",
+"sub": null
+},
+"d3": {
+"t": 47.576,
+"d": 1.056,
+"who": "directie",
+"text": "BRING.",
+"sub": null
+},
+"p1": {
+"t": 53.033,
+"d": 2.667,
+"who": "hero",
+"text": "I said yes to one photo.",
+"sub": null
+},
+"c1": {
+"t": 56.3,
+"d": 3.834,
+"who": "carmen",
+"text": "Ten cuidado, cariño. La gente con miedo hace tonterías.",
+"sub": "Be careful, love. Scared people do stupid things."
+},
+"r3": {
+"t": 69.534,
+"d": 2.11,
+"who": "racha",
+"text": "Tomorrow.",
+"sub": null
+}
+},
+"marks": {
+"alarm": 1.6,
+"tv": 7.599,
+"react": 14.196,
+"lift": 21.505,
+"top": 24.908,
+"ficha": 49.232,
+"bar": 51.633,
+"walk": 60.934,
+"van": 65.534
+},
+"dur": 74.04
+}

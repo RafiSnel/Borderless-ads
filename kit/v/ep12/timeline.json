@@ -1,0 +1,145 @@
+{
+"lines": {
+"d1": {
+"t": 2.8,
+"d": 12.863,
+"who": "directie",
+"text": "Your parents were my best users. Every day. For years. Then one day they turned me off… and went traveling. Nobody leaves me.",
+"sub": null
+},
+"p1": {
+"t": 16.463,
+"d": 4.187,
+"who": "hero",
+"text": "You don't run anything. You just… need to be looked at.",
+"sub": null
+},
+"d2": {
+"t": 22.451,
+"d": 2.71,
+"who": "directie",
+"text": "You're NOTHING at day zero.",
+"sub": null
+},
+"r1": {
+"t": 25.76,
+"d": 2.754,
+"who": "racha",
+"text": "Día dos. And counting people now.",
+"sub": "Day two. And counting people now."
+},
+"d3": {
+"t": 29.314,
+"d": 2.733,
+"who": "directie",
+"text": "Nobody likes you without badges.",
+"sub": null
+},
+"g1": {
+"t": 32.447,
+"d": 4.154,
+"who": "gema",
+"text": "I have friends. Real ones. They don't even have badges.",
+"sub": null
+},
+"d4": {
+"t": 37.401,
+"d": 2.303,
+"who": "directie",
+"text": "You can't even make a sentence.",
+"sub": null
+},
+"f1": {
+"t": 40.104,
+"d": 3.911,
+"who": "ficha",
+"text": "Puedo hablar. Mal… pero puedo.",
+"sub": "I can speak. Badly… but I can."
+},
+"p2": {
+"t": 45.215,
+"d": 0.743,
+"who": "hero",
+"text": "Together?",
+"sub": null
+},
+"tr": {
+"t": 46.458,
+"d": 0.71,
+"who": "racha",
+"text": "Together.",
+"sub": null
+},
+"tg": {
+"t": 46.478,
+"d": 0.776,
+"who": "gema",
+"text": "",
+"sub": null
+},
+"tf": {
+"t": 46.438,
+"d": 0.869,
+"who": "ficha",
+"text": "",
+"sub": null
+},
+"d5": {
+"t": 50.558,
+"d": 2.134,
+"who": "directie",
+"text": "No— no— look at me— LOOK AT ME—",
+"sub": null
+},
+"f2": {
+"t": 54.492,
+"d": 2.453,
+"who": "ficha",
+"text": "El gato… de la casa.",
+"sub": "The house cat."
+},
+"r2": {
+"t": 61.145,
+"d": 3.318,
+"who": "racha",
+"text": "Carmen: ¡cañas para todos! ¡Invito yo!",
+"sub": "Carmen: beers for everyone! My treat!"
+},
+"p3": {
+"t": 65.864,
+"d": 1.105,
+"who": "hero",
+"text": "…Vale.",
+"sub": "…Okay."
+},
+"c1": {
+"t": 77.369,
+"d": 2.839,
+"who": "carmen",
+"text": "Esto llegó hoy. Sin remitente.",
+"sub": "This came today. No sender."
+},
+"r3": {
+"t": 85.208,
+"d": 2.93,
+"who": "racha",
+"text": "So. Japanese is hard, right?",
+"sub": null
+}
+},
+"marks": {
+"storm": 21.15,
+"tap": 48.468,
+"off": 48.768,
+"ding": 52.892,
+"jar": 53.892,
+"party": 58.145,
+"stamp": 67.469,
+"flip": 70.069,
+"empty": 75.369,
+"card": 80.708,
+"window": 84.008,
+"s2": 89.138
+},
+"dur": 94.64
+}

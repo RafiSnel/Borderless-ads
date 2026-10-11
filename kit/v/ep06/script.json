@@ -1,0 +1,27 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "s1", "who": "stagiair", "text": "They're leaving! Everyone! They're all going to—", "at": 4.6},
+  {"id": "n1", "who": "news", "text": "…the app everyone's switching to. And its face? A passport nobody had heard of a month ago.", "gap": 0.2, "fx": "radio"},
+  {"id": "g1", "who": "gema", "text": "That's…", "gap": 0.7},
+  {"id": "f1", "who": "ficha", "text": "…our pamphlet.", "gap": 0.3},
+  {"id": "r1", "who": "racha", "text": "He took our users. He took our BAR.", "gap": 0.9},
+  {"id": "s2", "who": "stagiair", "text": "You've been summoned.", "gap": 1.8},
+  {"id": "d1", "who": "directie", "text": "Seventy… one… million. Yesterday, ninety-eight. You were there. In the bar. You KNOW him.", "gap": 4.2, "fx": "echo", "gain": 1.4},
+  {"id": "r2", "who": "racha", "text": "We'll handle it.", "gap": 0.8},
+  {"id": "d2", "who": "directie", "text": "Bring me… the passport.", "gap": 0.4, "fx": "echo", "gain": 1.4},
+  {"id": "g2", "who": "gema", "text": "Bring him like… invite him? For coffee?", "gap": 0.8},
+  {"id": "d3", "who": "directie", "text": "BRING.", "gap": 0.3, "fx": "echo", "gain": 1.5},
+  {"id": "p1", "who": "hero", "text": "I said yes to one photo.", "gap": 4.4},
+  {"id": "c1", "who": "carmen", "text": "Ten cuidado, cariño. La gente con miedo hace tonterías.", "gap": 0.6, "sub": "Be careful, love. Scared people do stupid things."},
+  {"id": "r3", "who": "racha", "text": "Tomorrow.", "gap": 9.4}
+ ],
+ "marks": {"alarm": ["s1", -3.0], "tv": ["n1", -0.3], "react": ["g1", -0.3], "lift": ["s2", -1.2], "top": ["d1", -3.6], "ficha": ["d3", 0.6, "end"], "bar": ["p1", -1.4], "walk": ["c1", 0.8, "end"], "van": ["r3", -4.0]},
+ "tail": 2.4,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["tension.mp3", 1.4, 0.0, -15, 0.3, 0.8, "bar"],
+  ["warm.mp3", "bar", 60.0, -21, 0.6, 0.6, "walk"],
+  ["tension.mp3", "walk", 40.0, -14, 0.6, 1.0, "end"]
+ ]
+}

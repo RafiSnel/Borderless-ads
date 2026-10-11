@@ -1,0 +1,32 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "r1", "who": "racha", "text": "Rule one: nobody misses their streak. Rule two: nobody touches water.", "at": 1.9},
+  {"id": "g1", "who": "gema", "text": "Is that…", "gap": 1.8},
+  {"id": "r2", "who": "racha", "text": "Ignore him.", "gap": 0.3},
+  {"id": "f1", "who": "ficha", "text": "My cats!", "gap": 3.6},
+  {"id": "l1", "who": "lifeguard", "text": "¡Bandera roja! ¡Nadie al agua!", "gap": 1.2, "sub": "Red flag! Nobody in the water!"},
+  {"id": "p1", "who": "hero", "text": "Red flag. He says nobody in the water.", "gap": 1.0},
+  {"id": "r3", "who": "racha", "text": "I don't take advice from a document.", "gap": 0.4},
+  {"id": "r4", "who": "racha", "text": "Content! Day 1210, beach edition!", "gap": 1.4},
+  {"id": "r5", "who": "racha", "text": "Help… help?", "gap": 2.0},
+  {"id": "g2", "who": "gema", "text": "I'm a rock!", "gap": 0.6},
+  {"id": "f2", "who": "ficha", "text": "I'm paper!", "gap": 0.2},
+  {"id": "p2", "who": "hero", "text": "Waterproof. Finally useful.", "gap": 0.7},
+  {"id": "p3", "who": "hero", "text": "Stay small. Breathe.", "gap": 2.6},
+  {"id": "r6", "who": "racha", "text": "*cough* …I had it under control.", "gap": 5.2},
+  {"id": "g3", "who": "gema", "text": "Don't tell him.", "gap": 3.6}
+ ],
+ "marks": {
+  "beach": ["g1", -1.6], "gags": ["r2", 0.4, "end"], "flag": ["l1", -0.5], "edge": ["r4", -0.7], "wave": ["r4", 0.2, "end"], "panic": ["g2", -0.3],
+  "dive": ["p2", 0.3, "end"], "rescue": ["p3", -1.4], "shore": ["r6", -2.6], "blink": ["r6", 0.3, "end"], "gift": ["g3", -1.2], "stamp": ["g3", 0.9, "end"], "hq": ["mark:stamp", 2.4]
+ },
+ "tail": 9.5,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -5, 0.0, 0.6, 2.6],
+  ["beach.mp3", 1.4, 4.0, -15, 0.4, 0.3, "wave"],
+  ["tension.mp3", "wave", 60.0, -14, 0.1, 0.8, "shore"],
+  ["warm.mp3", "shore", 30.0, -18, 1.0, 0.8, "hq"],
+  ["tension.mp3", "hq", 0.0, -15, 0.6, 1.2, "end"]
+ ]
+}

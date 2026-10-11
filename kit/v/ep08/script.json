@@ -1,0 +1,29 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "g1", "who": "gema", "text": "I'm a ROCK!", "at": 3.4},
+  {"id": "r1", "who": "racha", "text": "Gema. What are you doing?", "gap": 0.9},
+  {"id": "g2", "who": "gema", "text": "Something right. For once.", "gap": 0.4},
+  {"id": "d1", "who": "directie", "text": "STOP THEM.", "gap": 0.7, "fx": "echo", "gain": 1.4},
+  {"id": "p1", "who": "hero", "text": "Are those… people's streaks?", "gap": 3.0},
+  {"id": "g3", "who": "gema", "text": "Don't look. Run.", "gap": 0.3},
+  {"id": "r2", "who": "racha", "text": "Ficha! Lock it! He's nobody!", "gap": 2.4},
+  {"id": "p2", "who": "hero", "text": "Nadie es nadie.", "sub": "Nobody is nobody.", "gap": 0.6},
+  {"id": "f1", "who": "ficha", "text": "…That's grammatically correct. And true.", "gap": 0.9},
+  {"id": "g4", "who": "gema", "text": "Planta's safe!", "gap": 2.6},
+  {"id": "r3", "who": "racha", "text": "GIVE ME BACK MY USERS!", "gap": 1.6},
+  {"id": "g5", "who": "gema", "text": "I've never done anything brave before.", "gap": 11.5},
+  {"id": "p3", "who": "hero", "text": "How was it?", "gap": 0.6},
+  {"id": "g6", "who": "gema", "text": "Terrible. Amazing.", "gap": 0.5}
+ ],
+ "marks": {"crumble": ["g1", 0.5], "free": ["g2", 0.4], "run": ["d1", 0.4, "end"], "furnace": ["p1", -0.8], "door": ["r2", -0.9], "open": ["f1", 0.3, "end"], "ride": ["mark:open", 0.9], "market": ["g4", 0.6, "end"], "comet": ["r3", -0.3], "metro": ["r3", 2.6, "end"], "revoked": ["r3", 5.6, "end"], "roof": ["g5", -2.0], "stamp": ["g6", 0.7, "end"], "hook": ["g6", 4.2, "end"]},
+ "tail": 10.0,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["tension.mp3", 1.6, 30.0, -15, 0.4, 0.4, "run"],
+  ["chase.mp3", "run", 0.0, -12, 0.1, 1.2, "metro"],
+  ["tension.mp3", "metro", 60.0, -22, 0.6, 1.0, "roof"],
+  ["warm.mp3", "roof", 0.0, -14, 1.2, 1.0, "hook"],
+  ["sad.wav", "hook", 0.0, -12, 0.8, 1.5, "end"]
+ ]
+}

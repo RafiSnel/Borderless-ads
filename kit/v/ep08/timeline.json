@@ -1,0 +1,119 @@
+{
+"lines": {
+"g1": {
+"t": 3.4,
+"d": 1.413,
+"who": "gema",
+"text": "I'm a ROCK!",
+"sub": null
+},
+"r1": {
+"t": 5.713,
+"d": 2.262,
+"who": "racha",
+"text": "Gema. What are you doing?",
+"sub": null
+},
+"g2": {
+"t": 8.375,
+"d": 2.829,
+"who": "gema",
+"text": "Something right. For once.",
+"sub": null
+},
+"d1": {
+"t": 11.904,
+"d": 1.292,
+"who": "directie",
+"text": "STOP THEM.",
+"sub": null
+},
+"p1": {
+"t": 16.196,
+"d": 2.459,
+"who": "hero",
+"text": "Are those… people's streaks?",
+"sub": null
+},
+"g3": {
+"t": 18.955,
+"d": 2.422,
+"who": "gema",
+"text": "Don't look. Run.",
+"sub": null
+},
+"r2": {
+"t": 23.777,
+"d": 2.527,
+"who": "racha",
+"text": "Ficha! Lock it! He's nobody!",
+"sub": null
+},
+"p2": {
+"t": 26.904,
+"d": 3.555,
+"who": "hero",
+"text": "Nadie es nadie.",
+"sub": "Nobody is nobody."
+},
+"f1": {
+"t": 31.359,
+"d": 3.12,
+"who": "ficha",
+"text": "…That's grammatically correct. And true.",
+"sub": null
+},
+"g4": {
+"t": 37.079,
+"d": 1.277,
+"who": "gema",
+"text": "Planta's safe!",
+"sub": null
+},
+"r3": {
+"t": 39.956,
+"d": 1.908,
+"who": "racha",
+"text": "GIVE ME BACK MY USERS!",
+"sub": null
+},
+"g5": {
+"t": 53.365,
+"d": 2.554,
+"who": "gema",
+"text": "I've never done anything brave before.",
+"sub": null
+},
+"p3": {
+"t": 56.519,
+"d": 1.759,
+"who": "hero",
+"text": "How was it?",
+"sub": null
+},
+"g6": {
+"t": 58.778,
+"d": 3.617,
+"who": "gema",
+"text": "Terrible. Amazing.",
+"sub": null
+}
+},
+"marks": {
+"crumble": 3.9,
+"free": 8.775,
+"run": 13.596,
+"furnace": 15.396,
+"door": 22.877,
+"open": 34.779,
+"ride": 35.679,
+"market": 38.956,
+"comet": 39.656,
+"metro": 44.464,
+"revoked": 47.464,
+"roof": 51.365,
+"stamp": 63.095,
+"hook": 66.595
+},
+"dur": 72.4
+}

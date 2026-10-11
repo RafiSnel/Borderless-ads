@@ -1,0 +1,32 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "d1", "who": "directie", "text": "Your parents were my best users. Every day. For years. Then one day they turned me off… and went traveling. Nobody leaves me.", "at": 2.8, "fx": "echo", "gain": 1.4},
+  {"id": "p1", "who": "hero", "text": "You don't run anything. You just… need to be looked at.", "gap": 0.8},
+  {"id": "d2", "who": "directie", "text": "You're NOTHING at day zero.", "gap": 1.8, "fx": "echo", "gain": 1.4},
+  {"id": "r1", "who": "racha", "text": "Día dos. And counting people now.", "sub": "Day two. And counting people now.", "gap": 0.6},
+  {"id": "d3", "who": "directie", "text": "Nobody likes you without badges.", "gap": 0.8, "fx": "echo", "gain": 1.4},
+  {"id": "g1", "who": "gema", "text": "I have friends. Real ones. They don't even have badges.", "gap": 0.4},
+  {"id": "d4", "who": "directie", "text": "You can't even make a sentence.", "gap": 0.8, "fx": "echo", "gain": 1.4},
+  {"id": "f1", "who": "ficha", "text": "Puedo hablar. Mal… pero puedo.", "sub": "I can speak. Badly… but I can.", "gap": 0.4},
+  {"id": "p2", "who": "hero", "text": "Together?", "gap": 1.2},
+  {"id": "tr", "who": "racha", "text": "Together.", "after": "p2", "gap": 0.5},
+  {"id": "tg", "who": "gema", "text": "", "after": "p2", "gap": 0.52},
+  {"id": "tf", "who": "ficha", "text": "", "after": "p2", "gap": 0.48},
+  {"id": "d5", "who": "directie", "text": "No— no— look at me— LOOK AT ME—", "after": "p2", "gap": 4.6, "gain": 1.2},
+  {"id": "f2", "who": "ficha", "text": "El gato… de la casa.", "sub": "The house cat.", "gap": 1.8},
+  {"id": "r2", "who": "racha", "text": "Carmen: ¡cañas para todos! ¡Invito yo!", "sub": "Carmen: beers for everyone! My treat!", "gap": 4.2},
+  {"id": "p3", "who": "hero", "text": "…Vale.", "sub": "…Okay.", "gap": 1.4},
+  {"id": "c1", "who": "carmen", "text": "Esto llegó hoy. Sin remitente.", "sub": "This came today. No sender.", "gap": 10.4},
+  {"id": "r3", "who": "racha", "text": "So. Japanese is hard, right?", "gap": 5.0}
+ ],
+ "marks": {"storm": ["p1", 0.5, "end"], "tap": ["tr", 1.3, "end"], "off": ["mark:tap", 0.3], "ding": ["d5", 0.2, "end"], "jar": ["f2", -0.6], "party": ["f2", 1.2, "end"], "stamp": ["p3", 0.5, "end"], "flip": ["mark:stamp", 2.6], "empty": ["c1", -2.0], "card": ["c1", 0.5, "end"], "window": ["r3", -1.2], "s2": ["r3", 1.0, "end"]},
+ "tail": 6.5,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["tension.mp3", 1.6, 40.0, -16, 1.0, 0.1, "tap"],
+  ["bar.wav", "party", 0.0, -12, 0.3, 1.0, "flip"],
+  ["warm.mp3", "flip", 30.0, -12, 0.6, 1.5, "card"],
+  ["tokyo.mp3", "s2", 0.0, -6, 0.0, 1.0, "end"]
+ ]
+}

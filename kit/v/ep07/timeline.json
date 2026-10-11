@@ -1,0 +1,149 @@
+{
+"lines": {
+"r1": {
+"t": 2.2,
+"d": 4.767,
+"who": "racha",
+"text": "In. Bag. Out. Nobody talks. Nobody glitters.",
+"sub": null
+},
+"g1": {
+"t": 7.367,
+"d": 1.93,
+"who": "gema",
+"text": "I can't control the glitter.",
+"sub": null
+},
+"f1": {
+"t": 14.697,
+"d": 1.807,
+"who": "ficha",
+"text": "That's… a plant.",
+"sub": null
+},
+"r2": {
+"t": 16.904,
+"d": 2.269,
+"who": "racha",
+"text": "…It's leverage.",
+"sub": null
+},
+"g2": {
+"t": 19.573,
+"d": 1.614,
+"who": "gema",
+"text": "Hello, little plant.",
+"sub": null
+},
+"p1": {
+"t": 23.787,
+"d": 0.861,
+"who": "hero",
+"text": "…Hello?",
+"sub": null
+},
+"f2": {
+"t": 25.148,
+"d": 2.345,
+"who": "ficha",
+"text": "\"Nosotros.\" \"Pizza.\"",
+"sub": "\"Us.\" \"Pizza.\""
+},
+"p2": {
+"t": 27.793,
+"d": 1.647,
+"who": "hero",
+"text": "I didn't order pizza.",
+"sub": null
+},
+"r3": {
+"t": 29.839,
+"d": 2.059,
+"who": "racha",
+"text": "Sorry. Not sorry.",
+"sub": null
+},
+"p3": {
+"t": 34.299,
+"d": 1.351,
+"who": "hero",
+"text": "Is Planta here?",
+"sub": null
+},
+"g3": {
+"t": 35.95,
+"d": 1.075,
+"who": "gema",
+"text": "She's fine!",
+"sub": null
+},
+"r4": {
+"t": 37.325,
+"d": 1.904,
+"who": "racha",
+"text": "DON'T talk to the hostage.",
+"sub": null
+},
+"r5": {
+"t": 42.628,
+"d": 3.858,
+"who": "racha",
+"text": "Fifty lessons. Sixteen days. What's the trick?",
+"sub": null
+},
+"p4": {
+"t": 47.186,
+"d": 5.187,
+"who": "hero",
+"text": "No trick. I practiced. Every day. Even the days I didn't want to.",
+"sub": null
+},
+"r6": {
+"t": 53.073,
+"d": 4.355,
+"who": "racha",
+"text": "Every day? That's MY thing. Every day is MY thing.",
+"sub": null
+},
+"p5": {
+"t": 57.828,
+"d": 1.371,
+"who": "hero",
+"text": "Then why do you need me?",
+"sub": null
+},
+"g4": {
+"t": 60.599,
+"d": 0.976,
+"who": "gema",
+"text": "Sorry.",
+"sub": null
+},
+"d1": {
+"t": 63.375,
+"d": 8.757,
+"who": "directie",
+"text": "Is that him? So… small. Erase his stamps. All of them. Then he's nobody again.",
+"sub": null
+},
+"p6": {
+"t": 72.931,
+"d": 0.712,
+"who": "hero",
+"text": "No—",
+"sub": null
+}
+},
+"marks": {
+"apt": 9.697,
+"van2": 14.197,
+"apt2": 21.987,
+"ride": 33.499,
+"cellar": 40.828,
+"wall": 62.175,
+"machine": 72.332,
+"button": 74.043,
+"planta": 76.643
+},
+"dur": 78.24
+}

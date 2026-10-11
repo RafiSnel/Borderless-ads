@@ -1,0 +1,140 @@
+{
+"lines": {
+"r1": {
+"t": 2.5,
+"d": 4.574,
+"who": "racha",
+"text": "Four doors. Four problems. Four idiots.",
+"sub": null
+},
+"r2": {
+"t": 7.774,
+"d": 2.16,
+"who": "racha",
+"text": "The vents. They run hot.",
+"sub": null
+},
+"g1": {
+"t": 10.433,
+"d": 1.349,
+"who": "gema",
+"text": "The badge-bots.",
+"sub": null
+},
+"f1": {
+"t": 12.283,
+"d": 1.231,
+"who": "ficha",
+"text": "The password.",
+"sub": null
+},
+"p1": {
+"t": 14.014,
+"d": 0.783,
+"who": "hero",
+"text": "The guard.",
+"sub": null
+},
+"c1": {
+"t": 18.396,
+"d": 1.304,
+"who": "carmen",
+"text": "Vamos, niños.",
+"sub": "Let's go, kids."
+},
+"p2": {
+"t": 21.5,
+"d": 3.638,
+"who": "hero",
+"text": "Buenas noches. ¿Es usted del Atleti o del Madrid?",
+"sub": "Good evening. Are you Atlético or Real?"
+},
+"k1": {
+"t": 25.438,
+"d": 3.264,
+"who": "paco",
+"text": "¡Del Atleti, hijo! ¿Quieres ver fotos de mis nietos?",
+"sub": "Atlético, son! Want to see pictures of my grandkids?"
+},
+"g2": {
+"t": 30.102,
+"d": 3.29,
+"who": "gema",
+"text": "You're doing great. And you. And YOU!",
+"sub": null
+},
+"r3": {
+"t": 35.792,
+"d": 3.842,
+"who": "racha",
+"text": "Small. Calm. Día… dos.",
+"sub": "Small. Calm. Day… two."
+},
+"f2": {
+"t": 42.234,
+"d": 4.276,
+"who": "ficha",
+"text": "Three hundred cats. One of them had to be the password.",
+"sub": null
+},
+"g3": {
+"t": 48.91,
+"d": 1.858,
+"who": "gema",
+"text": "Last chance to go home.",
+"sub": null
+},
+"r4": {
+"t": 51.067,
+"d": 1.749,
+"who": "racha",
+"text": "This IS going home.",
+"sub": null
+},
+"c2": {
+"t": 55.816,
+"d": 2.736,
+"who": "carmen",
+"text": "…Interpreto eso como \"todo bien\".",
+"sub": "…I'll take that as \"all good\"."
+},
+"d1": {
+"t": 62.952,
+"d": 4.589,
+"who": "directie",
+"text": "You came to me. Good. Saves me the trouble.",
+"sub": null
+},
+"p3": {
+"t": 68.341,
+"d": 3.223,
+"who": "hero",
+"text": "Leave the bar alone. Leave them alone.",
+"sub": null
+},
+"d2": {
+"t": 75.764,
+"d": 3.652,
+"who": "directie",
+"text": "Hello, Pasito. I knew your parents.",
+"sub": null
+}
+},
+"marks": {
+"roles": 7.474,
+"lookout": 15.097,
+"hq": 15.996,
+"s1": 20.7,
+"s2": 29.302,
+"s3": 34.392,
+"s4": 40.234,
+"granted": 46.71,
+"lift": 47.71,
+"van": 54.016,
+"top": 59.552,
+"stamp": 71.964,
+"screens": 74.964,
+"eyes": 80.016
+},
+"dur": 82.82
+}

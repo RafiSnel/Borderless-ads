@@ -1,0 +1,36 @@
+{
+ "start": 1.6,
+ "lines": [
+  {"id": "f1", "who": "ficha", "text": "He bagged you.", "at": 2.6},
+  {"id": "g1", "who": "gema", "text": "He bagged PLANTA.", "gap": 0.3},
+  {"id": "r1", "who": "racha", "text": "Twelve hundred days. Every single one. And now I'm… zero.", "gap": 4.4},
+  {"id": "p1", "who": "hero", "text": "Come on. One night. No counting.", "gap": 1.2},
+  {"id": "g2", "who": "gema", "text": "Pasito—", "gap": 0.3},
+  {"id": "p2", "who": "hero", "text": "He's not dangerous. He's lost. I know what that looks like.", "gap": 0.3},
+  {"id": "r2", "who": "racha", "text": "Dos churros, por favor… no, ¿cuatro? No—", "sub": "Two churros, please… no, four? No—", "gap": 2.6},
+  {"id": "p3", "who": "hero", "text": "No pasa nada.", "sub": "It's fine.", "gap": 0.4},
+  {"id": "r3", "who": "racha", "text": "Who am I… without a number?", "gap": 9.0},
+  {"id": "p4", "who": "hero", "text": "Let's find out.", "gap": 0.6},
+  {"id": "p5", "who": "hero", "text": "♪ Corazón de Madrid, la la la… ♪", "sub": "♪ Heart of Madrid… ♪", "gap": 2.0},
+  {"id": "r4", "who": "racha", "text": "♪ Corazón de… coliflor? ♪", "sub": "♪ Heart of… cauliflower? ♪", "gap": 0.3},
+  {"id": "lp", "who": "hero", "text": "", "gap": 0.1, "gain": 0.8},
+  {"id": "r5", "who": "racha", "text": "When I was lit, the Directie said: keep burning, or you're nothing. So I counted. Every day.", "gap": 3.0},
+  {"id": "p6", "who": "hero", "text": "Count something else.", "gap": 0.7},
+  {"id": "r6", "who": "racha", "text": "Like what?", "gap": 0.4},
+  {"id": "p7", "who": "hero", "text": "People.", "gap": 0.5},
+  {"id": "r7", "who": "racha", "text": "Día uno.", "sub": "Day one.", "gap": 1.6},
+  {"id": "r8", "who": "racha", "text": "Don't make it weird.", "gap": 1.5},
+  {"id": "d1", "who": "directie", "text": "Twenty-four hours.", "gap": 5.4, "fx": "echo", "gain": 1.4}
+ ],
+ "marks": {"clock": ["g1", 0.6, "end"], "zero": ["mark:clock", 1.8], "churro": ["r2", -1.6], "flamenco": ["p3", 0.8, "end"], "metro": ["r3", -1.0], "busk": ["p5", -1.0], "roof": ["r5", -2.2], "day1": ["r7", -0.5], "stamp": ["r8", 0.3, "end"], "hook": ["r8", 3.8, "end"]},
+ "tail": 2.4,
+ "music": [
+  ["title_sting.mp3", 0.0, 0.0, -6, 0.0, 0.6, 2.4],
+  ["night.mp3", 1.6, 40.0, -26, 1.0, 1.0, "clock"],
+  ["night.mp3", "p1", 0.0, -16, 1.5, 0.6, "flamenco"],
+  ["flamenco.mp3", "flamenco", 0.0, -10, 0.2, 0.8, "metro"],
+  ["night.mp3", "metro", 70.0, -20, 0.6, 0.6, "roof"],
+  ["warm.mp3", "roof", 0.0, -14, 1.5, 1.0, "hook"],
+  ["tension.mp3", "hook", 0.0, -12, 0.0, 0.4, "end"]
+ ]
+}
