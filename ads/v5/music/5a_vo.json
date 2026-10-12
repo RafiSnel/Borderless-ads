@@ -1,0 +1,57 @@
+{
+ "lines": [
+  {
+   "text": "This lesson didn't exist yesterday.",
+   "url": "file:///home/claude/v5/a/A01.mp3"
+  },
+  {
+   "text": "Most courses were written years ago. For everyone.",
+   "url": "file:///home/claude/v5/a/A02.mp3"
+  },
+  {
+   "text": "This one was written last night. For one person.",
+   "url": "file:///home/claude/v5/a/A03.mp3"
+  },
+  {
+   "text": "Maya. Moving to Lisbon. Level A2.",
+   "url": "file:///home/claude/v5/a/A04.mp3"
+  },
+  {
+   "text": "Yesterday she finished lesson six.",
+   "url": "file:///home/claude/v5/a/A05.mp3"
+  },
+  {
+   "text": "Borderless looked at how it went...",
+   "url": "file:///home/claude/v5/a/A06.mp3"
+  },
+  {
+   "text": "...and wrote lesson seven around her.",
+   "url": "file:///home/claude/v5/a/A07.mp3"
+  },
+  {
+   "text": "Her flat. Her landlord. Her rent.",
+   "url": "file:///home/claude/v5/a/A08.mp3"
+  },
+  {
+   "text": "Lesson eight? Doesn't exist yet either.",
+   "url": "file:///home/claude/v5/a/A09.mp3"
+  },
+  {
+   "text": "Borderless. Written for you, as you go.",
+   "url": "file:///home/claude/v5/a/A10.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.35,
+  "3": 0.25,
+  "4": 0.45,
+  "5": 0.3,
+  "6": 0.25,
+  "7": 0.05,
+  "8": 0.35,
+  "9": 0.5,
+  "10": 0.6
+ },
+ "tempo": 1.02,
+ "maxpause": 0.22
+}

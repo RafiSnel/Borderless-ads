@@ -1,0 +1,52 @@
+{
+ "lines": [
+  {
+   "text": "First day at a job abroad? You need four sentences. Not four hundred.",
+   "url": "file:///home/claude/v5/a/E01.mp3"
+  },
+  {
+   "text": "One: I'm new here.",
+   "url": "file:///home/claude/v5/a/E02.mp3"
+  },
+  {
+   "text": "Two: can you show me how?",
+   "url": "file:///home/claude/v5/a/E03.mp3"
+  },
+  {
+   "text": "Three: sorry, a bit slower?",
+   "url": "file:///home/claude/v5/a/E04.mp3"
+  },
+  {
+   "text": "Four: where does this go?",
+   "url": "file:///home/claude/v5/a/E05.mp3"
+  },
+  {
+   "text": "That's day one sorted.",
+   "url": "file:///home/claude/v5/a/E06.mp3"
+  },
+  {
+   "text": "Day two? Borderless writes it. For your job, at your level.",
+   "url": "file:///home/claude/v5/a/E07.mp3"
+  },
+  {
+   "text": "Seventy-four languages. One course, built around your job.",
+   "url": "file:///home/claude/v5/a/E08.mp3"
+  },
+  {
+   "text": "Borderless.",
+   "url": "file:///home/claude/v5/a/E09.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.35,
+  "3": 1.2,
+  "4": 1.2,
+  "5": 1.2,
+  "6": 1.0,
+  "7": 0.4,
+  "8": 0.35,
+  "9": 0.5
+ },
+ "tempo": 1.02,
+ "maxpause": 0.22
+}

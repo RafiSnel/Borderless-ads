@@ -1,0 +1,57 @@
+{
+ "lines": [
+  {
+   "text": "Here's what nine ninety-nine actually gets you.",
+   "url": "file:///home/claude/v5/a/B01.mp3"
+  },
+  {
+   "text": "One course. Any of seventy-four languages.",
+   "url": "file:///home/claude/v5/a/B02.mp3"
+  },
+  {
+   "text": "A quick chat about why you're learning.",
+   "url": "file:///home/claude/v5/a/B03.mp3"
+  },
+  {
+   "text": "A level test, so you don't start at hello.",
+   "url": "file:///home/claude/v5/a/B04.mp3"
+  },
+  {
+   "text": "Fifty lessons, written for you, one at a time.",
+   "url": "file:///home/claude/v5/a/B05.mp3"
+  },
+  {
+   "text": "A passport that fills up as you learn.",
+   "url": "file:///home/claude/v5/a/B06.mp3"
+  },
+  {
+   "text": "Your first two weeks of lessons, included.",
+   "url": "file:///home/claude/v5/a/B07.mp3"
+  },
+  {
+   "text": "After that, five ninety-nine a month. For all your courses.",
+   "url": "file:///home/claude/v5/a/B08.mp3"
+  },
+  {
+   "text": "And every lesson you've made stays yours. Forever.",
+   "url": "file:///home/claude/v5/a/B09.mp3"
+  },
+  {
+   "text": "Borderless. A course built around you.",
+   "url": "file:///home/claude/v5/a/B10.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.3,
+  "3": 0.2,
+  "4": 0.2,
+  "5": 0.2,
+  "6": 0.2,
+  "7": 0.2,
+  "8": 0.3,
+  "9": 0.4,
+  "10": 0.6
+ },
+ "tempo": 1.02,
+ "maxpause": 0.22
+}

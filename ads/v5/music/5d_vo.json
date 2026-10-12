@@ -1,0 +1,62 @@
+{
+ "lines": [
+  {
+   "text": "Any percent speedrun: surviving dinner with your partner's Italian family.",
+   "url": "file:///home/claude/v5/a/D01.mp3"
+  },
+  {
+   "text": "Split one: tell the app why.",
+   "url": "file:///home/claude/v5/a/D02.mp3"
+  },
+  {
+   "text": "Split two: level test. A one. Rough start.",
+   "url": "file:///home/claude/v5/a/D03.mp3"
+  },
+  {
+   "text": "Lesson one: hello. Without kissing the wrong cheek.",
+   "url": "file:///home/claude/v5/a/D04.mp3"
+  },
+  {
+   "text": "Lesson nine: complimenting the food. Loudly.",
+   "url": "file:///home/claude/v5/a/D05.mp3"
+  },
+  {
+   "text": "Lesson fourteen: understanding Nonna. Mostly.",
+   "url": "file:///home/claude/v5/a/D06.mp3"
+  },
+  {
+   "text": "Day twenty-one. Final boss.",
+   "url": "file:///home/claude/v5/a/D07.mp3"
+  },
+  {
+   "text": "Ancora pasta?",
+   "url": "file:///home/claude/v5/a/D08.mp3"
+  },
+  {
+   "text": "S\u00ec, grazie! \u00c8 buonissima!",
+   "url": "file:///home/claude/v5/a/D09.mp3"
+  },
+  {
+   "text": "New personal best.",
+   "url": "file:///home/claude/v5/a/D10.mp3"
+  },
+  {
+   "text": "Borderless. Lessons for the dinner you're actually going to.",
+   "url": "file:///home/claude/v5/a/D11.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.3,
+  "3": 0.3,
+  "4": 0.35,
+  "5": 0.35,
+  "6": 0.35,
+  "7": 0.5,
+  "8": 0.9,
+  "9": 0.5,
+  "10": 0.5,
+  "11": 0.5
+ },
+ "tempo": 1.02,
+ "maxpause": 0.22
+}

@@ -1,0 +1,57 @@
+{
+ "lines": [
+  {
+   "text": "Your language app has never been to your job.",
+   "url": "file:///home/claude/v5/a/C01.mp3"
+  },
+  {
+   "text": "It teaches you: the apple is red.",
+   "url": "file:///home/claude/v5/a/C02.mp3"
+  },
+  {
+   "text": "Your boss says: can you cover Saturday?",
+   "url": "file:///home/claude/v5/a/C03.mp3"
+  },
+  {
+   "text": "It teaches you: the cat drinks milk.",
+   "url": "file:///home/claude/v5/a/C04.mp3"
+  },
+  {
+   "text": "Your landlord says: the boiler's broken. Again.",
+   "url": "file:///home/claude/v5/a/C05.mp3"
+  },
+  {
+   "text": "It teaches you: I am a boy.",
+   "url": "file:///home/claude/v5/a/C06.mp3"
+  },
+  {
+   "text": "Your partner's mum says: so... when's the wedding?",
+   "url": "file:///home/claude/v5/a/C07.mp3"
+  },
+  {
+   "text": "Borderless asks why you're learning. First.",
+   "url": "file:///home/claude/v5/a/C08.mp3"
+  },
+  {
+   "text": "Then every lesson is about your shift, your boiler, your future mother-in-law.",
+   "url": "file:///home/claude/v5/a/C09.mp3"
+  },
+  {
+   "text": "Learn the language of your life.",
+   "url": "file:///home/claude/v5/a/C10.mp3"
+  }
+ ],
+ "gaps": {
+  "2": 0.25,
+  "3": 0.6,
+  "4": 0.5,
+  "5": 0.6,
+  "6": 0.5,
+  "7": 0.6,
+  "8": 0.9,
+  "9": 0.3,
+  "10": 0.5
+ },
+ "tempo": 1.02,
+ "maxpause": 0.22
+}
