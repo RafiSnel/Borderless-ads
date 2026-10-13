@@ -35,7 +35,13 @@ Samen heet dit in de motion-designwereld meestal een **"motion design showreel"-
 ### Techniek (voor wie het bouwt)
 - `kit/kin.js` — de bouwstenen: `kin()` (woord met letter-animatie), `kwall()` (woordmuur), `kcard()`, overgangen `kTiles()`, `kStripes()`, `kIris()`, `kZoom()`, `khud()`, `kend()` (eind met 3D-munt).
 - `kit/r3d.js` — echte 3D (three.js, chroom/glans/glas, bloom): `R3.knot()`, `R3.blob()`, `R3.coin()`. Laden met `MOD=r3d.js bash make.sh <video>`.
-- Voorbeelden: `ads/v5/…` test-reel (`v/r1`), en de remakes `06k`, `07k`, `09k`, `13k`, `14k`.
+- Voorbeelden: `ads/v5/…` test-reel (`v/r1`), reel 02 op "Midnight Club" (`v/r2`), en de remakes `06k`, `07k`, `09k`, `13k`, `14k`.
+
+### Op de beat van een bestaand liedje (zoals reel 02)
+1. Rafi stuurt een schermopname van de TikTok-editor waarin het geluid speelt. Daaruit: waar het liedje begint, het tempo, en de fase (wanneer slag 0 valt).
+2. Uit de audio meten, niet gokken: de zware 808-klappen (lage band), de claps (midden), en de stiltes. Elke knip, elke woordslag en elke camerapunch staat op zo'n gemeten moment; in de stiltes bevriest het beeld (`HOLD`).
+3. Beeld een fractie vóór het geluid (±20 ms): dat voelt strak, andersom voelt traag.
+4. Lever **zonder geluid** (Rafi legt het TikTok-geluid eronder, vanaf het begin van het fragment) plus een **preview met het liedje** om de sync te controleren.
 
 ---
 
