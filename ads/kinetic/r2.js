@@ -24,7 +24,7 @@ window.ready = (async () => {
   function txt(s, x, y, f, col, a = 1, align = 'center') { X.save(); X.globalAlpha *= cl(a); X.font = f; X.fillStyle = col; X.textAlign = align; X.textBaseline = 'middle'; X.fillText(s, x, y); X.restore(); }
 
   // ---------- HUD ----------
-  const SECTIONS = [[0, '01 · HELLO'], [b(16), '02 · 74 LANGUAGES'], [b(32), '03 · IT TALKS BACK'], [b(40), '04 · ROLE-PLAY'], [b(48), '05 · CHECKED'], [b(56), '06 · 50 LESSONS'], [b(64), '07 · BUILT AROUND YOU'], [b(72), '08 · THE DEAL'], [b(80), '09 · BORDERLESS']];
+  const SECTIONS = [[0, '01 · HELLO'], [b(16), '02 · 74 LANGUAGES'], [b(32), '03 · BUILT AROUND YOU'], [b(40), '04 · YOUR REASON'], [b(48), '05 · CHECKED'], [b(56), '06 · 50 LESSONS'], [b(64), '07 · IT TALKS BACK'], [b(72), '08 · THE DEAL'], [b(80), '09 · BORDERLESS']];
   function hud(t, light) {
     const col = light ? 'rgba(11,10,10,0.6)' : 'rgba(255,255,255,0.55)';
     khud(t, SECTIONS, { title: 'BORDERLESS — REEL 02', right: '128 BPM', dur: DUR, col });
@@ -146,10 +146,11 @@ window.ready = (async () => {
       const k = t >= b(19) ? ksp(t, b(19), 0.4, 0.4, 18) : 1;
       X.save(); X.globalAlpha = a; X.translate(540, 235); const sc = t >= b(19) ? mix(1.7, 1, k) : 1; X.scale(sc, sc); kword(String(n), 0, 0, IF(900, 230), n === 74 ? WH : CR, null, {}); X.restore();
       txt('LANGUAGES', 540, 372, MONO(32), OR, a);
+      if (t >= b(24)) txt(typed(t, b(24), 'EACH COURSE BUILT AROUND YOU', 40), 540, 430, MONO(28), CR, a * 0.9);
     } else kin(t, b(30), 'PICK ONE.', 540, 300, IF(900, 170), WH, 'snap', { max: 980 });
     return K;
   }
-  // ---------- S4 · the tile opens into a role-play: it talks back, at your level ----------
+  // ---------- S4 · lesson 50 opens into a role-play: it talks back, at your level (beats 64–72) ----------
   function bubble(t, t0, text, side, y, bg, ink) {
     if (t < t0) return;
     const k = ksp(t, t0, 0.42, 0.45, 16);
@@ -167,13 +168,15 @@ window.ready = (async () => {
   }
   function s4(t) {
     card(K);
-    const k = ksp(t, b(32), 0.5, 0.55, 13), q = cl(k);
-    const pw = mix(180, 900, q), ph = mix(180, 940, q), px = mix(450, 90, q), py = mix(1050, 660, q);
-    X.fillStyle = K2; rr(px, py, pw, ph, mix(12, 44, q)); X.fill();
-    X.save(); X.globalAlpha = 1 - cl(k * 1.6); X.fillStyle = OR; rr(px, py, pw, ph, mix(12, 44, q)); X.fill(); X.globalAlpha *= 1; txt('Hola', px + pw / 2, py + ph / 2 + 2, IF(800, 38), WH, 1 - cl(k * 3)); X.restore();
-    X.save(); X.strokeStyle = 'rgba(255,255,255,0.08)'; X.lineWidth = 2; rr(px, py, pw, ph, mix(12, 44, q)); X.stroke(); X.restore();
-    // "PICK ONE." leaves upward
-    if (t < b(32) + 0.4) { const e = cl((t - b(32)) / 0.35); X.save(); X.globalAlpha = 1 - e; kword('PICK ONE.', 540, 300 - eo(e) * 260, IF(900, 170), WH, null, { max: 980 }); X.restore(); }
+    const k = ksp(t, b(64), 0.5, 0.55, 13), q = cl(k);
+    // seamless: lesson 50 opens into the role-play
+    const pw = mix(760, 900, q), ph = mix(480, 940, q), px = mix(160, 90, q), py = mix(860, 660, q);
+    X.fillStyle = K2; rr(px, py, pw, ph, mix(36, 44, q)); X.fill();
+    X.save(); X.globalAlpha = 1 - cl(k * 1.8); X.fillStyle = CR; rr(px, py, pw, ph, mix(36, 44, q)); X.fill(); X.restore();
+    if (k < 0.5) { X.save(); X.globalAlpha = 1 - cl(k * 3); lcard(px + pw / 2, py + ph / 2, pw / 760, 0, 50, 'Your big day', {}); X.restore(); }
+    X.save(); X.strokeStyle = 'rgba(255,255,255,0.08)'; X.lineWidth = 2; rr(px, py, pw, ph, mix(36, 44, q)); X.stroke(); X.restore();
+    // "50 LESSONS." leaves upward
+    if (t < b(64) + 0.4) { const e = cl((t - b(64)) / 0.35); X.save(); X.globalAlpha = 1 - e; kword('50 LESSONS.', 540, 330 - eo(e) * 260, IF(900, 170), WH, null, { max: 980 }); txt('WRITTEN ONE AT A TIME.', 540, 470 - eo(e) * 260, MONO(40), OR); X.restore(); }
     const ha = cl((k - 0.55) * 3);
     if (ha > 0) {
       X.save(); X.globalAlpha = ha;
@@ -181,43 +184,49 @@ window.ready = (async () => {
       txt('Lucía', 240, 726, IF(800, 40), WH, 1, 'left'); txt('ROLE-PLAY · CAFÉ · MADRID', 240, 768, MONO(22), GR, 1, 'left');
       X.fillStyle = 'rgba(255,255,255,0.08)'; X.fillRect(130, 820, 820, 2);
       X.fillStyle = 'rgba(255,255,255,0.06)'; rr(130, 1490, 820, 80, 40); X.fill();
-      let inp = ''; if (t >= b(33) && t < b(34)) inp = typed(t, b(33), 'Un café, por favor.', 22); if (t >= b(37.1) && t < b(38)) inp = typed(t, b(37.1), 'Con leche. ¡Gracias!', 26);
+      let inp = ''; if (t >= b(65) && t < b(66)) inp = typed(t, b(65), 'Un café, por favor.', 22); if (t >= b(69.1) && t < b(70)) inp = typed(t, b(69.1), 'Con leche. ¡Gracias!', 26);
       txt(inp ? inp + (Math.floor(t * 8) % 2 ? '|' : ' ') : 'Type in Spanish…', 170, 1530, inp ? IF(600, 38) : MONO(24), inp ? WH : GR, 1, 'left');
       X.restore();
     }
-    bubble(t, b(32) + 0.12, '¡Hola! ¿Qué te pongo?', 'L', 870, CR, K);
-    bubble(t, b(34), 'Un café, por favor.', 'R', 1000, OR, K);
-    dots(t, b(34.6), b(36.5), 1130);
-    bubble(t, b(36.5), '¿Solo o con leche?', 'L', 1130, CR, K);
-    bubble(t, b(38), 'Con leche. ¡Gracias!', 'R', 1260, OR, K);
-    dots(t, b(38.6), b(40), 1390);
+    bubble(t, b(64) + 0.12, '¡Hola! ¿Qué te pongo?', 'L', 870, CR, K);
+    bubble(t, b(66), 'Un café, por favor.', 'R', 1000, OR, K);
+    dots(t, b(66.6), b(68.5), 1130);
+    bubble(t, b(68.5), '¿Solo o con leche?', 'L', 1130, CR, K);
+    bubble(t, b(70), 'Con leche. ¡Gracias!', 'R', 1260, OR, K);
+    dots(t, b(70.6), b(72), 1390);
     // level chip stamps on the 808
-    if (t >= b(37)) { const kc = ksp(t, b(37), 0.35, 0.45, 20); X.save(); X.translate(880, 745); X.rotate(-0.08 * (1 - cl(kc))); X.scale(mix(2.6, 1, kc), mix(2.6, 1, kc)); X.globalAlpha = cl((t - b(37)) * 12);
+    if (t >= b(69)) { const kc = ksp(t, b(69), 0.35, 0.45, 20); X.save(); X.translate(880, 745); X.rotate(-0.08 * (1 - cl(kc))); X.scale(mix(2.6, 1, kc), mix(2.6, 1, kc)); X.globalAlpha = cl((t - b(69)) * 12);
       X.fillStyle = OR; rr(-70, -32, 140, 64, 32); X.fill(); txt('A2', 0, 2, IF(900, 38), K); X.restore();
-      const sw = cl((t - b(37)) / 0.4); X.save(); X.strokeStyle = `rgba(255,74,28,${0.8 * (1 - sw)})`; X.lineWidth = 8 * (1 - sw) + 2; X.beginPath(); X.arc(880, 745, 60 + sw * 260, 0, 7); X.stroke(); X.restore(); }
+      const sw = cl((t - b(69)) / 0.4); X.save(); X.strokeStyle = `rgba(255,74,28,${0.8 * (1 - sw)})`; X.lineWidth = 8 * (1 - sw) + 2; X.beginPath(); X.arc(880, 745, 60 + sw * 260, 0, 7); X.stroke(); X.restore(); }
     // headline, one word-group per hit
-    kin(t, b(35), 'IT TALKS', 540, 290, IF(900, 150), WH, 'snap', { max: 980 });
-    kin(t, b(36.5), 'BACK.', 540, 430, IF(900, 150), OR, 'drop', { max: 980 });
-    kin(t, b(38), 'AT YOUR LEVEL.', 540, 565, IF(900, 66), CR, 'rise', { max: 980 });
+    kin(t, b(67), 'IT TALKS', 540, 290, IF(900, 150), WH, 'snap', { max: 980 });
+    kin(t, b(68.5), 'BACK.', 540, 430, IF(900, 150), OR, 'drop', { max: 980 });
+    kin(t, b(70), 'AT YOUR LEVEL.', 540, 565, IF(900, 66), CR, 'rise', { max: 980 });
     return K;
   }
-  // ---------- S5 · role-play scenes, a salvo on the beat ----------
-  const VERBS = [[40, 'ORDER.', OR, K, 'Dos cafés, por favor.', 'ES · CAFÉ'], [42, 'COMPLAIN.', K, WH, 'Das Wasser ist kalt.', 'DE · HOTEL'],
-    [44.5, 'FLIRT.', CR, OR, 'Tu viens souvent ici ?', 'FR · BAR'], [46, 'NEGOTIATE.', BL, CR, 'もう少し安くなりませんか？', 'JA · MARKET']];
+  // ---------- S5 · why are you learning? each reason gets a different first lesson — salvo on the beat ----------
+  const REASONS = [[40, 'FOR WORK.', OR, K, 'Your first shift in the kitchen'], [42, 'FOR LOVE.', K, WH, 'Dinner with her parents'],
+    [44.5, 'FOR THE MOVE.', CR, OR, 'Viewing your new flat'], [46, 'FOR ABUELA.', BL, CR, 'Sunday call with abuela']];
   function s5(t) {
-    let v = VERBS[0]; for (const V of VERBS) if (t >= b(V[0])) v = V;
-    const [n, w, bg, fg, line, lab] = v, t0 = b(n), p = t - t0;
+    let v = REASONS[0]; for (const V of REASONS) if (t >= b(V[0])) v = V;
+    const [n, w, bg, fg, title] = v, t0 = b(n), p = t - t0;
     card(bg);
     X.save(); X.globalAlpha = 0.07; kwall(t, w, { rows: 13, size: 150, col: fg, speed: 320, y0: 60 }); X.restore();
-    const F = IF(900, 230);
-    if (n === 40) kword(w, 540, 880, F, fg, (j) => { const k = kspring((p - j * 0.04) / 0.45, 0.3, 18); return { dy: (1 - k) * -900 }; }, { max: 980 });
-    else if (n === 42) { const sh = Math.max(0, 1 - p / 0.4); kword(w, 540 + Math.sin(p * 90) * 34 * sh, 880 + Math.cos(p * 70) * 22 * sh, F, fg, (j) => ({ rot: Math.sin(p * 60 + j) * 0.16 * sh, sy: 1 + 0.22 * sh * Math.sin(p * 80 + j) }), { max: 980 }); }
-    else if (n === 44.5) { const k = kspring(p / 0.5); X.save(); X.translate(540, 880); X.transform(1, 0, -0.35 * (1 - k) + 0.12, 1, 0, 0); kword(w, 0, 0, F, fg, (j) => ({ rot: (1 - k) * 0.8 * (j - 2), a: k * 2 }), { max: 980 }); X.restore(); }
-    else { const k = ksp(t, t0, 0.35, 0.45, 20); X.save(); X.translate(540, 880); X.scale(mix(2.4, 1, k), mix(2.4, 1, k));
-      kword(w, 0, 0, F, fg, (j) => { const e = t - b(47) - j * 0.025; return { dy: e > 0 && e < 0.3 ? -Math.sin(e / 0.3 * Math.PI) * 70 : 0 }; }, { max: 980 }); X.restore();
-      X.fillStyle = fg; X.fillRect(540 - 400, 1000, 800 * eo(lin(p, 0.05, 0.3)), 14); }
-    txt(line, 540, 1120, IF(700, 52), fg, (p - 0.08) * 6);
-    txt('ROLE-PLAY · ' + lab, 540, 1192, MONO(26), fg, 0.6 * cl((p - 0.12) * 6));
+    txt(n === 40 ? typed(t, t0, 'WHY ARE YOU LEARNING SPANISH?', 70) : 'WHY ARE YOU LEARNING SPANISH?', 540, 500, MONO(40), fg, 0.85);
+    const F = IF(900, 200), y = 760;
+    if (n === 40) kword(w, 540, y, F, fg, (j) => { const k = kspring((p - j * 0.035) / 0.45, 0.3, 18); return { dy: (1 - k) * -900 }; }, { max: 960 });
+    else if (n === 42) kin(t, t0, w, 540, y, F, fg, 'spin', { max: 960 });
+    else if (n === 44.5) { const k = kspring(p / 0.5); X.save(); X.translate(540, y); X.transform(1, 0, -0.35 * (1 - k) + 0.12, 1, 0, 0); kword(w, 0, 0, F, fg, (j) => ({ rot: (1 - k) * 0.8 * (j - 3), a: k * 2 }), { max: 960 }); X.restore(); }
+    else { const k = ksp(t, t0, 0.35, 0.45, 20); X.save(); X.translate(540, y); X.scale(mix(2.4, 1, k), mix(2.4, 1, k));
+      kword(w, 0, 0, F, fg, (j) => { const e = t - b(47) - j * 0.025; return { dy: e > 0 && e < 0.3 ? -Math.sin(e / 0.3 * Math.PI) * 70 : 0 }; }, { max: 960 }); X.restore(); }
+    // the first lesson that reason gets
+    const kc = ksp(t, t0 + 0.07, 0.45, 0.5, 15), cb = bg === CR ? K : CR, ci = bg === CR ? CR : K;
+    X.save(); X.translate(540, mix(1500, 1130, kc)); X.rotate((1 - cl(kc)) * 0.12); X.globalAlpha = cl((p - 0.07) * 8);
+    X.fillStyle = 'rgba(0,0,0,0.3)'; rr(-372, -112, 760, 250, 32); X.fill();
+    X.fillStyle = cb; rr(-380, -125, 760, 250, 32); X.fill();
+    txt('YOUR LESSON 01', -320, -62, MONO(26), OR, 1, 'left');
+    X.font = IF(900, 54); const tw = X.measureText(title).width; X.save(); X.translate(-320, 20); if (tw > 640) X.scale(640 / tw, 640 / tw); X.fillStyle = ci; X.textAlign = 'left'; X.textBaseline = 'middle'; X.fillText(title, 0, 0); X.restore();
+    X.restore();
     return bg;
   }
   // ---------- S6 · you write, it checks ----------
@@ -277,16 +286,16 @@ window.ready = (async () => {
     }
     return K;
   }
-  // ---------- S8 · chrome: built around you (freezes in the silence) ----------
+  // ---------- S8 · chrome: built around you — straight after "pick one" (beats 32–40, freezes in the silence) ----------
   function s8(t) {
     card(K);
-    const e = t - b(64), spin = 1 - eo(lin(e, 0, 1.2)), kk = 1 - eo(cl((t - b(69)) / 0.6)) * (t >= b(69) ? 1 : 0);
-    const extra = t >= b(69) ? (1 - kk) * 1.2 : 0;
-    X.drawImage(R3.knot(t, { x: 0.35, y: 1.7, s: 0.85, rx: 0.5 + e * 0.4 + spin * 3, ry: e * 0.9 + spin * 4 + extra, rz: 0.2, bloom: 0.3 + 0.5 * Math.max(pulse(t, 67, 0.5), pulse(t, 69, 0.5)) }), 0, 0);
-    kin(t, b(66), 'BUILT AROUND', 540, 1360, IF(900, 120), WH, 'rise', { max: 980 });
-    if (t >= b(67)) { const k = ksp(t, b(67), 0.4, 0.4, 18), sx = 1 + pulse(t, 68.5, 0.35) * 0.5, sy = 1 + pulse(t, 69, 0.35) * 0.45;
+    const e = t - b(32), spin = 1 - eo(lin(e, 0, 1.2)), kk = 1 - eo(cl((t - b(37)) / 0.6)) * (t >= b(37) ? 1 : 0);
+    const extra = t >= b(37) ? (1 - kk) * 1.2 : 0;
+    X.drawImage(R3.knot(t, { x: 0.35, y: 1.7, s: 0.85, rx: 0.5 + e * 0.4 + spin * 3, ry: e * 0.9 + spin * 4 + extra, rz: 0.2, bloom: 0.3 + 0.5 * Math.max(pulse(t, 35, 0.5), pulse(t, 37, 0.5)) }), 0, 0);
+    kin(t, b(34), 'BUILT AROUND', 540, 1360, IF(900, 120), WH, 'rise', { max: 980 });
+    if (t >= b(35)) { const k = ksp(t, b(35), 0.4, 0.4, 18), sx = 1 + pulse(t, 36.5, 0.35) * 0.5, sy = 1 + pulse(t, 37, 0.35) * 0.45;
       X.save(); X.translate(540, 1560); X.scale(mix(0.2, 1, k) * sx, mix(0.2, 1, k) * sy / Math.max(1, sx * 0.85)); kword('YOU.', 0, 0, IF(900, 300), OR, null, { ls: -14 }); X.restore(); }
-    let yr = null; for (const [n, w] of [[69, 'YOUR REASON.'], [70, 'YOUR LEVEL.'], [71, 'YOUR MISTAKES.']]) if (t >= b(n)) yr = [n, w];
+    let yr = null; for (const [n, w] of [[37, 'YOUR REASON.'], [38, 'YOUR LEVEL.'], [39, 'YOUR MISTAKES.']]) if (t >= b(n)) yr = [n, w];
     if (yr) kin(t, b(yr[0]), yr[1], 540, 1715, IF(900, 54), CR, 'snap', { max: 900 });
     return K;
   }
@@ -326,15 +335,15 @@ window.ready = (async () => {
       if (t < b(6)) bg = s1(t);
       else if (t < b(16) - 0.04) bg = s2(t);
       else if (t < b(16) + 0.45) kTiles(lin(t, b(16) - 0.04, b(16) + 0.45), () => s2(b(15.95)), () => s3(t), { size: 135, ox: 540, oy: 1140 });
-      else if (t < b(32)) bg = s3(t);
-      else if (t < b(40)) bg = s4(frz(t));
+      else if (t < b(32) - 0.2) bg = s3(t);
+      else if (t < b(32) + 0.2) { const k = lin(t, b(32) - 0.2, b(32) + 0.2); kZoom(k, () => s3(t), () => s8(frz(t)), 540, 1140); }
+      else if (t < b(40)) bg = s8(frz(t));
       else if (t < b(48) - 0.18) bg = s5(t);
-      else if (t < b(48) + 0.18) { const k = lin(t, b(48) - 0.18, b(48) + 0.18); kZoom(k, () => s5(t), () => s6(t), 540, 880); bg = k < 0.5 ? BL : CR; }
+      else if (t < b(48) + 0.18) { const k = lin(t, b(48) - 0.18, b(48) + 0.18); kZoom(k, () => s5(t), () => s6(t), 540, 760); bg = k < 0.5 ? BL : CR; }
       else if (t < b(56)) bg = s6(t);
-      else if (t < b(64) - 0.06) bg = s7(t);
-      else if (t < b(64) + 0.4) kIris(lin(t, b(64) - 0.06, b(64) + 0.4), () => s7(t), () => s8(t), 540, 560);
-      else if (t < b(72) - 0.2) bg = s8(frz(t));
-      else if (t < b(72) + 0.24) { const k = lin(t, b(72) - 0.2, b(72) + 0.24); kStripes(k, () => s8(t), () => s9(t)); bg = k < 0.5 ? K : CR; }
+      else if (t < b(64)) bg = s7(t);
+      else if (t < b(72) - 0.2) bg = s4(frz(t));
+      else if (t < b(72) + 0.24) { const k = lin(t, b(72) - 0.2, b(72) + 0.24); kStripes(k, () => s4(t), () => s9(t)); bg = k < 0.5 ? K : CR; }
       else if (t < b(80) - 0.04) bg = s9(t);
       else if (t < b(80) + 0.35) kIris(lin(t, b(80) - 0.04, b(80) + 0.35), () => s9(t), () => s10(t), 540, 760);
       else bg = s10(t);
